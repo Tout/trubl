@@ -29,8 +29,10 @@ client.auth()
 Search for users matching a keyword
 ```rb
 collection = client.search_users('aaron', 2, 4)
-collection.pagination  # hash of pagination data
-collection.users       # get an array of Tout::User instances
+collection.pagination
+# => hash of pagination data
+collection.users
+# => get an array of Tout::User instances
 ```
 
 etc, etc

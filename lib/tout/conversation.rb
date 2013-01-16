@@ -1,9 +1,8 @@
 require 'ostruct'
-require 'tout/utils'
 
 module Tout
-  class User
 
+  class Conversation
     def initialize(opts)
       @source = OpenStruct.new(opts)
     end
@@ -11,6 +10,6 @@ module Tout
     def method_missing(method, *args, &block)
       @source.send(method, *args, &block)
     end
-
   end
+
 end

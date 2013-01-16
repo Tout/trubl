@@ -5,9 +5,11 @@ require 'tout/api/search'
 require 'tout/api/touts'
 require 'tout/api/users'
 require 'tout/oauth'
+require 'tout/utils'
 
 require 'httparty'
 require 'json'
+require 'uri'
 
 
 # instantiate a Tout client instance
@@ -27,18 +29,25 @@ module Tout
     attr_reader :client_id, :client_secret, :access_token, :callback_url
 
     # Initialize a new Tout client with creds and callback url
-    def initialize(client_id='', client_secret='', callback_url='', access_token=nil, base_api_url='https://api.tout.com')
+    def initialize(client_id='', client_secret='', callback_url='', access_token='', uri_scheme = 'https', uri_host='https://api.tout.com/', uri_base_path='api/', uri_version='v1/')
       @client_id = client_id
       @client_secret = client_secret
       @access_token = access_token
       @callback_url = callback_url
-      @base_api_url = base_api_url
+      @uri_scheme = uri_scheme
+      @uri_host = uri_host
+      @uri_base_path = uri_base_path
+      @uri_version = uri_version
     end
 
     def credentials()
       {client_id: @client_id,
       client_secret: @client_secret,
       access_token: @access_token}
+    end
+
+    def api_uri_root()
+      URI::join(@uri_scheme, @uri_host, @uri_base_path, @uri_version).to_s
     end
 
     # Perform an HTTP DELETE request
@@ -62,11 +71,9 @@ module Tout
     end
 
     def request(method, path, params={})
-      url = "#{@base_api_url}#{path}"
+      uri = Tout::Utils.uri_builder(api_uri_root(), path)
       options = {headers: @headers}.merge(params)
-      puts options
-      puts url
-      HTTParty.send(method, url, options)
+      HTTParty.send(method, uri, options)
     end
 
   end

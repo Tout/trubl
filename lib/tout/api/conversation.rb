@@ -1,14 +1,14 @@
+require 'tout/conversation'
 require 'tout/utils'
 
 module Tout
   module API
     module Conversation
-      include Tout::Utils
 
       # implements http://developer.tout.com/api/conversation-api/apimethod/retrieve-conversation
       def retrieve_conversation(uid)
         response = get("/api/v1/conversations/#{uid}")
-        response
+        Tout::Utils.conversation_from_response(response)
       end
 
       # implements http://developer.tout.com/api/conversation-api/apimethod/retrieve-conversation-participants

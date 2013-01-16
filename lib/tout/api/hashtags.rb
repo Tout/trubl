@@ -12,15 +12,15 @@ module Tout
       end
 
       # http://developer.tout.com/api/hashtags-api/apimethod/retrieve-list-trending-hashtags
-      def retrieve_trending_hashtags(uid, per_page=nil, page=nil)
+      def retrieve_trending_hashtags(per_page=nil, page=nil)
         response = get("/api/v1/trending_hashtags", query: {per_page: per_page, page: page})
-        response.body
+        Tout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/conversation-api/apimethod/retrieve-conversation
       def retrieve_suggested_hashtags(q, limit=nil)
         response = get("/api/v1/suggested_hashtags", query: {q: q, limit: limit})
-        response.body
+        Tout::Utils::Collection.new.from_response(response)
       end
 
     end
