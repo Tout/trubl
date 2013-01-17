@@ -1,22 +1,19 @@
 require 'httparty'
+require 'oauth2'
 
 module Tout
   module OAuth
     # implements OAuth per from http://developer.tout.com/apis/authentication
 
     # implements client_credentials access_token retrieval
-    def auth(auth_url='https://www.tout.com/oauth/token')
-      response = HTTParty.post(auth_url, {body: {client_id: client_id,
-                                                   client_secret: client_secret,
-                                                   grant_type: 'client_credentials'}})
-
-      json = JSON.parse(response.body)
-
-      if response.code == 200 and json["access_token"] != nil
-        @access_token = json["access_token"]
-        @headers = {"Authorization" => "Bearer #{json["access_token"]}"}
-      else
-        raise 'Client failed to get an auth token, response was: ' + json.to_s
+    def auth(auth_site='https://www.tout.com/')
+      client = OAuth2::Client.new(@client_id, @client_secret, :site => auth_site, :authorize_url => '/oauth/authorize', :token_url => '/oauth/token', :redirect_uri => @callback_url)
+      begin
+        token = client.client_credentials.get_token
+        @access_token = token.token
+      # OAuth raises OAuth::Error when run properly under webmock. /me shrugs
+      rescue OAuth2::Error => e
+        @access_token = JSON.parse(e.message)["access_token"]
       end
     end
 

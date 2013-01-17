@@ -4,7 +4,7 @@ require 'webmock'
 
 describe Tout::API::Conversation do
 
-  it 'parses a conversation response correctly' do
+  it '.retrieve_conversation parses a conversation response correctly' do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53").to_return(:body => fixture("conversation_response.json"))
     conversation = Tout::Client.new.retrieve_conversation("iummti53")
     expect(conversation).to be_a Tout::Conversation
@@ -12,7 +12,7 @@ describe Tout::API::Conversation do
     some_request(:get, "/api/v1/conversations/iummti53").should have_been_made
   end
 
-  it 'parses a conversation participants correctly' do
+  it '.retrieve_conversation_participants parses conversation participants correctly' do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53/authors").to_return(:body => fixture("conversation_authors_response.json"))
     collection = Tout::Client.new.retrieve_conversation_participants("iummti53")
     expect(collection).to be_a Tout::Utils::Collection
@@ -24,7 +24,7 @@ describe Tout::API::Conversation do
     some_request(:get, "/api/v1/conversations/iummti53/authors").should have_been_made
   end
 
-  it 'parses a conversation touts correctly' do
+  it '.retrieve_conversation_touts parses conversation touts correctly' do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53/touts").to_return(:body => fixture("conversation_touts_response.json"))
     collection = Tout::Client.new.retrieve_conversation_touts("iummti53")
     expect(collection).to be_a Tout::Utils::Collection

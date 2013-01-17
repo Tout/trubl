@@ -11,7 +11,7 @@ module Tout
       # returns Tout::User instance
       def retrieve_user(uid)
         response = get("/api/v1/users/#{uid}")
-        Tout::Utils::Collection.new.from_response(response)
+        Tout::Utils.user_from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-touts-liked-user
@@ -35,6 +35,8 @@ module Tout
         Tout::Utils::Collection.new.from_response(response)
       end
 
+# the below methods require acting on the behalf of users, which is not yet implemented
+=begin
       # implements http://developer.tout.com/api/users-api/apimethod/follow-user
       def follow_user(uid)
         resp = post("/api/v1/users/#{uid}/follows")
@@ -46,6 +48,7 @@ module Tout
         resp = delete("/api/v1/users/#{uid}/follows")
         raise "Requires auth, not implemented"
       end
+=end
 
     end
   end

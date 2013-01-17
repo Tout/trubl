@@ -1,0 +1,65 @@
+{
+    "pagination": {
+        "current_page": 1,
+        "per_page": 2,
+        "total_entries": 19
+    },
+    "users": [
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/c691ea6edf6fec63e9097a3cc64a0c18/large/me_and_my_besties.jpg"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/c691ea6edf6fec63e9097a3cc64a0c18/medium/me_and_my_besties.jpg"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/c691ea6edf6fec63e9097a3cc64a0c18/profile/me_and_my_besties.jpg"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/c691ea6edf6fec63e9097a3cc64a0c18/small/me_and_my_besties.jpg"
+                    }
+                },
+                "bio": "",
+                "followers_count": 828,
+                "friendly_name": "Katie Fountain",
+                "friends_count": 1706,
+                "fullname": "Katie Fountain",
+                "location": "San Francisco",
+                "touts_count": 982,
+                "uid": "kt_fountain",
+                "username": "kt_fountain",
+                "verified": true
+            }
+        },
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/905312139ed53a007fb0ef5e073dd9d4/large/41619_199102880_213_n.jpg"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/905312139ed53a007fb0ef5e073dd9d4/medium/41619_199102880_213_n.jpg"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/905312139ed53a007fb0ef5e073dd9d4/profile/41619_199102880_213_n.jpg"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/905312139ed53a007fb0ef5e073dd9d4/small/41619_199102880_213_n.jpg"
+                    }
+                },
+                "bio": "",
+                "followers_count": 51,
+                "friendly_name": "Dan Weinand",
+                "friends_count": 163,
+                "fullname": "Dan Weinand",
+                "location": "San Francisco",
+                "touts_count": 94,
+                "uid": "danweinand",
+                "username": "DanWeinand",
+                "verified": true
+            }
+        }
+    ]
+}

@@ -70,10 +70,17 @@ module Tout
       request(:put, path, params)
     end
 
+    # ToDo: model response handling off of oauth2.client.request
+    # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
       uri = Tout::Utils.uri_builder(api_uri_root(), path)
-      options = {headers: @headers}.merge(params)
-      HTTParty.send(method, uri, options)
+      headers = {"Authorization" => "Bearer #{@access_token}"}
+      options = {headers: headers}.merge(params)
+      response = HTTParty.send(method, uri, options)
+      if response.code != 200
+        puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
+      end
+      response
     end
 
   end

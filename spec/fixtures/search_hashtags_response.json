@@ -1,0 +1,100 @@
+{
+    "hashtags": [
+        {
+            "hashtag": {
+                "name": "Arch",
+                "touts_count": 3,
+                "uid": "arch"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "Archie",
+                "touts_count": 549,
+                "uid": "archie"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "archery",
+                "touts_count": 1,
+                "uid": "archery"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "archer",
+                "touts_count": 2,
+                "uid": "archer"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "Archies",
+                "touts_count": 3,
+                "uid": "archies"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "ArchBar",
+                "touts_count": 1,
+                "uid": "archbar"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "archibald",
+                "touts_count": 2,
+                "uid": "archibald"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "Archivez",
+                "touts_count": 1,
+                "uid": "archivez"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "architecture",
+                "touts_count": 12,
+                "uid": "architecture"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "Archaeology",
+                "touts_count": 1,
+                "uid": "archaeology"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "archersofloaf",
+                "touts_count": 0,
+                "uid": "archersofloaf"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "Architracks",
+                "touts_count": 3,
+                "uid": "architracks"
+            }
+        },
+        {
+            "hashtag": {
+                "name": "ArchMadness",
+                "touts_count": 1,
+                "uid": "archmadness"
+            }
+        }
+    ],
+    "pagination": {
+        "current_page": 1,
+        "per_page": 50,
+        "total_entries": 13
+    }
+}

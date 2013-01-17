@@ -7,7 +7,7 @@ module Tout
       # implements http://developer.tout.com/api-overview/search-api
 
       def search_hashtags(query, per_page=nil, page=nil)
-        search('hashtags', query, per_page, page)
+        Tout::Utils::Collection.new.from_response(search('hashtags', query, per_page, page))
       end
 
       def search_users(query, per_page=nil, page=nil)
@@ -24,7 +24,7 @@ module Tout
       private
 
       def search(type, query, per_page=nil, page=nil)
-        response = get("/api/v1/search/#{type}", query: {q: query, per_page: per_page, page: page})
+        response = get("search/#{type}", query: {q: query, per_page: per_page, page: page})
         response
       end
 

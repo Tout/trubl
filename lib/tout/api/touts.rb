@@ -5,78 +5,82 @@ module Tout
     module Touts
       include Tout::Utils
 
-      # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
-      def create_tout(data, url)
-        response = post("/api/v1/touts")
-        raise "Not implemented"
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
-      def delete_tout(uid)
-        response = post("/api/v1/touts/#{uid}")
-        raise "Not implemented"
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/tout
-      def like_tout(uid)
-        response = post("/api/v1/touts/#{uid}/likes")
-        raise "Not implemented"
-      end
-
       # http://developer.tout.com/api/touts-api/apimethod/retrieve-list-featured-touts
       def featured_touts(per_page=nil, page=nil)
-        response = get("/api/v1/featured", query: {per_page: per_page, page: page})
+        response = get("featured", query: {per_page: per_page, page: page})
         Tout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-list-users-who-have-liked-tout
       def tout_liked_by(uid, order=nil, per_page=nil, page=nil)
-        response = get("/api/v1/users/#{uid}/liked_by", query: {order: order, per_page: per_page, page: page})
+        response = get("touts/#{uid}/liked_by", query: {order: order, per_page: per_page, page: page})
         Tout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-tout
-      def retrieve(uid)
-        response = get("/api/v1/touts/#{uid}")
-        Tout::Utils::Collection.new.from_response(response)
+      def retrieve_tout(uid)
+        response = get("touts/#{uid}")
+        Tout::Utils.tout_from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       def retrieve_tout_conversation(uid)
-        response = get("/api/v1/touts/#{uid}/conversation")
-        raise "Not implemented"
+        response = get("touts/#{uid}/conversation")
+        Tout::Utils.conversation_from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-latest-touts
-      def retrieve_lastest(per_page=nil, page=nil)
-        response = get("/api/v1/touts/#{uid}/latest", query: {per_page: per_page, page: page})
-        raise "Not implemented"
+      def latest_touts(per_page=nil, page=nil)
+        response = get("latest", query: {per_page: per_page, page: page})
+        Tout::Utils::Collection.new.from_response(response)
       end
+
+# the below methods require acting on the behalf of users, which is not yet implemented
+=begin
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-hashtags-and-users-followed-given-user
       # ToDo: is this api call documented in the right place?
       def retrieve_updates(order=nil, per_page=nil, page=nil)
-        response = get("/api/v1/me/updates",query: {order: order, per_page: per_page, page: page})
+        response = get("me/updates",query: {order: order, per_page: per_page, page: page})
         Tout::Utils::Collection.new.from_response(response)
+      end
+
+      # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
+      def create_tout(data, url)
+        response = post("touts")
+        raise "Not implemented"
+      end
+
+      # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
+      def delete_tout(uid)
+        response = post("touts/#{uid}")
+        raise "Not implemented"
+      end
+
+      # implements http://developer.tout.com/api/touts-api/apimethod/tout
+      def like_tout(uid)
+        response = post("touts/#{uid}/likes")
+        raise "Not implemented"
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
       def share_tout(uid)
-        response = post("/api/v1/touts/#{uid}/share")
+        response = post("touts/#{uid}/share")
         raise "Not implemented"
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/unlike-tout
       def unlike_tout(uid)
-        response = post("/api/v1/touts/#{uid}/likes")
+        response = post("touts/#{uid}/likes")
         raise "Not implemented"
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/update-touts-text
       def update_tout_text(uid)
-        response = put("/api/v1/touts/#{uid}.json?")
+        response = put("touts/#{uid}.json?")
         raise "Not implemented"
       end
+=end
 
     end
   end

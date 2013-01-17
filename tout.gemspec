@@ -4,6 +4,7 @@ require File.expand_path('../lib/tout/version', __FILE__)
 Gem::Specification.new do |spec|
   spec.add_dependency 'json'
   spec.add_dependency 'httparty', '~> 0.9.0'
+  spec.add_dependency 'oauth2'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
