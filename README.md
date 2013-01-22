@@ -1,10 +1,13 @@
-# tout
+# ReTout
 
-A Ruby interface for the Tout API. Intended as sample code initially, help take it to greatness!
+A Ruby interface for the Tout API. Right now, the read only API calls have been implemented, 
+but given proper user auth implementation, the infrastructure is ready for writing back as well.
+
+Intended as sample code initially, help take it to greatness!
 
 See http://developer.tout.com/ for details.
 
-# Using tout
+# Using ReTout
 
 ## Installation
 ```sh
@@ -16,13 +19,21 @@ bundle install
 bundle exec rspec -d -f d
 ```
 
+## Run sample script with valid app credentials
+```sh
+export CLIENT_ID=#{your client id}
+export CLIENT_SECRET=#{your client secret}
+export CALLBACK_URL=#{your callback url}
+bundle exec ruby bin/retout_test
+```
+
 ## Use a client instance
 Get a client instance, and authenticate with tout.com:
 ```rb
-client = Tout.client('client_id', 'client_secret')
+client = ReTout.client('client_id', 'client_secret')
 client.auth()
 # or
-client = Tout::Client.new('client_id', 'client_secret')
+client = ReTout::Client.new('client_id', 'client_secret')
 client.auth()
 ```
 
