@@ -1,11 +1,11 @@
-require 'tout/api/conversation'
-require 'tout/api/hashtags'
-require 'tout/api/me'
-require 'tout/api/search'
-require 'tout/api/touts'
-require 'tout/api/users'
-require 'tout/oauth'
-require 'tout/utils'
+require 'retout/api/conversation'
+require 'retout/api/hashtags'
+require 'retout/api/me'
+require 'retout/api/search'
+require 'retout/api/touts'
+require 'retout/api/users'
+require 'retout/oauth'
+require 'retout/utils'
 
 require 'httparty'
 require 'json'
@@ -13,18 +13,18 @@ require 'uri'
 
 
 # instantiate a Tout client instance
-module Tout
+module ReTout
   # Wrapper for the Tout REST API
   #
   # @note All methods have been separated into modules and follow the grouping used in http://developer.tout.com/apis the Tout API Documentation.
   class Client
-    include Tout::API::Conversation
-    include Tout::API::Hashtags
-    include Tout::API::Me
-    include Tout::API::Search
-    include Tout::API::Touts
-    include Tout::API::Users
-    include Tout::OAuth
+    include ReTout::API::Conversation
+    include ReTout::API::Hashtags
+    include ReTout::API::Me
+    include ReTout::API::Search
+    include ReTout::API::Touts
+    include ReTout::API::Users
+    include ReTout::OAuth
 
     attr_reader :client_id, :client_secret, :access_token, :callback_url
 
@@ -73,7 +73,7 @@ module Tout
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
-      uri = Tout::Utils.uri_builder(api_uri_root(), path)
+      uri = ReTout::Utils.uri_builder(api_uri_root(), path)
       headers = {"Authorization" => "Bearer #{@access_token}"}
       options = {headers: headers}.merge(params)
       response = HTTParty.send(method, uri, options)

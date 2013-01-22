@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'tout/oauth'
+require 'retout/oauth'
 
-describe Tout::OAuth do
+describe ReTout::OAuth do
 
   before do
-    @client = Tout.client()
+    @client = ReTout.client()
   end
 
   describe ".auth" do

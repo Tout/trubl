@@ -22,7 +22,7 @@ Get a client instance, and authenticate with tout.com:
 client = Tout.client('client_id', 'client_secret')
 client.auth()
 # or
-client = Tout::Client.new('client_id', 'client_secret')
+client = ReTout::Client.new('client_id', 'client_secret')
 client.auth()
 ```
 
@@ -32,7 +32,7 @@ collection = client.search_users('aaron', 2, 4)
 collection.pagination
 # => hash of pagination data
 collection.users
-# => get an array of Tout::User instances
+# => get an array of ReTout::User instances
 ```
 
 etc, etc

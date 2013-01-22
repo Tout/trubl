@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module Tout
+module ReTout
 
   class Conversation
     def initialize(opts)

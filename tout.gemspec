@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.expand_path('../lib/tout/version', __FILE__)
+require File.expand_path('../lib/retout/version', __FILE__)
 
 Gem::Specification.new do |spec|
   spec.add_dependency 'json'
@@ -16,10 +16,10 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'http://developer.tout.com/'
   spec.licenses = ['MIT']
-  spec.name = 'tout'
+  spec.name = 'retout'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
-  spec.version = Tout::Version
+  spec.version = ReTout::Version
 end

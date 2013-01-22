@@ -1,16 +1,16 @@
-require 'tout/conversation'
-require 'tout/tout'
-require 'tout/user'
+require 'retout/conversation'
+require 'retout/tout'
+require 'retout/user'
 require 'uri'
 
 
-module Tout
+module ReTout
   module Utils
 
     class << self
 
       def conversation_from_response(data)
-        Tout::Conversation.new(JSON.parse(data.body)["conversation"])
+        ReTout::Conversation.new(JSON.parse(data.body)["conversation"])
       end
 
       def uri_builder(*str)
@@ -25,23 +25,23 @@ module Tout
       end
 
       def tout_from_response(data)
-        Tout::Touts::Tout.new(JSON.parse(data.body)["tout"])
+        ReTout::Tout.new(JSON.parse(data.body)["tout"])
       end
 
       def touts_from_response(data)
         begin
-          JSON.parse(data.body)["touts"].collect{|x| Tout::Touts::Tout.new(x["tout"])}.compact
+          JSON.parse(data.body)["touts"].collect{|x| ReTout::Tout.new(x["tout"])}.compact
         rescue NoMethodError
         end
       end
 
       def user_from_response(data)
-        Tout::User.new(JSON.parse(data.body)["user"])
+        ReTout::User.new(JSON.parse(data.body)["user"])
       end
 
       def users_from_response(response)
         begin
-          JSON.parse(response.body)["users"].collect{|x| Tout::User.new(x["user"])}.compact
+          JSON.parse(response.body)["users"].collect{|x| ReTout::User.new(x["user"])}.compact
         rescue NoMethodError
         end
       end
@@ -55,16 +55,19 @@ module Tout
 
     end
 
+    # ToDo: simplify helper methods into Parse
+    # ToDo: have per object collections, e.g. Users, Touts, etc
+    # ToDo: inherits from array
     class Collection
       attr_accessor :pagination, :touts, :users, :hashtags
 
-      # ToDo: as we define better objects, enable them to be parsed better (e.g. turn "user" into Tout::User instance)
+      # ToDo: as we define better objects, enable them to be parsed better (e.g. turn "user" into ReTout::User instance)
 
       def from_response(response)
-        @touts = Tout::Utils.touts_from_response(response)
-        @users = Tout::Utils.users_from_response(response)
-        @pagination = Tout::Utils.pagination_from_response(response)
-        @hashtags = Tout::Utils.hashtags_from_response(response)
+        @touts = ReTout::Utils.touts_from_response(response)
+        @users = ReTout::Utils.users_from_response(response)
+        @pagination = ReTout::Utils.pagination_from_response(response)
+        @hashtags = ReTout::Utils.hashtags_from_response(response)
         self
       end
     end

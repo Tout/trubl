@@ -1,8 +1,8 @@
-module Tout
+module ReTout
   class Version
-    MAJOR = 1 unless defined? Tout::Version::MAJOR
-    MINOR = 0 unless defined? Tout::Version::MINOR
-    PATCH = 0 unless defined? Tout::Version::PATCH
+    MAJOR = 1 unless defined? ReTout::Version::MAJOR
+    MINOR = 0 unless defined? ReTout::Version::MINOR
+    PATCH = 0 unless defined? ReTout::Version::PATCH
 
     class << self
 

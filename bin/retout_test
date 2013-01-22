@@ -1,4 +1,4 @@
-require 'tout'
+require 'retout'
 
 # client init and auth
 client = Tout.client("5fb8f651e3b0cc32b05c8615359dbe5b7d9ef72b97dac38ff97a189a87cacd31",

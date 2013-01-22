@@ -1,7 +1,7 @@
 require 'ostruct'
-require 'tout/utils'
+require 'retout/utils'
 
-module Tout
+module ReTout
   class User
 
     def initialize(opts)

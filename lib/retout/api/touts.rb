@@ -1,38 +1,40 @@
-require 'tout/utils'
+require 'retout/utils'
 
-module Tout
+# todo: all api modules should simply return responses
+
+module ReTout
   module API
     module Touts
-      include Tout::Utils
+      include ReTout::Utils
 
       # http://developer.tout.com/api/touts-api/apimethod/retrieve-list-featured-touts
       def featured_touts(per_page=nil, page=nil)
         response = get("featured", query: {per_page: per_page, page: page})
-        Tout::Utils::Collection.new.from_response(response)
+        ReTout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-list-users-who-have-liked-tout
       def tout_liked_by(uid, order=nil, per_page=nil, page=nil)
         response = get("touts/#{uid}/liked_by", query: {order: order, per_page: per_page, page: page})
-        Tout::Utils::Collection.new.from_response(response)
+        ReTout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-tout
       def retrieve_tout(uid)
         response = get("touts/#{uid}")
-        Tout::Utils.tout_from_response(response)
+        ReTout::Utils.tout_from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       def retrieve_tout_conversation(uid)
         response = get("touts/#{uid}/conversation")
-        Tout::Utils.conversation_from_response(response)
+        ReTout::Utils.conversation_from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-latest-touts
       def latest_touts(per_page=nil, page=nil)
         response = get("latest", query: {per_page: per_page, page: page})
-        Tout::Utils::Collection.new.from_response(response)
+        ReTout::Utils::Collection.new.from_response(response)
       end
 
 # the below methods require acting on the behalf of users, which is not yet implemented
@@ -42,7 +44,7 @@ module Tout
       # ToDo: is this api call documented in the right place?
       def retrieve_updates(order=nil, per_page=nil, page=nil)
         response = get("me/updates",query: {order: order, per_page: per_page, page: page})
-        Tout::Utils::Collection.new.from_response(response)
+        ReTout::Utils::Collection.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
