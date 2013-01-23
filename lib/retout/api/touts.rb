@@ -43,9 +43,14 @@ module ReTout
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
-      def create_tout(data, url)
-        response = multipart_post("touts", File.join(File.dirnamev))
-        raise "Not implemented"
+      def create_tout(data=nil, url=nil)
+        response = if url.nil?
+          multipart_post("touts", data)
+        else
+          post("touts", "tout[url]" => url)
+        end
+
+        ReTout::Utils.tout_from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
