@@ -43,11 +43,12 @@ module ReTout
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
-      def create_tout(data=nil, url=nil)
-        response = if url.nil?
-          multipart_post("touts", data)
+      def create_tout(params={})
+        response = if params[:url].nil?
+          params[:data] = params[:tout].delete(:data)
+          multipart_post("touts", params)
         else
-          post("touts", "tout[url]" => url)
+          post("touts", params)
         end
 
         ReTout::Utils.tout_from_response(response)

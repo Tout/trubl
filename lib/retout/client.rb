@@ -67,18 +67,18 @@ module ReTout
     end
 
     # Perform an HTTP Multipart Form Request
-    def multipart_post(path, file, params={})
-      raise ArgumentError.new("Must specify a valid file to include\nYou specified #{file}") unless File.exists?(file)
+    def multipart_post(path, params={})
+      raise ArgumentError.new("Must specify a valid file to include\nYou specified #{params[:data]}") unless File.exists?(params[:data])
       uri = full_uri(path)
       conn = Faraday.new(url: uri.host) do |faraday|
-        faraday.headers = options(params)
+        faraday.headers = options
         faraday.request :multipart
         faraday.response :logger
         faraday.adapter Faraday.default_adapter
       end
-      payload = { 'tout[data]' => Faraday::UploadIO.new(file, 'video/mp4')}
+      payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
       response = conn.post uri.to_s, payload
-      if !response.code =~ /20[0-9]/
+      if !response.status =~ /20[0-9]/
         puts "Non 200 status code #{method}-ing '#{uri.to_s}'. Was: #{response.code}. Reason: #{response.parsed_response}"
       end
       response
@@ -92,7 +92,7 @@ module ReTout
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
-      uri = full_uri(path)
+      uri = full_url(path)
       response = HTTParty.send(method, uri, options(params))
       if response.code != 200
         puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
@@ -117,7 +117,7 @@ module ReTout
        "Accept" => 'application/json'}
     end
 
-    def options(params)
+    def options(params={})
       headers.merge(params)
     end
 

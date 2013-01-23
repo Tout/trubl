@@ -53,10 +53,11 @@ describe ReTout::API::Touts do
     some_request(:get, "/api/v1/latest").should have_been_made
   end
 
-  it '.create_tout returns an object representing a newly created Tout' do
+  it 'create_tout returns an object representing a newly created Tout' do
     stub_post("https://api.tout.com/api/v1/touts").to_return(:body => fixture('tout.json'))
     file = File.join(File.dirname(__FILE__), '../../fixtures/test.mp4')
-    tout = ReTout::Client.new.create_tout(file)
+    payload = {tout: { data: file, text: 'Some text here'}}
+    tout = ReTout::Client.new.create_tout(payload)
     expect(tout).to be_a ReTout::Tout
     expect(tout.uid).to eq "fhcl57"
     some_request(:post, "/api/v1/touts").should have_been_made
