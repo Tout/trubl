@@ -1,4 +1,4 @@
-require 'retout/utils'
+require_relative '../utils'
 
 # todo: all api modules should simply return responses
 
