@@ -1,9 +1,12 @@
 require 'retout'
 
+client_id = ENV["CLIENT_ID"]
+client_secret = ENV["CLIENT_SECRET"]
+callback_url = ENV["CALLBACK_URL"]
+
+
 # client init and auth
-client = Tout.client("5fb8f651e3b0cc32b05c8615359dbe5b7d9ef72b97dac38ff97a189a87cacd31",
-                                 "f678d51356c6299e564164ff5bdadfdaabcf545f957293411a4bacc249c3fb44",
-                                 "http://localhost")
+client = ReTout.client(client_id, client_secret, callback_url)
 
 #fail()
 
@@ -19,44 +22,57 @@ client.get_me()
 puts '######################'
 puts '# search api usage'
 puts '######################'
-collection = client.search_hashtags('lol', 2, 4)
-p collection.pagination
-p collection.hashtags
-collection = client.search_users('aaron', 2, 4)
-p collection.pagination
-p collection.users
-collection = client.search_touts('lol', 2, 4)
-p collection.pagination
-p collection.touts
+
+hashtags = client.search_hashtags('lol', 2, 4)
+p hashtags.pagination
+p hashtags
+p hashtags
+
+users = client.search_users('aaron', 2, 4)
+p users.pagination
+p users
+
+touts = client.search_touts('lol', 2, 4)
+p users.pagination
+p touts
 
 puts '######################'
 puts '# users api usage'
 puts '######################'
-collection = client.search_users('aaronterrell')
-p collection.pagination
-p collection.users
-uid = collection.users[0].uid
+
+users = client.search_users('aaronterrell')
+p users.pagination
+p users
+
+uid = users[0].uid
 p uid
+
 user = client.retrieve_user(uid)
 p user
 p user.fullname
+
 likes = client.retrieve_user_likes(uid)
 p likes
-collection = client.retrieve_user_touts(uid)
-p collection.pagination
-p collection.touts
-collection = client.retrieve_user_followers(uid)
-p collection.pagination
-p collection.users
+
+touts = client.retrieve_user_touts(uid)
+p touts.pagination
+p touts.touts
+
+users = client.retrieve_user_followers(uid)
+p users.pagination
+p users
 
 puts '######################'
 puts '# touts api usage'
 puts '######################'
-collection = client.featured_touts()
-p collection.pagination
-p collection.touts
-collection = client.latest_touts()
-p collection.pagination
-p collection.touts
+
+touts = client.featured_touts()
+p touts.pagination
+p touts
+
+touts = client.latest_touts()
+p touts.pagination
+p touts
+
 conversation = client.retrieve_conversation("iummti53")
 p conversation
