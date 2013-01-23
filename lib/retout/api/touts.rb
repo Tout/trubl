@@ -35,9 +35,6 @@ module ReTout
         ReTout::Touts.new.from_response(response)
       end
 
-# the below methods require acting on the behalf of users, which is not yet implemented
-=begin
-
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-hashtags-and-users-followed-given-user
       # ToDo: is this api call documented in the right place?
       def retrieve_updates(order=nil, per_page=nil, page=nil)
@@ -47,7 +44,7 @@ module ReTout
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
       def create_tout(data, url)
-        response = post("touts")
+        response = multipart_post("touts", File.join(File.dirnamev))
         raise "Not implemented"
       end
 
@@ -80,8 +77,6 @@ module ReTout
         response = put("touts/#{uid}.json?")
         raise "Not implemented"
       end
-=end
-
     end
   end
 end
