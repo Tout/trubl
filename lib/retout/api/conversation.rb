@@ -1,6 +1,6 @@
-require 'retout/conversation'
-require 'retout/touts'
-require 'retout/users'
+require_relative '../conversation'
+require_relative '../touts'
+require_relative '../utils'
 
 module ReTout
   module API

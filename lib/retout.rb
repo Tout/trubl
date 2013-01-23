@@ -1,4 +1,4 @@
-require 'retout/client'
+require_relative './retout/client'
 
 module ReTout
   class << self

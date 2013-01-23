@@ -1,6 +1,8 @@
-require 'retout/touts'
-require 'retout/user'
-require 'retout/users'
+require_relative '../touts'
+require_relative '../user'
+require_relative '../users'
+require_relative '../utils'
+require 'json'
 
 module ReTout
   module API
@@ -35,7 +37,7 @@ module ReTout
         ReTout::Users.new.from_response(response)
       end
 
-# the below methods require acting on the behalf of users, which is not yet implemented
+# the below methods require_relative acting on the behalf of users, which is not yet implemented
 =begin
       # implements http://developer.tout.com/api/users-api/apimethod/follow-user
       def follow_user(uid)

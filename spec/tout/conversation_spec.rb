@@ -1,5 +1,4 @@
-require_relative '../spec_helper'
-require 'retout/conversation'
+require 'spec_helper'
 
 describe ReTout::Conversation do
   # this is the silly namespace one
