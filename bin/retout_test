@@ -26,14 +26,11 @@ puts '######################'
 hashtags = client.search_hashtags('lol', 2, 4)
 p hashtags.pagination
 p hashtags
+p hashtags
 
 users = client.search_users('aaron', 2, 4)
 p users.pagination
 p users
-users.each do |u|
-  p u
-  puts ''
-end
 
 touts = client.search_touts('lol', 2, 4)
 p users.pagination
@@ -47,7 +44,7 @@ users = client.search_users('aaronterrell')
 p users.pagination
 p users
 
-uid = users.users[0].uid
+uid = users[0].uid
 p uid
 
 user = client.retrieve_user(uid)

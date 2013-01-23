@@ -6,8 +6,8 @@ module ReTout
     alias :hashtags :members
 
     def from_response(response)
-      @members = members_from_response(response, "hashtags", ReTout::Hashtag, "hashtag")
-      @pagination = pagination_from_response(response)
+      members_from_response(response, "hashtags", ReTout::Hashtag, "hashtag")
+      pagination_from_response(response)
       self
     end
 
