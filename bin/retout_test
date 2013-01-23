@@ -30,6 +30,10 @@ p hashtags
 users = client.search_users('aaron', 2, 4)
 p users.pagination
 p users
+users.each do |u|
+  p u
+  puts ''
+end
 
 touts = client.search_touts('lol', 2, 4)
 p users.pagination

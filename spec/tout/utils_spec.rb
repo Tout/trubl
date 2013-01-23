@@ -1,8 +1,3 @@
-require 'retout/conversation'
-require 'retout/collections'
-require 'retout/tout'
-require 'retout/user'
-require 'retout/utils'
 require_relative '../spec_helper'
 
 describe ReTout::Utils do

@@ -1,4 +1,5 @@
-require 'retout/collections'
+require 'retout/hashtags'
+require 'retout/touts'
 
 module ReTout
   module API
