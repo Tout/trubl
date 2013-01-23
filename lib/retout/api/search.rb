@@ -1,6 +1,7 @@
-require 'retout/hashtags'
-require 'retout/touts'
-require 'retout/users'
+require_relative '../hashtags'
+require_relative '../touts'
+require_relative '../users'
+require_relative '../utils'
 
 module ReTout
   module API

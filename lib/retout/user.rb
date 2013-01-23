@@ -1,4 +1,5 @@
 require 'ostruct'
+require_relative './utils'
 
 module ReTout
   class User
