@@ -10,7 +10,7 @@ require 'retout/utils'
 require 'httparty'
 require 'json'
 require 'uri'
-require 'net/http/post/multipart'
+require 'faraday'
 
 
 # instantiate a Tout client instance
@@ -68,12 +68,18 @@ module ReTout
 
     # Perform an HTTP Multipart Form Request
     def multipart_post(path, file, params={})
-      raise ArgumentError.new('Must specify a valid file to include') unless File.exists(file)
-      File.open(file) do |f|
-        req = Net::HTTP::Post::Multipart.new full_uri(path), options(params).merge("file" => UploadIO.new(f, 'audio/mp4', 'audio.mp4'))
-        response = Net::HTTP.start(url.host, url.port) do |http|
-          http.request(req)
-        end
+      raise ArgumentError.new("Must specify a valid file to include\nYou specified #{file}") unless File.exists?(file)
+      uri = full_uri(path)
+      conn = Faraday.new(url: uri.host) do |faraday|
+        faraday.headers = options(params)
+        faraday.request :multipart
+        faraday.response :logger
+        faraday.adapter Faraday.default_adapter
+      end
+      payload = { 'tout[data]' => Faraday::UploadIO.new(file, 'video/mp4')}
+      response = conn.post uri.to_s, payload
+      if !response.code =~ /20[0-9]/
+        puts "Non 200 status code #{method}-ing '#{uri.to_s}'. Was: #{response.code}. Reason: #{response.parsed_response}"
       end
       response
     end
@@ -86,7 +92,8 @@ module ReTout
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
-      response = HTTParty.send(method, full_uri(path), options(params))
+      uri = full_uri(path)
+      response = HTTParty.send(method, uri, options(params))
       if response.code != 200
         puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
       end
@@ -96,15 +103,22 @@ module ReTout
     private
     # Fully qualified uri
     def full_uri(path)
+      URI.parse("#{api_uri_root}#{path}")
+    end
+
+    # Fully qualified url
+    def full_url(path)
       ReTout::Utils.uri_builder(api_uri_root(), path)
     end
 
     def headers
-      {"Authorization" => "Bearer #{@access_token}"}
+      {"Authorization" => "Bearer #{@access_token}",
+       "Connection" => 'keep-alive',
+       "Accept" => 'application/json'}
     end
 
     def options(params)
-      {headers: headers}.merge(params)
+      headers.merge(params)
     end
 
   end
