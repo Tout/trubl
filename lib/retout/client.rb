@@ -10,6 +10,7 @@ require 'retout/utils'
 require 'httparty'
 require 'json'
 require 'uri'
+require 'net/http/post/multipart'
 
 
 # instantiate a Tout client instance
@@ -65,6 +66,18 @@ module ReTout
       request(:post, path, params)
     end
 
+    # Perform an HTTP Multipart Form Request
+    def multipart_post(path, file, params={})
+      raise ArgumentError.new('Must specify a valid file to include') unless File.exists(file)
+      File.open(file) do |f|
+        req = Net::HTTP::Post::Multipart.new full_uri(path), options(params).merge("file" => UploadIO.new(f, 'audio/mp4', 'audio.mp4'))
+        response = Net::HTTP.start(url.host, url.port) do |http|
+          http.request(req)
+        end
+      end
+      response
+    end
+
     # Perform an HTTP PUT request
     def put(path, params={})
       request(:put, path, params)
@@ -73,14 +86,25 @@ module ReTout
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
-      uri = ReTout::Utils.uri_builder(api_uri_root(), path)
-      headers = {"Authorization" => "Bearer #{@access_token}"}
-      options = {headers: headers}.merge(params)
-      response = HTTParty.send(method, uri, options)
+      response = HTTParty.send(method, full_uri(path), options(params))
       if response.code != 200
         puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
       end
       response
+    end
+
+    private
+    # Fully qualified uri
+    def full_uri(path)
+      ReTout::Utils.uri_builder(api_uri_root(), path)
+    end
+
+    def headers
+      {"Authorization" => "Bearer #{@access_token}"}
+    end
+
+    def options(params)
+      {headers: headers}.merge(params)
     end
 
   end
