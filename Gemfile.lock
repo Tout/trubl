@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    retout (1.0.0)
+    retout (1.0.1)
       httparty (~> 0.9.0)
       json
+      multipart-post (>= 1.1.5)
       oauth2
 
 GEM
