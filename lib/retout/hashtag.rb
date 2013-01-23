@@ -1,7 +1,7 @@
 require 'ostruct'
 
 module ReTout
-  class Conversation
+  class Hashtag
 
     def initialize(opts)
       @source = OpenStruct.new(opts)
