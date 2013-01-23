@@ -1,38 +1,37 @@
-require 'json'
-require 'retout/utils'
+require 'retout/collections'
+require 'retout/user'
 
 module ReTout
   module API
     module Users
-      include ReTout::Utils
       # implements http://developer.tout.com/api-overview/users-api
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
       # returns ReTout::User instance
       def retrieve_user(uid)
         response = get("/api/v1/users/#{uid}")
-        ReTout::Utils.user_from_response(response)
+        ReTout::User.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-touts-liked-user
       # returns Array of ReTout::Tout instances
       def retrieve_user_likes(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/likes", query: {order: order, per_page: per_page, page: page})
-        ReTout::Utils::Collection.new.from_response(response)
+        ReTout::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-users-touts
       # return Array of ReTout::Tout instances
       def retrieve_user_touts(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/touts", query: {order: order, per_page: per_page, page: page})
-        ReTout::Utils::Collection.new.from_response(response)
+        ReTout::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-users-follow-user
       # returns Array of Tout:User instances
       def retrieve_user_followers(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/followers", query: {order: order, per_page: per_page, page: page})
-        ReTout::Utils::Collection.new.from_response(response)
+        ReTout::Users.new.from_response(response)
       end
 
 # the below methods require acting on the behalf of users, which is not yet implemented
