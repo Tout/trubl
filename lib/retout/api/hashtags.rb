@@ -1,4 +1,4 @@
-require 'retout/utils'
+require_relative '../utils'
 
 module ReTout
   module API

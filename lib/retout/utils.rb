@@ -1,6 +1,6 @@
-require 'retout/conversation'
-require 'retout/tout'
-require 'retout/user'
+require_relative './conversation'
+require_relative './tout'
+require_relative './user'
 require 'uri'
 
 

@@ -1,6 +1,7 @@
 require 'json'
 require 'rspec'
 require 'webmock/rspec'
+require_relative '../lib/retout'
 
 class MockResponse
   attr_accessor :body
