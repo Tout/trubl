@@ -54,7 +54,7 @@ module ReTout
           post("touts", params)
         end
 
-        ReTout::Utils.tout_from_response(response)
+        ReTout::Tout.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
