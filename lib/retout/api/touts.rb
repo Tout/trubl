@@ -1,4 +1,5 @@
-require 'retout/collections'
+require 'retout/touts'
+require 'retout/users'
 
 module ReTout
   module API
