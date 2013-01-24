@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     retout (1.0.1)
-      active_support (>= 3.0.0)
+      activesupport (>= 3.2.11)
       faraday (>= 0.8.4)
       httparty (~> 0.9.0)
       json
@@ -11,9 +11,9 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
-    activesupport (3.0.0)
+    activesupport (3.2.11)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
     addressable (2.3.2)
     coderay (1.0.8)
     columnize (0.3.6)
@@ -32,6 +32,7 @@ GEM
       multi_json (~> 1.0)
       multi_xml
     httpauth (0.2.0)
+    i18n (0.6.1)
     json (1.7.6)
     jwt (0.1.5)
       multi_json (>= 1.0)
