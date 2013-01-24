@@ -1,7 +1,7 @@
 require 'httparty'
 require 'oauth2'
 
-module ReTout
+module Trapic
   module OAuth
     # implements OAuth per from http://developer.tout.com/apis/authentication
 

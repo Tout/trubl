@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module ReTout
+module Trapic
   class Hashtag
 
     def initialize(opts)

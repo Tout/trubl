@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'retout/oauth'
+require 'trapic/oauth'
 
-describe ReTout::OAuth do
+describe Trapic::OAuth do
 
   before do
-    @client = ReTout.client()
+    @client = Trapic.client()
   end
 
   describe ".auth" do

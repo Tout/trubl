@@ -1,7 +1,7 @@
 require 'uri'
 
 
-module ReTout
+module Trapic
   module Utils
     class << self
 

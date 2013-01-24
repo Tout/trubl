@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module ReTout
+module Trapic
   class Tout
 
     def initialize(*args)

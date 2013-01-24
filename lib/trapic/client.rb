@@ -16,7 +16,7 @@ require 'active_support/core_ext'
 
 
 # instantiate a Tout client instance
-module trapic
+module Trapic
   # Wrapper for the Tout REST API
   #
   # @note All methods have been separated into modules and follow the grouping used in http://developer.tout.com/apis the Tout API Documentation.
