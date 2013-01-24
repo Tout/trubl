@@ -1,5 +1,5 @@
-require 'retout/collection'
-require 'retout/tout'
+require_relative './collection'
+require_relative './tout'
 
 module ReTout
   class Touts < Collection

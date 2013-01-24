@@ -1,6 +1,5 @@
 require_relative '../conversation'
 require_relative '../touts'
-require_relative '../utils'
 
 module ReTout
   module API

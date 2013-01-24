@@ -1,6 +1,5 @@
 require_relative '../hashtags'
 require_relative '../touts'
-require_relative '../utils'
 
 module ReTout
   module API

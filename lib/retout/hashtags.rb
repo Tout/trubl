@@ -1,5 +1,5 @@
-require 'retout/collection'
-require 'retout/hashtag'
+require_relative './collection'
+require_relative './hashtag'
 
 module ReTout
   class Hashtags < Collection

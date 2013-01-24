@@ -1,5 +1,4 @@
 require_relative '../user'
-require_relative '../utils'
 
 module ReTout
   module API
