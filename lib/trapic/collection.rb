@@ -1,6 +1,6 @@
 require_relative './pagination'
 
-module ReTout
+module Trapic
   class Collection < Array
     attr_accessor :pagination, :members
 
