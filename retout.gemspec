@@ -5,6 +5,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json'
   spec.add_dependency 'httparty', '~> 0.9.0'
   spec.add_dependency 'faraday', '>= 0.8.4'
+  spec.add_dependency 'active_support', '>= 3.2.11'
   spec.add_dependency 'oauth2'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-debugger'
