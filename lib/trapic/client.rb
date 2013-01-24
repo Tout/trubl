@@ -16,19 +16,18 @@ require 'active_support/core_ext'
 
 
 # instantiate a Tout client instance
-module ReTout
+module trapic
   # Wrapper for the Tout REST API
   #
   # @note All methods have been separated into modules and follow the grouping used in http://developer.tout.com/apis the Tout API Documentation.
   class Client
-    include ReTout::API::Conversation
-    include ReTout::API::Hashtags
-    include ReTout::API::Me
-    include ReTout::API::Search
+    include Trapic::API::Conversation
+    include Trapic::API::Hashtags
+    include Trapic::API::Me
+    include Trapic::API::Search
     include ReTout::API::Streams
-    include ReTout::API::Touts
-    include ReTout::API::Users
-    include ReTout::OAuth
+    include Trapic::API::Users
+    include Trapic::OAuth
 
     attr_reader :client_id, :client_secret, :access_token, :callback_url
 

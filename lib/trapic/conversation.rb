@@ -1,6 +1,6 @@
 require 'ostruct'
 
-module ReTout
+module Trapic
   class Conversation
 
     def initialize(opts)
