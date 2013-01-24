@@ -1,7 +1,7 @@
 require 'ostruct'
 require_relative './utils'
 
-module ReTout
+module Trapic
   class User
 
     def initialize(*args)

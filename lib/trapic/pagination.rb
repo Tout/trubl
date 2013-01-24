@@ -1,6 +1,6 @@
 require 'json'
 
-module ReTout
+module Trapic
   class Pagination
     attr_accessor :current_page, :order, :per_page, :page, :total_entries
 

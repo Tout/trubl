@@ -3,37 +3,37 @@ require_relative '../user'
 require_relative '../users'
 require 'json'
 
-module ReTout
+module Trapic
   module API
     module Users
       # implements http://developer.tout.com/api-overview/users-api
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
-      # returns ReTout::User instance
+      # returns Trapic::User instance
       def retrieve_user(uid)
         response = get("/api/v1/users/#{uid}")
-        ReTout::User.new.from_response(response)
+        Trapic::User.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-touts-liked-user
-      # returns Array of ReTout::Tout instances
+      # returns Array of Trapic::Tout instances
       def retrieve_user_likes(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/likes", query: {order: order, per_page: per_page, page: page})
-        ReTout::Touts.new.from_response(response)
+        Trapic::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-users-touts
-      # return Array of ReTout::Tout instances
+      # return Array of Trapic::Tout instances
       def retrieve_user_touts(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/touts", query: {order: order, per_page: per_page, page: page})
-        ReTout::Touts.new.from_response(response)
+        Trapic::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-users-follow-user
       # returns Array of Tout:User instances
       def retrieve_user_followers(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/followers", query: {order: order, per_page: per_page, page: page})
-        ReTout::Users.new.from_response(response)
+        Trapic::Users.new.from_response(response)
       end
 
 # the below methods require_relative acting on the behalf of users, which is not yet implemented
