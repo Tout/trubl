@@ -55,7 +55,7 @@ module ReTout
 
         ReTout::Tout.new.from_response(response)
       end
-
+=begin
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
       def delete_tout(uid)
         response = post("touts/#{uid}")
@@ -85,6 +85,7 @@ module ReTout
         response = put("touts/#{uid}.json?")
         raise "Not implemented"
       end
+=end
     end
   end
 end

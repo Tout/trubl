@@ -33,17 +33,17 @@ module ReTout
     attr_reader :client_id, :client_secret, :access_token, :callback_url
 
     # Initialize a new Tout client with creds and callback url
-    def initialize(*args)
+    def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)
       opts = (args.last.is_a?(Hash) ? args.last : {}).with_indifferent_access
-      raise ArgumentError.new(":client_id is required")     unless opts[:client_id].present?
-      raise ArgumentError.new(":client_secret is required") unless opts[:client_secret].present?
-      raise ArgumentError.new(":callback_url is required")  unless opts[:callback_url].present?
+      #raise ArgumentError.new(":client_id is required")     unless opts[:client_id].present?
+      #raise ArgumentError.new(":client_secret is required") unless opts[:client_secret].present?
+      #raise ArgumentError.new(":callback_url is required")  unless opts[:callback_url].present?
 
       opts.reverse_merge!(default_tout_configuration)
-      @client_id =     opts[:client_id]
-      @client_secret = opts[:client_secret]
+      @client_id =     client_id
+      @client_secret = client_secret
       @access_token =  opts[:access_token]
-      @callback_url =  opts[:callback_url]
+      @callback_url =  callback_url
       @uri_scheme =    opts[:uri_scheme]
       @uri_host =      opts[:uri_host]
       @uri_base_path = opts[:uri_base_path]
