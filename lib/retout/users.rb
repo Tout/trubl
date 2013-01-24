@@ -1,5 +1,5 @@
-require 'retout/collection'
-require 'retout/user'
+require_relative './collection'
+require_relative './user'
 
 module ReTout
   class Users < Collection

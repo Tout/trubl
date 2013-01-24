@@ -1,4 +1,4 @@
-require 'retout/pagination'
+require_relative './pagination'
 
 module ReTout
   class Collection < Array

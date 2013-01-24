@@ -1,7 +1,6 @@
 require_relative '../touts'
 require_relative '../user'
 require_relative '../users'
-require_relative '../utils'
 require 'json'
 
 module ReTout

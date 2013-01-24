@@ -1,6 +1,5 @@
 require_relative '../touts'
 require_relative '../users'
-require_relative '../utils'
 
 # todo: all api modules should simply return responses
 
