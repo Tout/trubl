@@ -1,4 +1,4 @@
-# ReTout
+# Trubl
 
 A Ruby interface for the Tout API. Right now, the read only API calls have been implemented, 
 but given proper user auth implementation, the infrastructure is ready for writing back as well.
@@ -7,7 +7,7 @@ Intended as sample code initially, help take it to greatness!
 
 See http://developer.tout.com/ for details.
 
-# Using ReTout
+# Using Trubl
 
 ## Installation
 ```sh
@@ -24,16 +24,16 @@ bundle exec rspec -d -f d
 export CLIENT_ID=#{your client id}
 export CLIENT_SECRET=#{your client secret}
 export CALLBACK_URL=#{your callback url}
-bundle exec ruby bin/retout_test
+bundle exec ruby bin/trubl_sample
 ```
 
 ## Use a client instance
 Get a client instance, and authenticate with tout.com:
 ```rb
-client = ReTout.client('client_id', 'client_secret')
+client = Trubl.client('client_id', 'client_secret')
 client.auth()
 # or
-client = ReTout::Client.new('client_id', 'client_secret')
+client = Trubl::Client.new('client_id', 'client_secret')
 client.auth()
 ```
 
@@ -43,12 +43,12 @@ collection = client.search_users('aaron', 2, 4)
 collection.pagination
 # => hash of pagination data
 collection.users
-# => get an array of ReTout::User instances
+# => get an array of Trubl::User instances
 ```
 
 etc, etc
 
-## Contributing to tout
+## Contributing to trubl
  
 * Fork the project.
 * Start a feature/bugfix branch.
@@ -57,6 +57,6 @@ etc, etc
 
 ## Copyright
 
-Copyright (c) 2012 Aaron Terrell, Tout. See LICENSE.txt for
+Copyright (c) 2013 Aaron Terrell, Tout. See LICENSE.txt for
 further details.
 
