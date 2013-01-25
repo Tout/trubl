@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Aaron Terrell"]
   spec.description = %q{A Ruby interface to the Tout API.}
   spec.email = ['aterrell@tout.com']
-  spec.files = %w(.yardopts LICENSE.md README.md Rakefile retout.gemspec)
+  spec.files = %w(.yardopts LICENSE.md README.md Rakefile trubl.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'http://developer.tout.com/'
