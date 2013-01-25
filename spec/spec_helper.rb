@@ -1,6 +1,7 @@
 require 'json'
 require 'rspec'
 require 'webmock/rspec'
+require_relative '../lib/trubl'
 
 class MockResponse
   attr_accessor :body
