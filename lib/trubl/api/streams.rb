@@ -1,6 +1,6 @@
 require_relative '../touts'
 
-module ReTout
+module Trubl
   module API
     module Streams
 

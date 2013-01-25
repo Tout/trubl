@@ -1,4 +1,4 @@
-require 'trapic'
+require 'trubl'
 
 client_id = ENV["CLIENT_ID"]
 client_secret = ENV["CLIENT_SECRET"]
@@ -6,7 +6,7 @@ callback_url = ENV["CALLBACK_URL"]
 
 
 # client init and auth
-client = ReTout.client(client_id, client_secret, callback_url)
+client = Trubl.client(client_id, client_secret, callback_url)
 
 #fail()
 
@@ -25,7 +25,6 @@ puts '######################'
 
 hashtags = client.search_hashtags('lol', 2, 4)
 p hashtags.pagination
-p hashtags
 p hashtags
 
 users = client.search_users('aaron', 2, 4)
