@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.files += Dir.glob("spec/**/*")
   spec.homepage = 'http://developer.tout.com/'
   spec.licenses = ['MIT']
-  spec.name = 'truble'
+  spec.name = 'trubl'
   spec.require_paths = ['lib']
   spec.required_rubygems_version = Gem::Requirement.new('>= 1.3.6')
   spec.summary = spec.description
