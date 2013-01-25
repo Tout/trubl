@@ -53,7 +53,7 @@ module Trubl
           post("touts", params)
         end
 
-        ReTout::Tout.new.from_response(response)
+        Trubl::Tout.new.from_response(response)
       end
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout

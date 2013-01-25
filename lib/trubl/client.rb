@@ -133,7 +133,7 @@ module Trubl
 
     # Fully qualified url
     def full_url(path)
-      ReTout::Utils.uri_builder(api_uri_root, path)
+      Trubl::Utils.uri_builder(api_uri_root, path)
     end
 
     def headers
