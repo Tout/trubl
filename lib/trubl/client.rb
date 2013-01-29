@@ -125,7 +125,7 @@ module Trubl
     def request(method, path, params={})
       uri = full_url(path)
       response = HTTParty.send(method, uri, params.merge(headers: headers))
-      if response.code != 200
+      if !response.code =~ /20[0-9]/
         puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
         puts "Params were: #{params.merge(headers: headers)}"
       end

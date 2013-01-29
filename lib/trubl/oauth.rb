@@ -36,5 +36,7 @@ module Trubl
       end
     end
 
+    # ToDo: add autocreate_user, twitter, facebook, etc
+
   end
 end
