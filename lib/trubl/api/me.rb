@@ -9,6 +9,11 @@ module Trubl
         Trubl::User.new.from_response(get("me"))
       end
 
+      def get_my_fb_sharing_settings()
+        response = get("me/sharing/facebook")
+        response.parsed_response
+      end
+
     end
   end
 end

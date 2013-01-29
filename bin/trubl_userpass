@@ -1,0 +1,25 @@
+require 'trubl'
+
+client_id = ENV["CLIENT_ID"]
+client_secret = ENV["CLIENT_SECRET"]
+callback_url = ENV["CALLBACK_URL"]
+
+# client_credential, read only
+puts "Email:"
+email= gets.chomp
+`stty -echo`
+puts "Password:"
+password = gets.chomp
+`stty echo`
+
+# client init and auth
+client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password)
+client.user_auth()
+
+##############
+# me api
+##############
+user = client.get_me()
+p user
+
+p client.get_my_fb_sharing_settings()
