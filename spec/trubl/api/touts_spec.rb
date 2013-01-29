@@ -64,7 +64,7 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/me/updates").should have_been_made
   end
 
-  it 'create_tout returns an object representing a newly created Tout' do
+  it '.create_tout returns an object representing a newly created Tout' do
     stub_post("https://api.tout.com/api/v1/touts").to_return(:body => fixture('tout.json'))
     file = File.join(File.dirname(__FILE__), '../../fixtures/test.mp4')
     payload = {tout: { data: file, text: 'Some text here'}}
@@ -73,6 +73,35 @@ describe Trubl::API::Touts do
     expect(tout.uid).to eq "fhcl57"
     some_request(:post, "/api/v1/touts").should have_been_made
   end
+
+  it ".delete_tout returns true on 200 response" do
+    stub_delete("https://api.tout.com/api/v1/touts/123456").to_return(:status => 200, :body => "true")
+    result = Trubl::Client.new.delete_tout("123456")
+    expect(result).to eq(true)
+    some_request(:delete, "/api/v1/touts/123456").should have_been_made
+  end
+
+  it ".delete_tout returns false on non-200 response" do
+    stub_delete("https://api.tout.com/api/v1/touts/234567").to_return(:status => 404, :body => "false")
+    result = Trubl::Client.new.delete_tout("234567")
+    expect(result).to eq(false)
+    some_request(:delete, "/api/v1/touts/234567").should have_been_made
+  end
+
+  it ".like_tout returns true on successful response" do
+    stub_post("https://api.tout.com/api/v1/touts/fhcl57/likes").to_return(:body => fixture("like_tout_response.json"))
+    result = Trubl::Client.new.like_tout("fhcl57")
+    expect(result).to eq(true)
+    some_request(:post, "/api/v1/touts/fhcl57/likes").should have_been_made
+  end
+
+  it ".unlike_tout returns true on successful response" do
+    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/likes").to_return(:body => fixture("unlike_tout_response.json"))
+    result = Trubl::Client.new.unlike_tout("fhcl57")
+    expect(result).to eq(true)
+    some_request(:delete, "/api/v1/touts/fhcl57/likes").should have_been_made
+  end
+
 
 end
 
