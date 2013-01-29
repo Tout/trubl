@@ -4,7 +4,7 @@ client_id = ENV["CLIENT_ID"]
 client_secret = ENV["CLIENT_SECRET"]
 callback_url = ENV["CALLBACK_URL"]
 
-=begin
+
 # client_credential, read only
 puts "Email:"
 email= gets.chomp
@@ -12,9 +12,9 @@ email= gets.chomp
 puts "Password:"
 password = gets.chomp
 `stty echo`
-=end
+
 # client init and auth
-client = Trubl.client(client_id, client_secret, callback_url, email: 'aterrell+trubl@tout.com', password: 'toutitout')
+client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password)
 client.user_auth()
 
 ##############
@@ -36,4 +36,5 @@ file = File.absolute_path(File.join(File.dirname(__FILE__), '../spec/fixtures/te
 payload = {tout: { data: file, text: 'Some text here'}}
 tout = client.create_tout(payload)
 
-p client.delete_tout(tout.uid)
+#p client.delete_tout(tout.uid)
+p client.like_tout(tout.uid)
