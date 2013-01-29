@@ -5,8 +5,21 @@ module Trubl
     module Me
       # implements http://developer.tout.com/api-overview/me-api
 
-      def get_me()
+      # implements http://developer.tout.com/api/me-api/apimethod/retrieve-authenticated-user
+      def get_me
         Trubl::User.new.from_response(get("me"))
+      end
+
+      # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings
+      def get_my_fb_sharing_settings
+        response = get("me/sharing/facebook")
+        JSON.parse(response.body)
+      end
+
+      # implements http://developer.tout.com/api/me-api/apimethod/retrieve-list-touts-authenticated-user
+      def get_my_touts(order="most_recent_first", per_page=nil, page=nil)
+        response = get("me/touts", query: {order: order, per_page: per_page, page: page})
+        Trubl::Touts.new.from_response(response)
       end
 
     end

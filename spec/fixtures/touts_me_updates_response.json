@@ -1,0 +1,357 @@
+{
+    "pagination": {
+        "current_page": 1,
+        "per_page": 5,
+        "total_entries": 291
+    },
+    "touts": [
+        {
+            "tout": {
+                "created_at": "2012-04-20T05:11:56-07:00",
+                "image": {
+                    "poster": {
+                        "height": 480,
+                        "http_url": "http://thumbnails.tout.com/watermark/8a1bfde18d9a7c882abb810342e90462/poster-0.jpg",
+                        "width": 360
+                    },
+                    "thumbnail": {
+                        "height": 200,
+                        "http_url": "http://thumbnails.tout.com/watermark/8a1bfde18d9a7c882abb810342e90462/thumbs-0.jpg",
+                        "width": 150
+                    }
+                },
+                "liked": false,
+                "likes_count": 0,
+                "privacy": "public",
+                "recorded_at": "2012-04-20T05:11:56-07:00",
+                "replies_count": 0,
+                "retouted_tout": {
+                    "liked": false,
+                    "likes_count": 52,
+                    "privacy": "public",
+                    "recorded_at": "2012-04-19T16:32:47-07:00",
+                    "replies_count": 2,
+                    "retouts_count": 40,
+                    "text": "Zach tweaking the new song \"Ocean Waves.\" ",
+                    "uid": "x56kx5",
+                    "user": {
+                        "avatar": {
+                            "large": {
+                                "http_url": "http://avatars.tout.com/u/ebec6da88e9457f2a765f019d02cea81/large/asw_sitting_on_step.jpeg"
+                            },
+                            "medium": {
+                                "http_url": "http://avatars.tout.com/u/ebec6da88e9457f2a765f019d02cea81/medium/asw_sitting_on_step.jpeg"
+                            },
+                            "profile": {
+                                "http_url": "http://avatars.tout.com/u/ebec6da88e9457f2a765f019d02cea81/profile/asw_sitting_on_step.jpeg"
+                            },
+                            "small": {
+                                "http_url": "http://avatars.tout.com/u/ebec6da88e9457f2a765f019d02cea81/small/asw_sitting_on_step.jpeg"
+                            }
+                        },
+                        "bio": "3 boys touring, making music, loving our fans.",
+                        "followed_by": false,
+                        "followers_count": 110,
+                        "following": false,
+                        "friendly_name": "Allstar Weekend",
+                        "friends_count": 0,
+                        "fullname": "Allstar Weekend",
+                        "location": "San Diego & Los Angeles, CA",
+                        "touts_count": 1,
+                        "uid": "allstarweekend",
+                        "username": "AllstarWeekend",
+                        "verified": false
+                    }
+                },
+                "retouts_count": 0,
+                "text": "Zach tweaking the new song \"Ocean Waves.\" ",
+                "uid": "f8duad",
+                "user": {
+                    "avatar": {
+                        "large": {
+                            "http_url": "http://avatars.tout.com/u/4b5c07172a0757d7ffa85a4398b3e5e5/large/84AC5FBD-51F9-4918-82E7-7DC2F8407A10.png"
+                        },
+                        "medium": {
+                            "http_url": "http://avatars.tout.com/u/4b5c07172a0757d7ffa85a4398b3e5e5/medium/84AC5FBD-51F9-4918-82E7-7DC2F8407A10.png"
+                        },
+                        "profile": {
+                            "http_url": "http://avatars.tout.com/u/4b5c07172a0757d7ffa85a4398b3e5e5/profile/84AC5FBD-51F9-4918-82E7-7DC2F8407A10.png"
+                        },
+                        "small": {
+                            "http_url": "http://avatars.tout.com/u/4b5c07172a0757d7ffa85a4398b3e5e5/small/84AC5FBD-51F9-4918-82E7-7DC2F8407A10.png"
+                        }
+                    },
+                    "bio": "",
+                    "followed_by": false,
+                    "followers_count": 218,
+                    "following": true,
+                    "friendly_name": "Melissa Breen Torykian",
+                    "friends_count": 283,
+                    "fullname": "Melissa Breen Torykian",
+                    "location": "",
+                    "touts_count": 1556,
+                    "uid": "mbreeno",
+                    "username": "mbreeno",
+                    "verified": false
+                },
+                "video": {
+                    "duration": 16,
+                    "mp4": {
+                        "height": 480,
+                        "http_url": "http://videos.tout.com/watermark/mp4/8a1bfde18d9a7c882abb810342e90462.mp4",
+                        "width": 360
+                    },
+                    "type": "native"
+                }
+            }
+        },
+        {
+            "tout": {
+                "created_at": "2012-04-20T01:57:27-07:00",
+                "image": {
+                    "poster": {
+                        "height": 360,
+                        "http_url": "http://thumbnails.tout.com/watermark/6a4e19ead4fff1d6ad33c64315f367aa/poster-2.jpg",
+                        "width": 480
+                    },
+                    "thumbnail": {
+                        "height": 112,
+                        "http_url": "http://thumbnails.tout.com/watermark/6a4e19ead4fff1d6ad33c64315f367aa/thumbs-2.jpg",
+                        "width": 150
+                    }
+                },
+                "liked": false,
+                "likes_count": 1,
+                "privacy": "public",
+                "recorded_at": "2012-04-20T01:56:43-07:00",
+                "replies_count": 0,
+                "retouts_count": 0,
+                "text": "",
+                "uid": "i419qr",
+                "user": {
+                    "avatar": {
+                        "large": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/large/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "medium": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/medium/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "profile": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/profile/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "small": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/small/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        }
+                    },
+                    "bio": "* Member of the #ToutElite\r\n* Member of #ToutClub1000\r\n* I may or may not work at Tout so if you've got any questions, or just want some fun ideas for Touting I'm your guy!",
+                    "followed_by": false,
+                    "followers_count": 359,
+                    "following": true,
+                    "friendly_name": "Jonathan Abramson",
+                    "friends_count": 948,
+                    "fullname": "Jonathan Abramson",
+                    "location": "San Francisco, CA",
+                    "touts_count": 1093,
+                    "uid": "jonathantouts",
+                    "username": "JonathanTouts",
+                    "verified": true
+                },
+                "video": {
+                    "duration": 16,
+                    "mp4": {
+                        "height": 360,
+                        "http_url": "http://videos.tout.com/watermark/mp4/6a4e19ead4fff1d6ad33c64315f367aa.mp4",
+                        "width": 480
+                    },
+                    "type": "native"
+                }
+            }
+        },
+        {
+            "tout": {
+                "created_at": "2012-04-20T01:56:40-07:00",
+                "image": {
+                    "poster": {
+                        "height": 360,
+                        "http_url": "http://thumbnails.tout.com/watermark/7982789f912acbc0934973fcb14c60cd/poster-1.jpg",
+                        "width": 480
+                    },
+                    "thumbnail": {
+                        "height": 112,
+                        "http_url": "http://thumbnails.tout.com/watermark/7982789f912acbc0934973fcb14c60cd/thumbs-1.jpg",
+                        "width": 150
+                    }
+                },
+                "liked": false,
+                "likes_count": 2,
+                "privacy": "public",
+                "recorded_at": "2012-04-20T01:54:18-07:00",
+                "replies_count": 0,
+                "retouts_count": 0,
+                "text": "",
+                "uid": "mpsjfa",
+                "user": {
+                    "avatar": {
+                        "large": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/large/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "medium": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/medium/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "profile": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/profile/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "small": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/small/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        }
+                    },
+                    "bio": "* Member of the #ToutElite\r\n* Member of #ToutClub1000\r\n* I may or may not work at Tout so if you've got any questions, or just want some fun ideas for Touting I'm your guy!",
+                    "followed_by": false,
+                    "followers_count": 359,
+                    "following": true,
+                    "friendly_name": "Jonathan Abramson",
+                    "friends_count": 948,
+                    "fullname": "Jonathan Abramson",
+                    "location": "San Francisco, CA",
+                    "touts_count": 1093,
+                    "uid": "jonathantouts",
+                    "username": "JonathanTouts",
+                    "verified": true
+                },
+                "video": {
+                    "duration": 11,
+                    "mp4": {
+                        "height": 360,
+                        "http_url": "http://videos.tout.com/watermark/mp4/7982789f912acbc0934973fcb14c60cd.mp4",
+                        "width": 480
+                    },
+                    "type": "native"
+                }
+            }
+        },
+        {
+            "tout": {
+                "created_at": "2012-04-20T01:56:20-07:00",
+                "image": {
+                    "poster": {
+                        "height": 360,
+                        "http_url": "http://thumbnails.tout.com/watermark/2078ab3eadd96005029726e38d4ecdbe/poster-3.jpg",
+                        "width": 480
+                    },
+                    "thumbnail": {
+                        "height": 112,
+                        "http_url": "http://thumbnails.tout.com/watermark/2078ab3eadd96005029726e38d4ecdbe/thumbs-3.jpg",
+                        "width": 150
+                    }
+                },
+                "liked": false,
+                "likes_count": 2,
+                "privacy": "public",
+                "recorded_at": "2012-04-20T01:54:02-07:00",
+                "replies_count": 0,
+                "retouts_count": 0,
+                "text": "",
+                "uid": "zcws9f",
+                "user": {
+                    "avatar": {
+                        "large": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/large/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "medium": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/medium/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "profile": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/profile/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "small": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/small/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        }
+                    },
+                    "bio": "* Member of the #ToutElite\r\n* Member of #ToutClub1000\r\n* I may or may not work at Tout so if you've got any questions, or just want some fun ideas for Touting I'm your guy!",
+                    "followed_by": false,
+                    "followers_count": 359,
+                    "following": true,
+                    "friendly_name": "Jonathan Abramson",
+                    "friends_count": 948,
+                    "fullname": "Jonathan Abramson",
+                    "location": "San Francisco, CA",
+                    "touts_count": 1093,
+                    "uid": "jonathantouts",
+                    "username": "JonathanTouts",
+                    "verified": true
+                },
+                "video": {
+                    "duration": 16,
+                    "mp4": {
+                        "height": 360,
+                        "http_url": "http://videos.tout.com/watermark/mp4/2078ab3eadd96005029726e38d4ecdbe.mp4",
+                        "width": 480
+                    },
+                    "type": "native"
+                }
+            }
+        },
+        {
+            "tout": {
+                "created_at": "2012-04-20T01:54:00-07:00",
+                "image": {
+                    "poster": {
+                        "height": 360,
+                        "http_url": "http://thumbnails.tout.com/watermark/fd6344db89179f46f038afc7cd0276af/poster-1.jpg",
+                        "width": 480
+                    },
+                    "thumbnail": {
+                        "height": 112,
+                        "http_url": "http://thumbnails.tout.com/watermark/fd6344db89179f46f038afc7cd0276af/thumbs-1.jpg",
+                        "width": 150
+                    }
+                },
+                "liked": false,
+                "likes_count": 2,
+                "privacy": "public",
+                "recorded_at": "2012-04-20T01:53:20-07:00",
+                "replies_count": 0,
+                "retouts_count": 0,
+                "text": "That's a good Tout",
+                "uid": "08cv2r",
+                "user": {
+                    "avatar": {
+                        "large": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/large/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "medium": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/medium/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "profile": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/profile/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        },
+                        "small": {
+                            "http_url": "http://avatars.tout.com/u/3ad378fcc5a0edab9fb0784447e9a655/small/E6CA2185-D27E-4B01-B227-D0CCA8C6262C.png"
+                        }
+                    },
+                    "bio": "* Member of the #ToutElite\r\n* Member of #ToutClub1000\r\n* I may or may not work at Tout so if you've got any questions, or just want some fun ideas for Touting I'm your guy!",
+                    "followed_by": false,
+                    "followers_count": 359,
+                    "following": true,
+                    "friendly_name": "Jonathan Abramson",
+                    "friends_count": 948,
+                    "fullname": "Jonathan Abramson",
+                    "location": "San Francisco, CA",
+                    "touts_count": 1093,
+                    "uid": "jonathantouts",
+                    "username": "JonathanTouts",
+                    "verified": true
+                },
+                "video": {
+                    "duration": 16,
+                    "mp4": {
+                        "height": 360,
+                        "http_url": "http://videos.tout.com/watermark/mp4/fd6344db89179f46f038afc7cd0276af.mp4",
+                        "width": 480
+                    },
+                    "type": "native"
+                }
+            }
+        }
+    ]
+}
