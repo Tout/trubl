@@ -41,7 +41,7 @@ module Trubl
       # ToDo: is this api call documented in the right place?
       def retrieve_updates(order=nil, per_page=nil, page=nil)
         response = get("me/updates",query: {order: order, per_page: per_page, page: page})
-        Trubl::Utils::Collection.new.from_response(response)
+        Trubl::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout

@@ -53,6 +53,17 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/latest").should have_been_made
   end
 
+  it '.retrieve_latest returns the latest Touts' do
+    stub_get("https://api.tout.com/api/v1/me/updates").to_return(:body => fixture("touts_me_updates_response.json"))
+    touts = Trubl::Client.new.retrieve_updates()
+    expect(touts).to be_a Trubl::Touts
+    expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:get, "/api/v1/me/updates").should have_been_made
+  end
+
   it 'create_tout returns an object representing a newly created Tout' do
     stub_post("https://api.tout.com/api/v1/touts").to_return(:body => fixture('tout.json'))
     file = File.join(File.dirname(__FILE__), '../../fixtures/test.mp4')

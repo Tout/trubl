@@ -6,7 +6,6 @@ require_relative './api/streams'
 require_relative './api/touts'
 require_relative './api/users'
 require_relative './oauth'
-require_relative './utils'
 
 require 'httparty'
 require 'json'
@@ -35,9 +34,6 @@ module Trubl
     # Initialize a new Tout client with creds and callback url
     def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)
       opts = (args.last.is_a?(Hash) ? args.last : {}).with_indifferent_access
-      #raise ArgumentError.new(":client_id is required")     unless opts[:client_id].present?
-      #raise ArgumentError.new(":client_secret is required") unless opts[:client_secret].present?
-      #raise ArgumentError.new(":callback_url is required")  unless opts[:callback_url].present?
 
       opts.reverse_merge!(default_tout_configuration)
       @client_id =     client_id
@@ -48,6 +44,11 @@ module Trubl
       @uri_host =      opts[:uri_host]
       @uri_base_path = opts[:uri_base_path]
       @uri_version =   opts[:uri_version]
+      @auth_site =     opts[:auth_site]
+      @authorize_url = opts[:authorize_url]
+      @token_url =     opts[:token_url]
+      @email =         opts[:email]
+      @password =      opts[:password]
     end
 
     def default_tout_configuration
@@ -55,7 +56,12 @@ module Trubl
         uri_scheme:    'https',
         uri_host:      'api.tout.com',
         uri_base_path: '/api',
-        uri_version:   'v1'
+        uri_version:   'v1',
+        auth_site:     'https://www.tout.com/',
+        authorize_url: '/oauth/authorize',
+        token_url:     '/oauth/token',
+        email:         nil,
+        password:      nil
       }.with_indifferent_access
     end
 
@@ -121,6 +127,7 @@ module Trubl
       response = HTTParty.send(method, uri, params.merge(headers: headers))
       if response.code != 200
         puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
+        puts "Params were: #{params.merge(headers: headers)}"
       end
       response
     end
@@ -133,7 +140,7 @@ module Trubl
 
     # Fully qualified url
     def full_url(path)
-      Trubl::Utils.uri_builder(api_uri_root, path)
+      URI.join(api_uri_root, path).to_s
     end
 
     def headers
