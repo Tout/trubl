@@ -1,0 +1,21 @@
+{
+    "via": {
+        "name": "Facebook",
+        "uid": "facebook",
+        "auto_share": {
+            "touts": false,
+            "views": false,
+            "likes": false,
+            "follows": false
+        },
+        "profile_link": true,
+        "profile\_link\_to": "me",
+        "share_to": "me",
+        "tos": [{
+            "to": {
+                "name": "My Timeline",
+                "uid": "me"
+            }
+        }]
+    }
+}

@@ -41,7 +41,7 @@ module Trubl
       # ToDo: is this api call documented in the right place?
       def retrieve_updates(order=nil, per_page=nil, page=nil)
         response = get("me/updates",query: {order: order, per_page: per_page, page: page})
-        Trubl::Utils::Collection.new.from_response(response)
+        Trubl::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
@@ -55,28 +55,43 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-=begin
+
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
       def delete_tout(uid)
-        response = post("touts/#{uid}")
-        raise "Not implemented"
+        response = delete("touts/#{uid}")
+        if response.code == 200
+          true
+        else
+          false
+        end
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/tout
+      # ToDo: could return an updated Tout object
       def like_tout(uid)
         response = post("touts/#{uid}/likes")
-        raise "Not implemented"
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
-      def share_tout(uid)
-        response = post("touts/#{uid}/share")
-        raise "Not implemented"
+        if JSON.parse(response.body)["like"]["status"] == "liked"
+          true
+        else
+          false
+        end
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/unlike-tout
+      # ToDo: could return an updated Tout object
       def unlike_tout(uid)
-        response = post("touts/#{uid}/likes")
+        response = delete("touts/#{uid}/likes")
+        if JSON.parse(response.body)["like"]["status"] == "not_liked"
+          true
+        else
+          false
+        end
+      end
+
+=begin
+      # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
+      def share_tout(uid)
+        response = post("touts/#{uid}/share")
         raise "Not implemented"
       end
 
