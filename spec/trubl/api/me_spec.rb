@@ -23,4 +23,11 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me/touts").should have_been_made
   end
 
+  it ".get_my_liked_touts returns Touts instance" do
+    stub_get("https://api.tout.com/api/v1/me/likes").to_return(:body => fixture("me_retrieve_user_liked_touts_response.json"))
+    touts = Trubl::Client.new.get_my_liked_touts()
+    expect(touts).to be_a Trubl::Touts
+    some_request(:get, "/api/v1/me/likes").should have_been_made
+  end
+
 end
