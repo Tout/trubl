@@ -22,6 +22,11 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      def get_my_liked_touts(order="most_recent_first", per_page=nil, page=nil)
+        response = get("me/likes", query: {order: order, per_page: per_page, page: page})
+        Trubl::Touts.new.from_response(response)
+      end
+
     end
   end
 end
