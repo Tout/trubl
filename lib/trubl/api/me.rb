@@ -22,12 +22,6 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
-      # implements http://developer.tout.com/api/me-api/apimethod/retrieve-list-touts-liked-authenticated-user
-      def get_my_liked_touts(order="most_recent_first", per_page=nil, page=nil)
-        response = get("me/likes", query: {order: order, per_page: per_page, page: page})
-        Trubl::Touts.new.from_response(response)
-      end
-
     end
   end
 end
