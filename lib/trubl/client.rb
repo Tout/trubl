@@ -1,3 +1,4 @@
+require_relative './api/channel'
 require_relative './api/conversation'
 require_relative './api/hashtags'
 require_relative './api/me'
@@ -20,6 +21,7 @@ module Trubl
   #
   # @note All methods have been separated into modules and follow the grouping used in http://developer.tout.com/apis the Tout API Documentation.
   class Client
+    include Trubl::API::Channel
     include Trubl::API::Conversation
     include Trubl::API::Hashtags
     include Trubl::API::Me
