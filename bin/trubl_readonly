@@ -8,16 +8,8 @@ callback_url = ENV["CALLBACK_URL"]
 # client init and auth
 client = Trubl.client(client_id, client_secret, callback_url)
 
-#fail()
-
 # client_credential, read only
-client.auth()
-
-puts '######################'
-puts '# me api usage'
-puts '######################'
-client.get_me()
-
+client.client_auth()
 
 puts '######################'
 puts '# search api usage'
@@ -39,7 +31,7 @@ puts '######################'
 puts '# users api usage'
 puts '######################'
 
-users = client.search_users('aaronterrell')
+users = client.search_users('_3nus')
 p users.pagination
 p users
 
