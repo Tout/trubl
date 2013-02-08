@@ -1,7 +1,7 @@
 require 'ostruct'
 
 module Trubl
-  class Tout
+  class Channel
 
     def initialize(*args)
       @source = OpenStruct.new(*args)
@@ -12,12 +12,8 @@ module Trubl
     end
 
     def from_response(response)
-      @source = OpenStruct.new(JSON.parse(response.body)["tout"])
+      @source = OpenStruct.new(JSON.parse(response.body)["channel"])
       self
-    end
-
-    def delete
-      raise "Not implemented, need to understand how to access a Trubl.client instance here?"
     end
 
   end

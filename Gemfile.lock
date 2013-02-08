@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    truble (1.0.1)
+    trubl (1.0.3)
       activesupport (>= 3.2.11)
       faraday (>= 0.8.4)
       httparty (~> 0.9.0)
@@ -84,6 +84,6 @@ DEPENDENCIES
   rspec
   simplecov
   timecop
-  truble!
+  trubl!
   webmock
   yard

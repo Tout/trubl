@@ -1,21 +1,42 @@
 require 'httparty'
-require 'oauth2'
+require 'json'
 
 module Trubl
   module OAuth
     # implements OAuth per from http://developer.tout.com/apis/authentication
 
     # implements client_credentials access_token retrieval
-    def auth(auth_site='https://www.tout.com/')
-      client = OAuth2::Client.new(@client_id, @client_secret, :site => auth_site, :authorize_url => '/oauth/authorize', :token_url => '/oauth/token', :redirect_uri => @callback_url)
-      begin
-        token = client.client_credentials.get_token
-        @access_token = token.token
-      # OAuth raises OAuth::Error when run properly under webmock. /me shrugs
-      rescue OAuth2::Error => e
-        @access_token = JSON.parse(e.message)["access_token"]
+    def client_auth()
+      url = URI.join(@auth_site, @token_url).to_s
+      response = HTTParty.send(:post, url, body: {client_id: @client_id,
+                                                  client_secret: @client_secret,
+                                                  grant_type: "client_credentials"},
+                               headers: headers)
+      if response.code == 200 and JSON.parse(response.body)["access_token"] != nil
+        @access_token = JSON.parse(response.body)["access_token"]
+      else
+        raise "Client failed to get an auth token, response was: " + response.body
       end
     end
+
+    # ToDo: add some param checking logic
+    def user_auth(opts={})
+      url = URI.join(@auth_site, @token_url).to_s
+      response = HTTParty.send(:post, url, body: {client_id: @client_id,
+                                                  client_secret: @client_secret,
+                                                  email: @email,
+                                                  password: @password,
+                                                  scope: "read write share",
+                                                  grant_type: "password"}.merge(opts),
+                               headers: headers)
+      if response.code == 200 and JSON.parse(response.body)["access_token"] != nil
+        @access_token = JSON.parse(response.body)["access_token"]
+      else
+        raise "Client failed to get an auth token, response was: " + response.body
+      end
+    end
+
+    # ToDo: add autocreate_user, twitter, facebook, etc
 
   end
 end

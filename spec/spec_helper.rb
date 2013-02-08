@@ -1,3 +1,4 @@
+require 'uri'
 require 'json'
 require 'rspec'
 require 'webmock/rspec'
@@ -20,6 +21,14 @@ end
 
 def stub_get(uri)
   request_stub(:get, uri)
+end
+
+def stub_api_get(path, base_uri = "https://api.tout.com/api/v1/")
+  stub_get URI.join(base_uri, path).to_s
+end
+
+def api_get_request(path, base_uri = "https://api.tout.com/api/v1/") 
+  some_request :get, URI.join(base_uri, path).to_s
 end
 
 def stub_put(uri)
