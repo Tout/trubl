@@ -12,8 +12,8 @@ module Trubl
         Trubl::Channel.new(JSON.parse(response.body)["channel"])
       end
 
-      # implements http://developer.tout.com/api/channel-api/apimethod/retrieve-channel-contributors
-      def retrieve_channel_contributors(uid, order=nil, per_page=nil, page=nil)
+      # implements http://developer.tout.com/api/channel-api/apimethod/retrieve-channel-users
+      def retrieve_channel_users(uid, order=nil, per_page=nil, page=nil)
         response = get("channels/#{uid}/users", query: {order: order, per_page: per_page, page: page})
         Trubl::Users.new.from_response(response)
       end
