@@ -3,12 +3,17 @@ require_relative './user'
 
 module Trubl
   class Users < Collection
-    alias :users :members
 
-    def from_response(response)
-      members_from_response(response, "users", Trubl::User, "user")
-      pagination_from_response(response)
-      self
+    def klass
+      Trubl::User
+    end
+
+    def container_name
+      'users'
+    end
+
+    def member_name
+      'user'
     end
 
   end
