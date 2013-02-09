@@ -3,12 +3,17 @@ require_relative './tout'
 
 module Trubl
   class Touts < Collection
-    alias :touts :members
 
-    def from_response(response)
-      members_from_response(response, "touts", Trubl::Tout, "tout")
-      pagination_from_response(response)
-      self
+    def klass
+      Trubl::Tout
+    end
+
+    def container_name
+      'touts'
+    end
+
+    def member_name
+      'tout'
     end
 
   end
