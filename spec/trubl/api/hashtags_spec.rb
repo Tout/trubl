@@ -8,7 +8,7 @@ describe Trubl::API::Hashtags do
     stub_get("https://api.tout.com/api/v1/hashtags/ows/touts").to_return(:body => fixture("hashtags_touts_response.json"))
     touts = Trubl::Client.new.retrieve_hashtag_touts("ows")
     expect(touts).to be_a Trubl::Touts
-    expect(touts.pagination).to be_a Trubl::Pagination
+    #expect(touts.pagination).to be_a Trubl::Pagination
     touts.each do |u|
       expect(u).to be_a Trubl::Tout
     end
@@ -19,7 +19,7 @@ describe Trubl::API::Hashtags do
     stub_get("https://api.tout.com/api/v1/trending_hashtags").to_return(:body => fixture("trending_hashtags_response.json"))
     hashtags = Trubl::Client.new.retrieve_trending_hashtags()
     expect(hashtags).to be_a Trubl::Hashtags
-    expect(hashtags.pagination).to be_a Trubl::Pagination
+    #expect(hashtags.pagination).to be_a Trubl::Pagination
     hashtags.each do |h|
       expect(h).to be_a Trubl::Hashtag
     end
