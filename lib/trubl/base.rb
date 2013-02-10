@@ -4,7 +4,7 @@ module Trubl
   class Base < Hashie::Mash
 
     def from_response(response)
-      self.new(parse(response))
+      initialize(parse(response))
     end
 
     def parse(response)
