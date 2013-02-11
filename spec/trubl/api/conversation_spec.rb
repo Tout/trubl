@@ -16,7 +16,7 @@ describe Trubl::API::Conversation do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53/authors").to_return(:body => fixture("conversation_authors_response.json"))
     users = Trubl::Client.new.retrieve_conversation_participants("iummti53")
     expect(users).to be_a Trubl::Users
-    expect(users.pagination).to be_a Trubl::Pagination
+    #expect(users.pagination).to be_a Trubl::Pagination
     users.each do |u|
       expect(u).to be_a Trubl::User
     end
@@ -27,7 +27,7 @@ describe Trubl::API::Conversation do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53/touts").to_return(:body => fixture("conversation_touts_response.json"))
     touts = Trubl::Client.new.retrieve_conversation_touts("iummti53")
     expect(touts).to be_a Trubl::Touts
-    expect(touts.pagination).to be_a Trubl::Pagination
+    #expect(touts.pagination).to be_a Trubl::Pagination
     touts.each do |u|
       expect(u).to be_a Trubl::Tout
     end

@@ -1,15 +1,7 @@
-require 'ostruct'
+require 'trubl/base'
 
 module Trubl
-  class Conversation
-
-    def initialize(opts)
-      @source = OpenStruct.new(opts)
-    end
-
-    def method_missing(method, *args, &block)
-      @source.send(method, *args, &block)
-    end
+  class Conversation < Trubl::Base
 
   end
 end
