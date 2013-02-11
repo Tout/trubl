@@ -7,12 +7,13 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '>= 0.8.4'
   spec.add_dependency 'activesupport', '>= 3.2.11'
   spec.add_dependency 'oauth2'
+  spec.add_dependency 'hashie'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
-  spec.authors = ["Aaron Terrell"]
+  spec.authors = ["Aaron Terrell", "Aaron Glenn"]
   spec.description = %q{A Ruby interface to the Tout API.}
-  spec.email = ['aterrell@tout.com']
+  spec.email = ['help@tout.com']
   spec.files = %w(.yardopts LICENSE.md README.md Rakefile trubl.gemspec)
   spec.files += Dir.glob("lib/**/*.rb")
   spec.files += Dir.glob("spec/**/*")
