@@ -1,21 +1,8 @@
-require 'ostruct'
+require 'trubl/base'
 
 module Trubl
-  class Tout
-
-    def initialize(*args)
-      @source = OpenStruct.new(*args)
-    end
-
-    def method_missing(method, *args, &block)
-      @source.send(method, *args, &block)
-    end
-
-    def from_response(response)
-      @source = OpenStruct.new(JSON.parse(response.body)["tout"])
-      self
-    end
-
+  class Tout < Trubl::Base
+    
     def delete
       raise "Not implemented, need to understand how to access a Trubl.client instance here?"
     end
