@@ -30,11 +30,4 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me/likes").should have_been_made
   end
 
-  it ".friends returns Users instance" do
-    stub_get("https://api.tout.com/api/v1/me/friends").to_return(:body => fixture("me_friends_response.json"))
-    users = Trubl::Client.new.friends()
-    expect(users).to be_a Trubl::Users
-    some_request(:get, "/api/v1/me/friends").should have_been_made
-  end
-
 end
