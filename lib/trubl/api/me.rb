@@ -27,11 +27,6 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
-      def friends(order=nil, per_page=nil, page=nil)
-        response = get("me/friends", query: {order: order, per_page: per_page, page: page})
-        Trubl::Users.new.from_response(response)
-      end
-
     end
   end
 end

@@ -1,0 +1,174 @@
+{
+    "users": [
+        {
+            "user": {
+                "username": "DerkChrome51",
+                "uid": "derkchrome51",
+                "fullname": null,
+                "verified": false,
+                "location": null,
+                "headline": null,
+                "bio": null,
+                "friendly_name": "DerkChrome51",
+                "touts_count": 0,
+                "followers_count": 0,
+                "friends_count": 0,
+                "last_tout_recorded_at": null,
+                "created_at": "2013-02-11T18:48:27Z",
+                "avatar": {
+                    "profile": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_profile.png"
+                    },
+                    "large": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_large.png"
+                    },
+                    "medium": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_medium.png"
+                    },
+                    "small": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_small.png"
+                    }
+                },
+                "following": false,
+                "followed_by": false
+            }
+        },
+        {
+            "user": {
+                "username": "DerkFirefox",
+                "uid": "derkfirefox",
+                "fullname": "Derk F. Fox",
+                "verified": false,
+                "location": "",
+                "headline": "",
+                "bio": "",
+                "friendly_name": "Derk F. Fox",
+                "touts_count": 637,
+                "followers_count": 16,
+                "friends_count": 6,
+                "last_tout_recorded_at": "2013-02-08T23:50:59Z",
+                "created_at": "2012-08-26T22:40:30Z",
+                "avatar": {
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/4bbdc457e89306dd1aa38f3f3bb2a466/profile/211255_100004223533818_131804456_n.jpg"
+                    },
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/4bbdc457e89306dd1aa38f3f3bb2a466/large/211255_100004223533818_131804456_n.jpg"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/4bbdc457e89306dd1aa38f3f3bb2a466/medium/211255_100004223533818_131804456_n.jpg"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/4bbdc457e89306dd1aa38f3f3bb2a466/small/211255_100004223533818_131804456_n.jpg"
+                    }
+                },
+                "following": false,
+                "followed_by": false
+            }
+        },
+        {
+            "user": {
+                "username": "DerkSafari8",
+                "uid": "derksafari8",
+                "fullname": null,
+                "verified": false,
+                "location": null,
+                "headline": null,
+                "bio": null,
+                "friendly_name": "DerkSafari8",
+                "touts_count": 0,
+                "followers_count": 0,
+                "friends_count": 0,
+                "last_tout_recorded_at": null,
+                "created_at": "2013-02-06T22:42:02Z",
+                "avatar": {
+                    "profile": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_profile.png"
+                    },
+                    "large": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_large.png"
+                    },
+                    "medium": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_medium.png"
+                    },
+                    "small": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_small.png"
+                    }
+                },
+                "following": false,
+                "followed_by": false
+            }
+        },
+        {
+            "user": {
+                "username": "JonathanTouter",
+                "uid": "jonathantouter",
+                "fullname": "JonathanTouter",
+                "verified": false,
+                "location": "",
+                "headline": "",
+                "bio": "Foob",
+                "friendly_name": "JonathanTouter",
+                "touts_count": 212,
+                "followers_count": 9,
+                "friends_count": 8,
+                "last_tout_recorded_at": "2013-02-11T20:59:59Z",
+                "created_at": "2012-07-06T18:26:28Z",
+                "avatar": {
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/1f5fe1df22715cdc72da5b61007a7630/profile/maskeraid.JPG"
+                    },
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/1f5fe1df22715cdc72da5b61007a7630/large/maskeraid.JPG"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/1f5fe1df22715cdc72da5b61007a7630/medium/maskeraid.JPG"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/1f5fe1df22715cdc72da5b61007a7630/small/maskeraid.JPG"
+                    }
+                },
+                "following": true,
+                "followed_by": true
+            }
+        },
+        {
+            "user": {
+                "username": "PTTouting",
+                "uid": "pttouting",
+                "fullname": "PT Touting",
+                "verified": false,
+                "location": "",
+                "headline": null,
+                "bio": null,
+                "friendly_name": "PT Touting",
+                "touts_count": 27,
+                "followers_count": 2,
+                "friends_count": 0,
+                "last_tout_recorded_at": "2012-12-03T18:33:09Z",
+                "created_at": "2012-11-30T19:04:32Z",
+                "avatar": {
+                    "profile": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_profile.png"
+                    },
+                    "large": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_large.png"
+                    },
+                    "medium": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_medium.png"
+                    },
+                    "small": {
+                        "http_url": "http://d2cjdr17j9fuin.cloudfront.net/assets/avatars/default_small.png"
+                    }
+                },
+                "following": false,
+                "followed_by": false
+            }
+        }
+    ],
+    "pagination": {
+        "current_page": 1,
+        "per_page": 50,
+        "total_entries": 5
+    }
+}
