@@ -29,6 +29,8 @@ this = my_touts[0]
 
 p client.get_my_fb_sharing_settings()
 
+p client.friends()
+
 ##############
 # touts api
 ##############
