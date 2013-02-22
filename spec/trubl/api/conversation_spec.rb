@@ -8,6 +8,7 @@ describe Trubl::API::Conversation do
     stub_get("https://api.tout.com/api/v1/conversations/iummti53").to_return(:body => fixture("conversation_response.json"))
     conversation = Trubl::Client.new.retrieve_conversation("iummti53")
     expect(conversation).to be_a Trubl::Conversation
+    p conversation
     expect(conversation.uid).to eq("iummti53")
     some_request(:get, "/api/v1/conversations/iummti53").should have_been_made
   end

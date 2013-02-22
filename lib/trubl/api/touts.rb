@@ -6,10 +6,11 @@ require_relative '../users'
 module Trubl
   module API
     module Touts
+      # implements http://developer.tout.com/api-overview/touts-api
 
       # http://developer.tout.com/api/touts-api/apimethod/retrieve-list-featured-touts
-      def featured_touts(per_page=nil, page=nil)
-        response = get("featured", query: {per_page: per_page, page: page})
+      def featured_touts(opts={})
+        response = get("featured", query: {per_page: opts[:per_page], page: opts[:page]})
         Trubl::Touts.new.from_response(response)
       end
 
@@ -28,7 +29,7 @@ module Trubl
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       def retrieve_tout_conversation(uid)
         response = get("touts/#{uid}/conversation")
-        Trubl::Conversation.new(JSON.parse(response.body)["conversation"])
+        Trubl::Conversation.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-latest-touts
