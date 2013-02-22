@@ -8,7 +8,7 @@ module Trubl
       # implements http://developer.tout.com/api/conversation-api/apimethod/retrieve-conversation
       def retrieve_conversation(uid)
         response = get("conversations/#{uid}")
-        Trubl::Conversation.new(JSON.parse(response.body)["conversation"])
+        Trubl::Conversation.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/conversation-api/apimethod/retrieve-conversation-participants

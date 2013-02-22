@@ -38,5 +38,6 @@ file = File.absolute_path(File.join(File.dirname(__FILE__), '../spec/fixtures/te
 payload = {tout: { data: file, text: 'Some text here'}}
 tout = client.create_tout(payload)
 
-#p client.delete_tout(tout.uid)
 p client.like_tout(tout.uid)
+p client.delete_tout(tout.uid)
+
