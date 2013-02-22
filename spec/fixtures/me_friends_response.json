@@ -1,0 +1,121 @@
+{
+    "pagination": {
+        "current_page": 1,
+        "per_page": 50,
+        "total_entries": 4
+    },
+    "users": [
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/dc5e09f133eaa73a1487ace5feceaceb/large/JAnderson.JPG"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/dc5e09f133eaa73a1487ace5feceaceb/medium/JAnderson.JPG"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/dc5e09f133eaa73a1487ace5feceaceb/profile/JAnderson.JPG"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/dc5e09f133eaa73a1487ace5feceaceb/small/JAnderson.JPG"
+                    }
+                },
+                "bio": "",
+                "followers_count": 13,
+                "friendly_name": "Jaydan\tAnderson",
+                "friends_count": 19,
+                "fullname": "Jaydan\tAnderson",
+                "location": "Chattanooga,TN",
+                "touts_count": 2,
+                "uid": "_j_anderson_",
+                "username": "_J_Anderson_",
+                "verified": false
+            }
+        },
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/e656462a9cb9403d44ed34269ab65005/large/4.jpg"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/e656462a9cb9403d44ed34269ab65005/medium/4.jpg"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/e656462a9cb9403d44ed34269ab65005/profile/4.jpg"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/e656462a9cb9403d44ed34269ab65005/small/4.jpg"
+                    }
+                },
+                "bio": "",
+                "followers_count": 25,
+                "friendly_name": "Derrick\tAcres",
+                "friends_count": 76,
+                "fullname": "Derrick\tAcres",
+                "location": "Beverly Hills, Ca ",
+                "touts_count": 9,
+                "uid": "000derricka000",
+                "username": "000derricka000",
+                "verified": false
+            }
+        },
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/f5da33fdf938aaddef5f473ef01e1bea/large/060D8FB9-C435-4A6B-8EE3-6C7B79B64E8D.png"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/f5da33fdf938aaddef5f473ef01e1bea/medium/060D8FB9-C435-4A6B-8EE3-6C7B79B64E8D.png"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/f5da33fdf938aaddef5f473ef01e1bea/profile/060D8FB9-C435-4A6B-8EE3-6C7B79B64E8D.png"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/f5da33fdf938aaddef5f473ef01e1bea/small/060D8FB9-C435-4A6B-8EE3-6C7B79B64E8D.png"
+                    }
+                },
+                "bio": null,
+                "followers_count": 7,
+                "friendly_name": "Angelo Mejia",
+                "friends_count": 15,
+                "fullname": "Angelo Mejia",
+                "location": null,
+                "touts_count": 1,
+                "uid": "13king13",
+                "username": "13KING13",
+                "verified": false
+            }
+        },
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/ea37f4ba7115dca9bd6e64b59ef372ea/large/2238D9DF-A868-4A8F-BBC5-11DDD34879B1.png"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/ea37f4ba7115dca9bd6e64b59ef372ea/medium/2238D9DF-A868-4A8F-BBC5-11DDD34879B1.png"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/ea37f4ba7115dca9bd6e64b59ef372ea/profile/2238D9DF-A868-4A8F-BBC5-11DDD34879B1.png"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/ea37f4ba7115dca9bd6e64b59ef372ea/small/2238D9DF-A868-4A8F-BBC5-11DDD34879B1.png"
+                    }
+                },
+                "bio": "",
+                "followers_count": 5,
+                "friendly_name": "Jeff Adams (work In Music Industry) ",
+                "friends_count": 9,
+                "fullname": "Jeff Adams (work In Music Industry) ",
+                "location": "",
+                "touts_count": 21,
+                "uid": "220blackfuelmusic",
+                "username": "220Blackfuelmusic",
+                "verified": false
+            }
+        }
+    ]
+}
