@@ -15,6 +15,7 @@ password = gets.chomp
 
 # client init and auth
 client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password)
+#client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password, auth_site: "https://staging.kicktag.com", uri_host: "staging.kicktag.com")
 client.user_auth()
 
 ##############
