@@ -11,6 +11,10 @@ class MockResponse
   end
 end
 
+def authed_client_for(user)
+  
+end
+
 def stub_delete(uri)
   request_stub(:delete, uri)
 end
