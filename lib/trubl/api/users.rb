@@ -36,20 +36,15 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
-# the below methods require_relative acting on the behalf of users, which is not yet implemented
-=begin
       # implements http://developer.tout.com/api/users-api/apimethod/follow-user
       def follow_user(uid)
-        resp = post("/api/v1/users/#{uid}/follows")
-        raise "Requires auth, not implemented"
+        post("/api/v1/users/#{uid}/follows")
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/unfollow-user
       def unfollow_user(uid)
-        resp = delete("/api/v1/users/#{uid}/follows")
-        raise "Requires auth, not implemented"
+        delete("/api/v1/users/#{uid}/follows")
       end
-=end
 
     end
   end
