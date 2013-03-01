@@ -1,0 +1,16 @@
+require 'trubl'
+
+client_id = ENV["CLIENT_ID"]
+client_secret = ENV["CLIENT_SECRET"]
+callback_url = ENV["CALLBACK_URL"]
+
+
+# client init and auth
+client = Trubl.client(client_id, client_secret, callback_url, email:"aterrell+test2@tout.com", password:"toutitout")
+
+# client_credential, read only
+file = File.absolute_path(File.join(File.dirname(__FILE__), '../spec/fixtures/test.mp4'))
+payload = {tout: { data: file, text: 'Some text here', privacy: 'private'}}
+tout = client.create_tout(payload)
+p tout.inspect
+tout.delete

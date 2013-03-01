@@ -10,4 +10,42 @@ describe Trubl::User do
     expect(user.uid).to eq("karmin")
   end
 
+  it ".like is a usable verb when created via a client" do
+    stub_get("https://api.tout.com/api/v1/users/karmin").to_return(:body => fixture("user.json"))
+    user = Trubl::Client.new.retrieve_user("karmin")
+    stub_get("https://api.tout.com/api/v1/users/karmin/likes").to_return(:body => fixture("touts_liked_by_user_response.json"))
+    touts = user.likes
+    #expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:get, "/api/v1/users/karmin/likes").should have_been_made
+  end
+
+  it ".likes is a usable verb when created via a client" do
+    stub_get("https://api.tout.com/api/v1/users/karmin").to_return(:body => fixture("user.json"))
+    user = Trubl::Client.new.retrieve_user("karmin")
+    stub_get("https://api.tout.com/api/v1/users/karmin/touts").to_return(:body => fixture("user_touts_response.json"))
+    touts = user.touts
+    expect(touts).to be_a Trubl::Touts
+    #expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:get, "/api/v1/users/karmin/touts").should have_been_made
+  end
+
+  it ".followers is a usable verb when created via a client" do
+    stub_get("https://api.tout.com/api/v1/users/karmin").to_return(:body => fixture("user.json"))
+    user = Trubl::Client.new.retrieve_user("karmin")
+    stub_get("https://api.tout.com/api/v1/users/karmin/followers").to_return(:body => fixture("user_followers.json"))
+    users = user                                  .followers
+    expect(users).to be_a Trubl::Users
+    #expect(users.pagination).to be_a Trubl::Pagination
+    users.each do |u|
+      expect(u).to be_a Trubl::User
+    end
+    some_request(:get, "/api/v1/users/karmin/followers").should have_been_made
+  end
+
 end

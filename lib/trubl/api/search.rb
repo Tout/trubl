@@ -8,7 +8,8 @@ module Trubl
       # implements http://developer.tout.com/api-overview/search-api
 
       def search_hashtags(query, per_page=nil, page=nil)
-        Trubl::Hashtags.new.from_response(search('hashtags', query, per_page, page))
+        response = search('hashtags', query, per_page, page)
+        Trubl::Hashtags.new.from_response(response)
       end
 
       def search_users(query, per_page=nil, page=nil)

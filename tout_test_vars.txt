@@ -1,0 +1,14 @@
+export API_TEST_CLIENT_ID=a2163692e7c1e8ff3d7b5380ec73247aad12c9ab457f1601df581196a8d706a4
+export API_TEST_CLIENT_SECRET=408ce2b50c39ecf9896b49cdda60df332aaf204ae7511fdc7fe1d6e8672f95af
+export API_TEST_REDIRECT_URI=http://localhost
+export API_TEST_CLIENT_USER_EMAIL=a@jba.bz
+export API_TEST_CLIENT_USER_PASSWORD=kicktout
+export API_TEST_OTHER_USER_UID=jonathantouter
+
+export CLIENT_ID=$API_TEST_CLIENT_ID
+export CLIENT_SECRET=$API_TEST_CLIENT_SECRET
+export CALLBACK_URL=$API_TEST_REDIRECT_URI
+
+export AUTH_SITE=https://qa.kicktag.com
+export URI_HOST=qa.kicktag.com
+

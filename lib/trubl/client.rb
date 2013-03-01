@@ -110,9 +110,12 @@ module Trubl
         faraday.adapter Faraday.default_adapter
       end
       payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
+
+      Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
       response = conn.post uri.to_s, payload
+
       if !response.status =~ /20[0-9]/
-        puts "Non 200 status code #{method}-ing '#{uri.to_s}'. Was: #{response.code}. Reason: #{response.parsed_response}"
+        Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
       end
       response
     end
@@ -126,10 +129,15 @@ module Trubl
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params={})
       uri = full_url(path)
+
+      Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params.merge(headers: headers)}")
       response = HTTParty.send(method, uri, params.merge(headers: headers))
+
       if !response.code =~ /20[0-9]/
-        puts "Non 200 status code #{method}-ing '#{uri}'. Was: #{response.code}. Reason: #{response.parsed_response}"
-        puts "Params were: #{params.merge(headers: headers)}"
+        Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")
+      else
+        Trubl.logger.info("Trubl::Client   #{uri} response: #{response.code}")
+        Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
       end
       response
     end
