@@ -45,17 +45,11 @@ describe Trubl::API::Users do
     some_request(:get, "/api/v1/users/teamtout/followers").should have_been_made
   end
 
-  #it '.follow_user executes a follow for the specified user with a user authed token' do
-    #client = authed_client_for(current_user)
-    #stub_post("https://api.tout.com/api/v1/users/teamtout/follow").to_return(:body => "")
-
-    #users = client.retrieve_user_followers("teamtout")
-    #expect(users).to !include(current_user)
-
-    #client.follow('teamtout')
-    #users = client.retrieve_user_followers("teamtout")
-    #expect(users).to include(current_user)
-    #some_request(:post, "/api/v1/users/teamtout/follow").should have_been_made
-  #end
+  it '.follow_user executes a follow for the specified user with a user authed token' do
+    client = Trubl::Client.new
+    stub_post("https://api.tout.com/api/v1/users/teamtout/follow").to_return(:body => "")
+    client.follow_user('teamtout')
+    some_request(:post, "/api/v1/users/teamtout/follow").should have_been_made
+  end
 
 end
