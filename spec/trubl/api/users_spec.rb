@@ -45,4 +45,11 @@ describe Trubl::API::Users do
     some_request(:get, "/api/v1/users/teamtout/followers").should have_been_made
   end
 
+  it '.follow_user executes a follow for the specified user with a user authed token' do
+    client = Trubl::Client.new
+    stub_post("https://api.tout.com/api/v1/users/teamtout/follow").to_return(:body => "")
+    client.follow_user('teamtout')
+    some_request(:post, "/api/v1/users/teamtout/follow").should have_been_made
+  end
+
 end
