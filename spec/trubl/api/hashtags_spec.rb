@@ -4,6 +4,13 @@ require 'webmock'
 
 describe Trubl::API::Hashtags do
 
+  it 'retrieve_hashtag returns a Hashtag' do
+    stub_get("https://api.tout.com/api/v1/hashtags/pets").to_return(:body => fixture("hashtag_response.json"))
+    hashtag = Trubl::Client.new.retrieve_hashtag("pets")
+    expect(hashtag).to be_a Trubl::Hashtag
+    some_request(:get, "/api/v1/hashtags/pets").should have_been_made
+  end
+
   it 'retrieve_hashtag_touts returns Touts::Collection matching a hashtag' do
     stub_get("https://api.tout.com/api/v1/hashtags/ows/touts").to_return(:body => fixture("hashtags_touts_response.json"))
     touts = Trubl::Client.new.retrieve_hashtag_touts("ows")
@@ -34,6 +41,13 @@ describe Trubl::API::Hashtags do
       expect(h).to be_a Trubl::Hashtag
     end
     some_request(:get, "/api/v1/suggested_hashtags").should have_been_made
+  end
+
+  it '.follow_user executes a follow for the specified user with a user authed token' do
+    client = Trubl::Client.new
+    stub_post("https://api.tout.com/api/v1/hashtags/pets/follow").to_return(:body => "")
+    client.follow_user('pets')
+    some_request(:post, "/api/v1/hashtags/pets/follow").should have_been_made
   end
 
 end
