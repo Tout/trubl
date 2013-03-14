@@ -5,7 +5,7 @@ module Trubl
   module API
     module Hashtags
 
-      def retrieve_hashtag
+      def retrieve_hashtag(uid)
         response = get("hashtags/#{uid}")
         Trubl::Hashtag.new.from_response(response)
       end
