@@ -29,11 +29,11 @@ module Trubl
       end
 
       def follow_hashtag(uid)
-        post("/api/v1/hashtags/#{uid}/follows")
+        post("/api/v1/hashtags/#{uid}/subscribes")
       end
 
       def unfollow_hashtag(uid)
-        delete("/api/v1/hashtags/#{uid}/follows")
+        delete("/api/v1/hashtags/#{uid}/subscribes")
       end
 
     end
