@@ -2,12 +2,12 @@
 require File.expand_path('../lib/trubl/version', __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.add_dependency 'json'
+  spec.add_dependency 'json', '~> 1.7.7'
   spec.add_dependency 'httparty', '~> 0.9.0'
   spec.add_dependency 'faraday', '>= 0.8.4'
   spec.add_dependency 'activesupport', '>= 3.2.11'
-  spec.add_dependency 'oauth2'
-  spec.add_dependency 'hashie'
+  spec.add_dependency 'oauth2', '~> 0.9.1'
+  spec.add_dependency 'hashie', '~> 2.0.2'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
