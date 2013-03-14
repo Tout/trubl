@@ -5,6 +5,11 @@ module Trubl
   module API
     module Hashtags
 
+      def retrieve_hashtag
+        response = get("hashtags/#{uid}")
+        Trubl::Hashtag.new.from_response(response)
+      end
+
       # implements http://developer.tout.com/api/hashtags-api/apimethod/retrieve-hashtags-touts
       def retrieve_hashtag_touts(uid, order=nil, per_page=nil, page=nil)
         response = get("hashtags/#{uid}/touts", query: {order: order, per_page: per_page, page: page})
@@ -21,6 +26,14 @@ module Trubl
       def retrieve_suggested_hashtags(q, limit=nil)
         response = get("suggested_hashtags", query: {q: q, limit: limit})
         Trubl::Hashtags.new.from_response(response)
+      end
+
+      def follow_hashtag(uid)
+        post("/api/v1/hashtags/#{uid}/follows")
+      end
+
+      def unfollow_hashtag(uid)
+        delete("/api/v1/hashtags/#{uid}/follows")
       end
 
     end
