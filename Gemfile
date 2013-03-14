@@ -2,6 +2,8 @@ source :rubygems
 
 gem 'rake'
 gem 'yard'
+gem 'httparty'
+gem 'faraday'
 
 # Hash extensions
 gem 'hashie'

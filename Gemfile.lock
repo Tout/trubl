@@ -81,7 +81,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  faraday
   hashie
+  httparty
   pry
   pry-debugger
   rake
