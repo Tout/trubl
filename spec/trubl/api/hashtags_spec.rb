@@ -45,16 +45,16 @@ describe Trubl::API::Hashtags do
 
   it '.follow_hashtag executes a follow for the specified user with a user authed token' do
     client = Trubl::Client.new
-    stub_post("https://api.tout.com/api/v1/hashtags/pets/follows").to_return(:body => "")
+    stub_post("https://api.tout.com/api/v1/hashtags/pets/subscribes").to_return(:body => "")
     client.follow_hashtag('pets')
-    some_request(:post, "/api/v1/hashtags/pets/follows").should have_been_made
+    some_request(:post, "/api/v1/hashtags/pets/subscribes").should have_been_made
   end
 
   it '.unfollow_hashtag executes an unfollow for the specified user with a user authed token' do
     client = Trubl::Client.new
-    stub_delete("https://api.tout.com/api/v1/hashtags/pets/follows").to_return(:body => "")
+    stub_delete("https://api.tout.com/api/v1/hashtags/pets/subscribes").to_return(:body => "")
     client.unfollow_hashtag('pets')
-    some_request(:delete, "/api/v1/hashtags/pets/follows").should have_been_made
+    some_request(:delete, "/api/v1/hashtags/pets/subscribes").should have_been_made
   end
 
 end
