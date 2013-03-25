@@ -64,15 +64,20 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
 
+      def update_tout(uid, params={})
+        return nil if params.blank? or params[:tout].blank?
+
+        raise "Not implemented" if params[:tout].keys.map(&:to_sym) != [:text]
+
+        response = put("touts/#{uid}", {body: params})
+
+        Trubl::Tout.new.from_response(response)
+      end
+
       # implements http://developer.tout.com/api/touts-api/apimethod/delete-tout
       # returns true or false
       def delete_tout(uid)
-        response = delete("touts/#{uid}")
-        if response.code == 200
-          true
-        else
-          false
-        end
+        delete("touts/#{uid}").code == 200
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/tout
@@ -80,11 +85,8 @@ module Trubl
       # returns true or false
       def like_tout(uid)
         response = post("touts/#{uid}/likes")
-        if JSON.parse(response.body)["like"]["status"] == "liked"
-          true
-        else
-          false
-        end
+        
+        JSON.parse(response.body)["like"]["status"] == "liked"
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/unlike-tout
@@ -92,11 +94,12 @@ module Trubl
       # returns true or false
       def unlike_tout(uid)
         response = delete("touts/#{uid}/likes")
-        if JSON.parse(response.body)["like"]["status"] == "not_liked"
-          true
-        else
-          false
-        end
+
+        JSON.parse(response.body)["like"]["status"] == "not_liked"
+      end
+
+      def retout_tout(uid)
+        Trubl::Tout.new.from_response(post("touts/#{uid}/retouts"))
       end
 
 =begin
@@ -109,7 +112,7 @@ module Trubl
       # implements http://developer.tout.com/api/touts-api/apimethod/update-touts-text
       def update_tout_text(uid)
         response = put("touts/#{uid}.json?")
-        raise "Not implemented"
+        raise "Not implemented; see update_tout"
       end
 =end
     end

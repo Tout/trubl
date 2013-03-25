@@ -1,7 +1,6 @@
 require_relative '../touts'
 require_relative '../user'
 require_relative '../users'
-require 'json'
 
 module Trubl
   module API

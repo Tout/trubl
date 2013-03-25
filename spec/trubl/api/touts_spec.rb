@@ -6,7 +6,6 @@ describe Trubl::API::Touts do
 
   let(:client){Trubl::Client.new}
 
-
   it '.featured_touts returns a collection of Touts' do
     stub_api_get("featured").to_return(:body => fixture("featured_touts_response.json"))
     touts = client.featured_touts()
@@ -77,6 +76,44 @@ describe Trubl::API::Touts do
     some_request(:post, "/api/v1/touts").should have_been_made
   end
 
+  describe '.update_tout' do
+    let(:tout_uid) { 'some_random_tout_uid' }
+    subject { client.update_tout(tout_uid, params) }
+
+    context 'updating just the text' do
+      let(:params) { {tout: {text: 'something new'} } }
+      let(:url)    { "/api/v1/touts/#{tout_uid}" }
+      before { stub_put("https://api.tout.com#{url}").to_return(result) }
+      after  { some_request(:put, url).should have_been_made }
+
+      context 'a success' do
+        let(:result) { {status: 200, body: fixture('tout.json') }}
+        it { should be_a Trubl::Tout }        
+      end
+      context 'a failure' do
+        let(:result) { {status: 500} }
+        it { should be_nil }        
+      end
+    end
+
+    context 'not even hitting the api' do
+      context 'blank payload' do
+        let(:params) { {} }
+        it { should be_nil }
+      end
+      context 'updating nothing' do
+        let(:params) { {tout: nil} }
+        it { should be_nil }
+      end
+      context 'updating more than the text' do
+        let(:params) { {tout: {text: 'something new', privacy: 'public'}}}
+        it 'should raise' do
+          expect{subject}.to raise_exception
+        end
+      end
+    end
+  end
+
   it ".delete_tout returns true on 200 response" do
     stub_delete("https://api.tout.com/api/v1/touts/123456").to_return(:status => 200, :body => "true")
     result = client.delete_tout("123456")
@@ -105,6 +142,23 @@ describe Trubl::API::Touts do
     some_request(:delete, "/api/v1/touts/fhcl57/likes").should have_been_made
   end
 
+  describe '.retout_tout' do
+    let(:tout_uid) { 'random_tout_uid' }
+    let(:url)      { "/api/v1/touts/#{tout_uid}/retouts" }
+    subject { client.retout_tout(tout_uid) }
+    before { stub_post("https://api.tout.com#{url}").to_return(result) }
+    after  { some_request(:post, url).should have_been_made }
+
+    context 'a success' do
+      let(:result) { {status: 200, body: fixture('tout.json') }}
+      it { should be_a Trubl::Tout }
+    end
+
+    context 'a failure' do
+      let(:result) { {status: 500} }
+      it { should be_nil }
+    end
+  end
 
 end
 

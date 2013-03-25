@@ -9,7 +9,6 @@ require_relative './api/users'
 require_relative './oauth'
 
 require 'httparty'
-require 'json'
 require 'uri'
 require 'faraday'
 require 'active_support/core_ext'
@@ -37,13 +36,15 @@ module Trubl
     def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)
       opts = (args.last.is_a?(Hash) ? args.last : {}).with_indifferent_access
 
-      opts.reverse_merge!(default_tout_configuration)
+      opts.delete_if { |k, v| v.nil? }.reverse_merge!(default_tout_configuration)
+
       @client_id =     client_id
       @client_secret = client_secret
       @access_token =  opts[:access_token]
       @callback_url =  callback_url
       @uri_scheme =    opts[:uri_scheme]
       @uri_host =      opts[:uri_host]
+      @uri_port =      opts[:uri_port]
       @uri_base_path = opts[:uri_base_path]
       @uri_version =   opts[:uri_version]
       @auth_site =     opts[:auth_site]
@@ -68,20 +69,23 @@ module Trubl
     end
 
     def credentials()
-      {client_id: @client_id,
-      client_secret: @client_secret,
-      access_token: @access_token}
+      { 
+        client_id:     @client_id,
+        client_secret: @client_secret,
+        access_token:  @access_token
+      }
     end
 
     def api_uri_root()
       # Changed this from URI.join because scheme became pointless. It could not
       # override the scheme set in the host and the scheme was required to be set
       # in @uri_host or else URI.join throws an error
-      uri = URI.parse ''
-      uri.scheme = @uri_scheme
-      uri.host = @uri_host.gsub(/https?:\/\//, '') # strip the scheme if it is part of the hostname
-      uri.path = [@uri_base_path, @uri_version].join('/') + '/'
-      uri.to_s
+      URI.parse('').tap do |uri|
+        uri.scheme = @uri_scheme
+        uri.host   = @uri_host.gsub(/https?:\/\//, '') # strip the scheme if it is part of the hostname
+        uri.path   = [@uri_base_path, @uri_version, nil].join('/')
+        uri.port   = @uri_port unless @uri_port.blank?
+      end.to_s
     end
 
     # Perform an HTTP DELETE request
@@ -103,21 +107,20 @@ module Trubl
     def multipart_post(path, params={})
       raise ArgumentError.new("Must specify a valid file to include\nYou specified #{params[:data]}") unless File.exists?(params[:data])
       uri = full_uri(path)
-      conn = Faraday.new(url: uri.host) do |faraday|
+      payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
+
+      Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
+
+      Faraday.new(url: uri.host) do |faraday|
         faraday.headers = options
         faraday.request :multipart
         faraday.response :logger
         faraday.adapter Faraday.default_adapter
+      end.post(uri.to_s, payload).tap do |response|      
+        if !response.status =~ /20[0-9]/
+          Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
+        end
       end
-      payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
-
-      Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
-      response = conn.post uri.to_s, payload
-
-      if !response.status =~ /20[0-9]/
-        Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
-      end
-      response
     end
 
     # Perform an HTTP PUT request
@@ -136,7 +139,6 @@ module Trubl
       if !response.code =~ /20[0-9]/
         Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")
       else
-        Trubl.logger.info("Trubl::Client   #{uri} response: #{response.code}")
         Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
       end
       response
@@ -154,9 +156,11 @@ module Trubl
     end
 
     def headers
-      {"Authorization" => "Bearer #{@access_token}",
-       "Connection" => 'keep-alive',
-       "Accept" => 'application/json'}
+      {
+        "Authorization" => "Bearer #{@access_token}",
+        "Connection"    => 'keep-alive',
+        "Accept"        => 'application/json'
+      }
     end
 
     def options(params={})
