@@ -5,7 +5,7 @@ but given proper user auth implementation, the infrastructure is ready for writi
 
 Intended as sample code initially, help take it to greatness!
 
-See http://developer.tout.com/ for details.
+See http://developer.tout.com/ and https://github.com/Tout/trubl for details.
 
 # Using Trubl
 
