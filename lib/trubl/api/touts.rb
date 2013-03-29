@@ -99,6 +99,18 @@ module Trubl
         end
       end
 
+      # implements http://developer.tout.com/api/touts-api/apimethod/retout-tout
+      def retout_tout(uid)
+        response = post("touts/#{uid}/retout")
+        if response.code == 200
+          true
+        else
+          false
+        end
+      end
+
+
+
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
       def share_tout(uid)
