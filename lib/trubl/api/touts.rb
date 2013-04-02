@@ -101,7 +101,7 @@ module Trubl
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retout-tout
       def retout_tout(uid)
-        response = post("touts/#{uid}/retout")
+        response = post("touts/#{uid}/retouts")
         if response.code == 200
           true
         else

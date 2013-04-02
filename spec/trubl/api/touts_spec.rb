@@ -106,10 +106,10 @@ describe Trubl::API::Touts do
   end
 
   it ".retout_tout returns true on successful response" do
-    stub_post("https://api.tout.com/api/v1/touts/fhcl57/retout").to_return(:body => fixture("retout_tout_response.json"))
+    stub_post("https://api.tout.com/api/v1/touts/fhcl57/retouts").to_return(:body => fixture("retout_tout_response.json"))
     result = client.retout_tout("fhcl57")
     expect(result).to eq(true)
-    some_request(:post, "/api/v1/touts/fhcl57/retout").should have_been_made
+    some_request(:post, "/api/v1/touts/fhcl57/retouts").should have_been_made
   end
 
 
