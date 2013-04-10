@@ -6,11 +6,7 @@ module Trubl
     def from_response(response, options = {})
       return nil if missing_or_exception?(response)
       json = JSON.parse(response.body)
-      members = json[container_name].map{|m| klass.new(m[member_name]) }
-      members.each do |member|
-        self << member
-      end
-      self
+      self.concat json[container_name].map{|m| klass.new(m[member_name]) }
     end
 
     def klass

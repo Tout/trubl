@@ -1,3 +1,6 @@
+require 'yajl'
+require 'yajl/json_gem'
+
 require 'logger'
 require 'trubl/client'
 
