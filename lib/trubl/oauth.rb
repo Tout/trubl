@@ -1,5 +1,4 @@
 require 'httparty'
-require 'json'
 
 module Trubl
   module OAuth
@@ -8,14 +7,17 @@ module Trubl
     # implements client_credentials access_token retrieval
     def client_auth()
       url = URI.join(@auth_site, @token_url).to_s
-      body = {client_id: @client_id,
-             client_secret: @client_secret,
-             grant_type: "client_credentials"}
+      body = {
+        client_id:     @client_id,
+        client_secret: @client_secret,
+        grant_type:    "client_credentials"
+      }
+      
       Trubl.logger.info("Trubl::OAuth   post-ing #{url} with params #{{body: body, headers: headers}}")
       response = HTTParty.send(:post, url, body: body, headers: headers)
       Trubl.logger.debug("Trubl::OAuth   #{url} response: #{response.code} #{response.body}")
 
-      if response.code == 200 and JSON.parse(response.body)["access_token"] != nil
+      if response.code == 200 and JSON.parse(response.body)["access_token"].present?
         @access_token = JSON.parse(response.body)["access_token"]
       else
         raise "Client failed to get an auth token, response was: " + response.body
@@ -25,18 +27,20 @@ module Trubl
     # ToDo: add some param checking logic
     def password_auth(opts={})
       url = URI.join(@auth_site, @token_url).to_s
-      body = {client_id: @client_id,
-              client_secret: @client_secret,
-              email: @email,
-              password: @password,
-              scope: "read write share",
-              grant_type: "password"}.merge(opts)
+      body = {
+        client_id:     @client_id,
+        client_secret: @client_secret,
+        email:         @email,
+        password:      @password,
+        scope:         "read write share",
+        grant_type:    "password"
+      }.merge(opts)
 
       Trubl.logger.info("Trubl::OAuth   post-ing #{url} with params #{{body: body, headers: headers}}")
       response = HTTParty.send(:post, url, body: body, headers: headers)
       Trubl.logger.debug("Trubl::OAuth   #{url} response: #{response.code} #{response.body}")
 
-      if response.code == 200 and JSON.parse(response.body)["access_token"] != nil
+      if response.code == 200 and JSON.parse(response.body)["access_token"].present?
         @access_token = JSON.parse(response.body)["access_token"]
       else
         raise "Client failed to get an auth token, response was: " + response.body

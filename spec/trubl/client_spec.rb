@@ -3,8 +3,9 @@ require "trubl/client"
 
 describe Trubl::Client do
 
-  it "instantiates a new Trubl::Client instance" do
-    expect(Trubl::Client.new()).to be_a Trubl::Client
+  describe '#new' do
+    subject { Trubl::Client.new() }
+    it { should be_a Trubl::Client }
   end
 
   describe ".auth" do
@@ -31,9 +32,22 @@ describe Trubl::Client do
   end
 
   describe ".api_uri_root" do
-    it "is the correct base endpoint" do
-      client = Trubl::Client.new()
-      expect(client.api_uri_root).to eq("https://api.tout.com/api/v1/")
+    let(:port)       { nil }
+    let(:host)       { nil }
+    let(:uri_scheme) { nil }
+    subject { Trubl::Client.new(:fake_id, :fake_secret, nil, uri_port: port, uri_host: host, uri_scheme: uri_scheme) }
+
+    its(:api_uri_root) { should == 'https://api.tout.com/api/v1/' }
+
+    context 'setting a port' do
+      let(:port) { 3000 }
+      its(:api_uri_root) { should == 'https://api.tout.com:3000/api/v1/' }
+    end
+
+    context 'setting a host and protocol' do
+      let(:host)         { 'localhost' }
+      let(:uri_scheme)   { 'http' }
+      its(:api_uri_root) { should == 'http://localhost/api/v1/' }
     end
   end
 
