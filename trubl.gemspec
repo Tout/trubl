@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-encoding-matchers'
   spec.add_development_dependency 'timecop'
   spec.add_development_dependency 'webmock'
 

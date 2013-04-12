@@ -141,6 +141,7 @@ module Trubl
       else
         Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
       end
+      response.body.force_encoding("utf-8") if response.body
       response
     end
 
