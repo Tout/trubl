@@ -99,19 +99,13 @@ module Trubl
       end
 
       def retout_tout(uid)
-        Trubl::Tout.new.from_response(post("touts/#{uid}/retouts"))
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/retout-tout
-      def retout_tout(uid)
         response = post("touts/#{uid}/retouts")
         if response.code == 200
-          true
+          Trubl::Tout.new.from_response(response)
         else
-          false
+          nil
         end
       end
-
 
 
 =begin
