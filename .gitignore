@@ -14,6 +14,7 @@ doc
 
 # bundler
 .bundle
+bin
 
 # editor/IDE/OS
 .DS_Store
