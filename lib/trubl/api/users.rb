@@ -9,10 +9,27 @@ module Trubl
       # mixed in to a Client instance, the self passed to response objects is that instance
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
-      # returns Trubl::User instance or nil
-      def retrieve_user(uid)
+      # @param uid [String] a user uid
+      # @return [Trubl::User] or nil
+      def retrieve_user(uid=nil)
+        return nil if uid.blank?
+
         response = get("/api/v1/users/#{uid}")
         Trubl::User.new.from_response(response)
+      end
+
+      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
+      # @param uids [Array<String>] of user uids
+      # @returns [Array<Trubl::User>]
+      def retrieve_users(uids=[])
+        uids = [uids] unless uids.is_a?(Array)
+        return [] if uids.compact.blank?
+
+        requests = uids.collect { |uid| {path: "users/#{uid}"} }
+
+        multi_request(:get, requests).
+          collect { |response| Trubl::User.new.from_response(response) }.
+          compact
       end
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-touts-liked-user

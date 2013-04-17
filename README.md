@@ -9,6 +9,11 @@ See http://developer.tout.com/ and https://github.com/Tout/trubl for details.
 
 # Using Trubl
 
+## Requirements
+
+* MRI due to [typhoeus](https://github.com/typhoeus/typhoeus)
+* On Debian or Ubuntu you should run `sudo apt-get install libcurl4-gnutls-dev`
+
 ## Installation
 ```sh
 bundle install

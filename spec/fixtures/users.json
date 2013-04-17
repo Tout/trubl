@@ -1,0 +1,58 @@
+[
+  {
+      "user": {
+          "avatar": {
+              "large": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/large/TwitterIcon2.jpg"
+              },
+              "medium": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/medium/TwitterIcon2.jpg"
+              },
+              "profile": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/profile/TwitterIcon2.jpg"
+              },
+              "small": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/small/TwitterIcon2.jpg"
+              }
+          },
+          "bio": "\"My favorite $#*! ever\" - Questlove\r\n\r\nKarmin is Amy Ellis' pronounced rap flow and searing R&B influenced pop vocals married with Nick Noonan's multi-instrumental talent and smooth harmonies. The duo's dynamic chemistry results in a perfect ble",
+          "followers_count": 1564,
+          "friendly_name": "Wwe",
+          "friends_count": 2,
+          "fullname": "Wwe",
+          "location": "",
+          "touts_count": 28,
+          "uid": "wwe",
+          "username": "Wwe",
+          "verified": true
+      }
+  },
+  {
+      "user": {
+          "avatar": {
+              "large": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/large/TwitterIcon2.jpg"
+              },
+              "medium": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/medium/TwitterIcon2.jpg"
+              },
+              "profile": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/profile/TwitterIcon2.jpg"
+              },
+              "small": {
+                  "http_url": "http://avatars.tout.com/u/d5dec37b9602443a03aaf9203949998b/small/TwitterIcon2.jpg"
+              }
+          },
+          "bio": "\"My favorite $#*! ever\" - Questlove\r\n\r\nKarmin is Amy Ellis' pronounced rap flow and searing R&B influenced pop vocals married with Nick Noonan's multi-instrumental talent and smooth harmonies. The duo's dynamic chemistry results in a perfect ble",
+          "followers_count": 1564,
+          "friendly_name": "Zackryder",
+          "friends_count": 2,
+          "fullname": "Zackryder",
+          "location": "",
+          "touts_count": 28,
+          "uid": "zackryder",
+          "username": "Zackryder",
+          "verified": true
+      }
+  }
+]  

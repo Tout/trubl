@@ -11,6 +11,8 @@ require_relative './oauth'
 require 'httparty'
 require 'uri'
 require 'faraday'
+require 'typhoeus'
+require 'typhoeus/adapters/faraday'
 require 'active_support/core_ext'
 
 
@@ -142,6 +144,41 @@ module Trubl
         Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
       end
       response
+    end
+
+    # WARNING Typhoeus is not threadsafe!
+    # FIXME fallback when not mri; should be threadbased
+    def multi_request(method, requests=[], opts={})
+      return [] if requests.blank? or [:get].exclude?(method.to_sym)
+
+      opts.reverse_merge! max_concurrency: 10
+
+      Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")      
+
+      # https://github.com/lostisland/faraday/wiki/Parallel-requests
+      # https://github.com/typhoeus/typhoeus/issues/226
+      hydra = Typhoeus::Hydra.new(max_concurrency: opts[:max_concurrency])
+     
+      conn = Faraday.new(url: api_uri_root, parallel_manager: hydra) do |builder|
+        builder.request  :url_encoded
+        builder.adapter  :typhoeus
+      end
+       
+      requests = requests.collect do |request|
+        if request.is_a?(String)
+          {path: request, params: {}}
+        else
+          request.reverse_merge params: {}
+        end
+      end
+
+      [].tap do |responses|
+        conn.in_parallel do
+          requests.each do |request|
+            responses << conn.get(request[:path], request[:params], headers)
+          end
+        end
+      end
     end
 
     private
