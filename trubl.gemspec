@@ -16,10 +16,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-debugger'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-encoding-matchers'
   spec.add_development_dependency 'timecop'
   spec.add_development_dependency 'webmock'
 
-  spec.authors = ["Aaron Terrell", "Aaron Glenn"]
+  spec.authors = ["Aaron Terrell", "Aaron Glenn", "Felix Roeser"]
   spec.description = %q{A Ruby interface to the Tout API.}
   spec.email = ['help@tout.com']
   spec.files = %w(.yardopts LICENSE.md README.md Rakefile trubl.gemspec)
