@@ -4,7 +4,7 @@ require 'webmock'
 
 describe Trubl::API::Touts do
 
-  let(:client){Trubl::Client.new}
+  let(:client) { Trubl::Client.new }
 
   it '.featured_touts returns a collection of Touts' do
     stub_api_get("featured").to_return(:body => fixture("featured_touts_response.json"))

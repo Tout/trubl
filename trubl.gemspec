@@ -6,6 +6,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'yajl-ruby', '~> 1.1.0'
   spec.add_dependency 'httparty', '~> 0.9.0'
   spec.add_dependency 'faraday', '>= 0.8.4'
+  spec.add_dependency 'typhoeus'
   spec.add_dependency 'activesupport', '>= 3.2.11'
   spec.add_dependency 'oauth2', '~> 0.9.1'
   spec.add_dependency 'hashie', '~> 2.0.2'
