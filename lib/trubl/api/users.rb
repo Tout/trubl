@@ -20,7 +20,7 @@ module Trubl
 
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
       # @param uids [Array<String>] of user uids
-      # @returns [Array<Trubl::User>]
+      # @return [Array<Trubl::User>]
       def retrieve_users(uids=[])
         uids = [uids] unless uids.is_a?(Array)
         return [] if uids.compact.blank?

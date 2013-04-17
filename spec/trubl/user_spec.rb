@@ -1,13 +1,27 @@
+# -*- encoding : utf-8 -*-
+
 require_relative "../spec_helper"
 require "trubl/user"
 
 describe Trubl::User do
+  include RSpecEncodingMatchers
   # this is the silly namespace one
   # this is also an example of the simple OpenStruct usage, to be replaced eventually
 
   it "magically creates a Tout object from json" do
     user = Trubl::User.new(json_fixture("user.json")["user"])
     expect(user.uid).to eq("karmin")
+  end
+
+  it "can handle utf-8 characters in a username" do
+    user = Trubl::User.new(json_fixture("user_with_utf8.json")["user"])
+    expect(user.uid).to eq("loðbrók")
+    expect(user.uid).to be_encoded_as("UTF-8")
+  end
+
+  it "can handle utf-8 characters in a bio" do
+    user = Trubl::User.new(json_fixture("user_with_utf8.json")["user"])
+    expect(user.bio).to be_encoded_as("UTF-8")
   end
 
   it ".like is a usable verb when created via a client" do
