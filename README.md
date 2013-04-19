@@ -3,6 +3,8 @@
 A Ruby 1.9 interface for the Tout API. Right now, the read only API calls have been implemented, 
 but given proper user auth implementation, the infrastructure is ready for writing back as well.
 
+[![Build Status](https://api.travis-ci.org/Tout/trubl.png)](https://travis-ci.org/Tout/trubl)
+
 Intended as sample code initially, help take it to greatness!
 
 See http://developer.tout.com/ and https://github.com/Tout/trubl for details.
