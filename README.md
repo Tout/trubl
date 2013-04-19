@@ -1,6 +1,6 @@
 # Trubl
 
-A Ruby interface for the Tout API. Right now, the read only API calls have been implemented, 
+A Ruby 1.9 interface for the Tout API. Right now, the read only API calls have been implemented, 
 but given proper user auth implementation, the infrastructure is ready for writing back as well.
 
 Intended as sample code initially, help take it to greatness!
