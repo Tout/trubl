@@ -11,7 +11,10 @@ See http://developer.tout.com/ and https://github.com/Tout/trubl for details.
 
 ## Requirements
 
-* MRI due to [typhoeus](https://github.com/typhoeus/typhoeus)
+* Ruby
+    * Battle tested with MRI 1.9.3 
+    * Specs pass for JRuby 1.7.3
+    * Unkown for Rbx 2.0.0rc1
 * On Debian or Ubuntu you should run `sudo apt-get install libcurl4-gnutls-dev`
 
 ## Installation

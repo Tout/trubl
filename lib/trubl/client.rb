@@ -11,10 +11,12 @@ require_relative './oauth'
 require 'httparty'
 require 'uri'
 require 'faraday'
-require 'typhoeus'
-require 'typhoeus/adapters/faraday'
 require 'active_support/core_ext'
 
+if RUBY_ENGINE == 'ruby'
+  require 'typhoeus'
+  require 'typhoeus/adapters/faraday'
+end
 
 # instantiate a Tout client instance
 module Trubl
@@ -147,8 +149,6 @@ module Trubl
       response
     end
 
-    # WARNING Typhoeus is not threadsafe!
-    # FIXME fallback when not mri; should be threadbased
     def multi_request(method, requests=[], opts={})
       return [] if requests.blank? or [:get].exclude?(method.to_sym)
 
@@ -156,6 +156,31 @@ module Trubl
 
       Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")      
 
+      if RUBY_ENGINE == 'ruby'
+        multi_request_typhoeus(method, requests, opts)
+      else
+        multi_request_threaded(method, requests, opts)
+      end
+    end
+
+    def multi_request_threaded(method, requests=[], opts={})
+      responses = []
+      mutex = Mutex.new
+      requests = requests.clone
+
+      opts[:max_concurrency].times.map do
+        Thread.new(requests, responses) do |requests, responses|
+          while request = mutex.synchronize { requests.pop }
+            response = HTTParty.send(method, full_url(request[:path]), {headers: headers})
+            mutex.synchronize { responses << response }
+          end
+        end
+      end.each(&:join) 
+
+      responses     
+    end
+
+    def multi_request_typhoeus(method, requests=[], opts={})
       # https://github.com/lostisland/faraday/wiki/Parallel-requests
       # https://github.com/typhoeus/typhoeus/issues/226
       hydra = Typhoeus::Hydra.new(max_concurrency: opts[:max_concurrency])

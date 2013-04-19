@@ -108,19 +108,21 @@ describe Trubl::Client do
       its(:size) { should == uids.size }
 
       describe 'response bodies' do
-        subject { multi_request.map(&:body) }
+        subject { multi_request.map(&:body).sort }
         it { should == uids.collect { |u| "fake-#{u}"} }
       end
 
       describe 'response status codes' do
-        subject { multi_request.map(&:status) }
+        subject do 
+          RUBY_ENGINE == 'ruby' ? multi_request.map(&:status).sort : multi_request.map(&:code).sort
+        end
         it { should == uids.size.times.collect { |i| 200+i } }
       end
 
       context 'with a blank request list' do
         let(:requests) { nil }
         before do
-          Typhoeus::Hydra.should_not_receive(:new)
+          Typhoeus::Hydra.should_not_receive(:new) if RUBY_ENGINE == 'ruby'
         end
         it { should == [] }
       end
@@ -130,7 +132,7 @@ describe Trubl::Client do
     context 'with an invalid request method' do
       let(:method) { :unsupported }
       before do
-        Typhoeus::Hydra.should_not_receive(:new)
+        Typhoeus::Hydra.should_not_receive(:new) if RUBY_ENGINE == 'ruby'
       end
       it { should == [] }
     end

@@ -1,5 +1,7 @@
-require 'yajl'
-require 'yajl/json_gem'
+if RUBY_ENGINE == 'ruby'
+  require 'yajl'
+  require 'yajl/json_gem'
+end
 
 require 'logger'
 require 'trubl/client'
