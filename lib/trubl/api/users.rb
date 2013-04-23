@@ -25,7 +25,7 @@ module Trubl
         uids = (uids.is_a?(Array) ? uids : [uids]).compact.uniq.sort
         return [] if uids.blank?
 
-        requests = uids.in_groups_of(50, false).collect do |uid_group|
+        requests = uids.in_groups_of(100, false).collect do |uid_group|
           {path: "users", query: {uids: uid_group.join(',')} }
         end
 

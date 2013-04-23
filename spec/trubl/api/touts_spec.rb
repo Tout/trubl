@@ -40,11 +40,11 @@ describe Trubl::API::Touts do
     subject { client.retrieve_touts(uids) }
 
     context 'providing an array of users uids' do
-      let(:sorted_uids) { 75.times.collect { |i| "test_tout_#{i}" }.sort }
+      let(:sorted_uids) { 125.times.collect { |i| "test_tout_#{i}" }.sort }
       let(:uids)        { sorted_uids.shuffle } 
 
       before do
-        sorted_uids.in_groups_of(50, false) do |uid_group|
+        sorted_uids.in_groups_of(100, false) do |uid_group|
           fake_tout_response = {touts: uid_group.collect { |uid| {tout: {uid: uid} } } }
 
           stub_request(:get, "https://api.tout.com/api/v1/touts?uids=#{uid_group.join(',')}").
