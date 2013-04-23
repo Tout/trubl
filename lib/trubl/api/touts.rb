@@ -29,6 +29,23 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
 
+      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-touts
+      # @param uids [Array<String>] of tout uids
+      # @return [Array<Trubl::Tout>]
+      def retrieve_touts(uids=[])
+        uids = (uids.is_a?(Array) ? uids : [uids]).compact.uniq.sort
+        return [] if uids.blank?
+
+        requests = uids.in_groups_of(50, false).collect do |uid_group|
+          {path: "touts", query: {uids: uid_group.join(',')} }
+        end
+
+        multi_request(:get, requests).
+          collect { |response| Trubl::Touts.new.from_response(response) }.
+          flatten.
+          compact
+      end
+
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       # returns Trubl::Conversation instance or nil
       def retrieve_tout_conversation(uid)
