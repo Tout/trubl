@@ -18,11 +18,11 @@ describe Trubl::API::Users do
     subject { client.retrieve_users(uids) }
 
     context 'providing an array of users uids' do
-      let(:sorted_uids) { 75.times.collect { |i| "test_user_#{i}" }.sort }
+      let(:sorted_uids) { 125.times.collect { |i| "test_user_#{i}" }.sort }
       let(:uids)        { sorted_uids.shuffle } 
 
       before do
-        sorted_uids.in_groups_of(50, false) do |uid_group|
+        sorted_uids.in_groups_of(100, false) do |uid_group|
           fake_user_response = {users: uid_group.collect { |uid| {user: {uid: uid} } } }
 
           stub_request(:get, "https://api.tout.com/api/v1/users?uids=#{uid_group.join(',')}").

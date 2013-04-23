@@ -194,7 +194,7 @@ module Trubl
         builder.request  :url_encoded
         builder.adapter  :typhoeus
       end
-       
+
       requests = requests.collect do |request|
         if request.is_a?(String)
           {path: request, params: {}}
@@ -207,7 +207,7 @@ module Trubl
         conn.in_parallel do
           requests.each do |request|
             path = [request[:path], request[:query].try(:to_query)].compact.join('?')
-            responses << conn.get(path, request[:params], headers)
+            responses << conn.send(method, path, request[:params], headers)
           end
         end
       end
