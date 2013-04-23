@@ -36,6 +36,56 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/touts/fhcl57").should have_been_made
   end
 
+  describe '#retrieve_touts' do
+    subject { client.retrieve_touts(uids) }
+
+    context 'providing an array of users uids' do
+      let(:sorted_uids) { 75.times.collect { |i| "test_tout_#{i}" }.sort }
+      let(:uids)        { sorted_uids.shuffle } 
+
+      before do
+        sorted_uids.in_groups_of(50, false) do |uid_group|
+          fake_tout_response = {touts: uid_group.collect { |uid| {tout: {uid: uid} } } }
+
+          stub_request(:get, "https://api.tout.com/api/v1/touts?uids=#{uid_group.join(',')}").
+            to_return(
+              status: 200, 
+              body: fake_tout_response.to_json,
+              headers: {}
+            )
+        end
+      end
+
+      its(:size) { should == uids.size }
+      it 'should contain the users' do
+        expect(subject.map(&:uid).sort).to eq sorted_uids
+      end
+    end
+
+    context 'providing a single uid as string' do
+      let(:uids) { 'random_tout' }
+      before do
+        stub_request(:get, "https://api.tout.com/api/v1/touts?uids=#{uids}").
+          to_return(
+            status: 200, 
+            body: {touts: [{tout: {uid: uids}}]}.to_json,
+            headers: {}
+          )
+      end
+      its(:size)       { should == 1 }
+      its('first.uid') { should == uids }
+    end
+
+    context 'providing a blank list' do
+      let(:uids) { nil }
+      before do
+        client.should_not_receive(:multi_request)
+      end
+      it { should == [] }
+    end
+  end
+
+
   it '.retrieve_tout_conversation returns the Conversation related to a Tout' do
     stub_api_get("touts/fhcl57/conversation").to_return(:body => fixture("tout_conversation_response.json"))
     conversation = client.retrieve_tout_conversation('fhcl57')

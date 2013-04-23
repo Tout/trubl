@@ -18,17 +18,20 @@ module Trubl
         Trubl::User.new.from_response(response)
       end
 
-      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-user
+      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-users
       # @param uids [Array<String>] of user uids
       # @return [Array<Trubl::User>]
       def retrieve_users(uids=[])
-        uids = [uids] unless uids.is_a?(Array)
-        return [] if uids.compact.blank?
+        uids = (uids.is_a?(Array) ? uids : [uids]).compact.uniq.sort
+        return [] if uids.blank?
 
-        requests = uids.collect { |uid| {path: "users/#{uid}"} }
+        requests = uids.in_groups_of(50, false).collect do |uid_group|
+          {path: "users", query: {uids: uid_group.join(',')} }
+        end
 
         multi_request(:get, requests).
-          collect { |response| Trubl::User.new.from_response(response) }.
+          collect { |response| Trubl::Users.new.from_response(response) }.
+          flatten.
           compact
       end
 

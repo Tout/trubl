@@ -15,34 +15,40 @@ describe Trubl::API::Users do
   end
 
   describe '#retrieve_users' do
-    subject(:users) { client.retrieve_users(uids) }
-
-    let(:requests) { (uids.is_a?(Array) ? uids : [uids]).collect { |uid| {path: "users/#{uid}"} } }
+    subject { client.retrieve_users(uids) }
 
     context 'providing an array of users uids' do
-      let(:uids) { %w(wwe zackryder) }
+      let(:sorted_uids) { 75.times.collect { |i| "test_user_#{i}" }.sort }
+      let(:uids)        { sorted_uids.shuffle } 
 
       before do
-        responses = json_fixture("users.json").collect { |u| double :user, status: 200, body: u.to_json }
+        sorted_uids.in_groups_of(50, false) do |uid_group|
+          fake_user_response = {users: uid_group.collect { |uid| {user: {uid: uid} } } }
 
-        client.should_receive(:multi_request).with(:get, requests).and_return(responses)
+          stub_request(:get, "https://api.tout.com/api/v1/users?uids=#{uid_group.join(',')}").
+            to_return(
+              status: 200, 
+              body: fake_user_response.to_json,
+              headers: {}
+            )
+        end
       end
 
       its(:size) { should == uids.size }
       it 'should contain the users' do
-        expect(users.map(&:uid)).to eq uids
+        expect(subject.map(&:uid).sort).to eq sorted_uids
       end
     end
 
     context 'providing a single uid as string' do
       let(:uids) { 'zackryder' }
       before do
-        responses = [double(:user, body: json_fixture("users.json").find{ |u| u['user']['uid'] == uids}.to_json)]
-
-        client.
-          should_receive(:multi_request).
-          with(:get, requests).
-          and_return responses
+        stub_request(:get, "https://api.tout.com/api/v1/users?uids=#{uids}").
+          to_return(
+            status: 200, 
+            body: {users: [{user: {uid: uids}}]}.to_json,
+            headers: {}
+          )
       end
       its(:size)       { should == 1 }
       its('first.uid') { should == uids }
@@ -55,7 +61,6 @@ describe Trubl::API::Users do
       end
       it { should == [] }
     end
-    
   end
 
 

@@ -134,7 +134,8 @@ module Trubl
 
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
-    def request(method, path, params={})
+    def request(method, path, params)
+      params ||= {}
       uri = full_url(path)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params.merge(headers: headers)}")
@@ -152,15 +153,19 @@ module Trubl
     def multi_request(method, requests=[], opts={})
       return [] if requests.blank? or [:get].exclude?(method.to_sym)
 
+      if requests.size == 1
+        request = requests.first
+        path = [request[:path], request[:query].try(:to_query)].compact.join('?')
+        return [request(method, path, request[:params])]
+      end
+
       opts.reverse_merge! max_concurrency: 10
 
       Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")      
 
-      if RUBY_ENGINE == 'ruby'
-        multi_request_typhoeus(method, requests, opts)
-      else
-        multi_request_threaded(method, requests, opts)
-      end
+      action = RUBY_ENGINE == 'ruby' ? :multi_request_typhoeus : :multi_request_threaded
+
+      self.send(action, method, requests, opts)
     end
 
     def multi_request_threaded(method, requests=[], opts={})
@@ -171,7 +176,7 @@ module Trubl
       opts[:max_concurrency].times.map do
         Thread.new(requests, responses) do |requests, responses|
           while request = mutex.synchronize { requests.pop }
-            response = HTTParty.send(method, full_url(request[:path]), {headers: headers})
+            response = HTTParty.send(method, full_url(request[:path]), {headers: headers}.merge(request[:params] || {} ))
             mutex.synchronize { responses << response }
           end
         end
@@ -201,7 +206,8 @@ module Trubl
       [].tap do |responses|
         conn.in_parallel do
           requests.each do |request|
-            responses << conn.get(request[:path], request[:params], headers)
+            path = [request[:path], request[:query].try(:to_query)].compact.join('?')
+            responses << conn.get(path, request[:params], headers)
           end
         end
       end

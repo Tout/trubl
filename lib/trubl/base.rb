@@ -20,7 +20,15 @@ module Trubl
     private
 
       def missing_or_exception?(response)
-        response.respond_to?(:code) && (400..600).include?(response.code)
+        code = if response.respond_to?(:code)
+          response.code
+        elsif response.respond_to?(:status)
+          response.status
+        else
+          nil
+        end
+
+        code && (400..600).include?(code)
       end
 
   end
