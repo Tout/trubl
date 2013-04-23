@@ -146,7 +146,7 @@ module Trubl
       else
         Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
       end
-      response.body.force_encoding("utf-8") if response.body
+      response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
       response
     end
 
@@ -165,7 +165,10 @@ module Trubl
 
       action = RUBY_ENGINE == 'ruby' ? :multi_request_typhoeus : :multi_request_threaded
 
-      self.send(action, method, requests, opts)
+      self.send(action, method, requests, opts).collect do |response|
+        response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
+        response
+      end
     end
 
     def multi_request_threaded(method, requests=[], opts={})
