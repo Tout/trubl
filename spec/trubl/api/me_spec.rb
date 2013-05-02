@@ -37,4 +37,16 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me/friends").should have_been_made
   end
 
+  describe '.widgets' do
+    before do
+      stub_get("https://api.tout.com/api/v1/me/widgets").to_return(body: fixture("widgets.json"))
+    end
+    subject { Trubl::Client.new.widgets() }
+    it { should be_kind_of Trubl::Widgets }
+    it 'does the right api call' do
+      subject
+      some_request(:get, "https://api.tout.com/api/v1/me/widgets").should have_been_made
+    end
+  end
+
 end
