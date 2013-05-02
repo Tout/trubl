@@ -36,6 +36,12 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
+      # order, per_page, page arent supported at the moment
+      def retrieve_user_widgets(uid, order=nil, per_page=nil, page=nil)
+        response = get("/api/v1/users/#{uid}/widgets")
+        Trubl::Widgets.new.from_response(response)
+      end        
+
       # implements http://developer.tout.com/api/users-api/apimethod/follow-user
       # returns response object
       def follow_user(uid)

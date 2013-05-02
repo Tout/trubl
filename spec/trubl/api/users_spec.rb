@@ -52,4 +52,20 @@ describe Trubl::API::Users do
     some_request(:post, "/api/v1/users/teamtout/follow").should have_been_made
   end
 
+   describe '.retrieve_user_widgets' do
+    let(:user_uid) { 'teamtout'}
+    let(:path)     { "https://api.tout.com/api/v1/users/#{user_uid}/widgets" }
+    before do
+      stub_get(path).to_return(body: fixture("widgets.json"))
+    end
+    subject { Trubl::Client.new.retrieve_user_widgets(user_uid) }
+    it { should be_kind_of Trubl::Widgets }
+    it 'does the right api call' do
+      subject
+      some_request(:get,path).should have_been_made
+    end
+  end 
+
+
+
 end
