@@ -1,0 +1,142 @@
+{ "widgets": [
+  {
+    "widget": {
+      "uid": "d0cr9c",
+      "style": "broadcast",
+      "orientation": "vertical",
+      "title": "Widget Builder Marketing Page",
+      "width": "300",
+      "height": "600",
+      "has_anchor_tout": true,
+      "first_tout_open": true,
+      "order": "newest",
+      "commentable": true,
+      "open_graph_enabled": false,
+      "default_text": "",
+      "shareable": true,
+      "header_bg_color": "1985b7",
+      "footer_bg_color": "ffffff",
+      "body_bg_color": "e8e8e8",
+      "font_color": "ffffff",
+      "font_family": "Palatino Linotype",
+      "header_text": "Example Widget with Anchor Tout ___________________",
+      "header_link": "",
+      "display_header": true,
+      "allow_embed": true,
+      "created_at": "2012-08-31T13:05:27-07:00",
+      "updated_at": "2012-09-08T11:40:46-07:00",
+      "stream_id": 2496,
+      "autopopulate": false,
+      "autoplay": false,
+      "autorefresh": false,
+      "autorefresh_interval": null,
+      "ui_locale": "en-US",
+      "user": {
+        "username": "TeamTout",
+        "uid": "teamtout",
+        "fullname": "Team Tout",
+        "friendly_name": "Team Tout",
+        "verified": true,
+        "touts_count": 2176,
+        "followers_count": 25811,
+        "friends_count": 1731,
+        "last_tout_recorded_at": "2012-12-21T00:53:49Z",
+        "created_at": "2011-06-14T17:21:38Z",
+        "avatar": {
+          "profile": {
+            "http_url": "http://avatars-staging.tout.com/u/b49e63bc2e07da02c0d423f66a467a88/profile/ToutLogoAvatar.jpg"
+          },
+          "large": {
+            "http_url": "http://avatars-staging.tout.com/u/b49e63bc2e07da02c0d423f66a467a88/large/ToutLogoAvatar.jpg"
+          },
+          "medium": {
+            "http_url": "http://avatars-staging.tout.com/u/b49e63bc2e07da02c0d423f66a467a88/medium/ToutLogoAvatar.jpg"
+          },
+          "small": {
+            "http_url": "http://avatars-staging.tout.com/u/b49e63bc2e07da02c0d423f66a467a88/small/ToutLogoAvatar.jpg"
+          }
+        }
+      },
+      "anchor_tout": {
+        "uid": "j6l3uu",
+        "text": "This is an anchor Tout. ",
+        "parsed_text": {
+          "hashtags": [
+
+          ],
+          "mentions": [
+
+          ],
+          "urls": [
+
+          ]
+        },
+        "views_count": 254,
+        "likes_count": 10,
+        "total_likes_count": 10,
+        "replies_count": 1,
+        "retouts_count": 0,
+        "recorded_at": "2012-09-05T06:32:51Z",
+        "created_at": "2012-09-05T06:34:21Z",
+        "privacy": "public",
+        "user": {
+          "username": "AnchorTout",
+          "uid": "anchortout",
+          "fullname": "",
+          "verified": false,
+          "location": "",
+          "headline": "",
+          "bio": "",
+          "friendly_name": "AnchorTout",
+          "touts_count": 6,
+          "followers_count": 0,
+          "friends_count": 0,
+          "last_tout_recorded_at": "2012-09-18T02:11:07Z",
+          "created_at": "2012-09-05T05:45:10Z",
+          "avatar": {
+            "profile": {
+              "http_url": "http://avatars-staging.tout.com/u/83ae660c92aa860fbe368ab2278ad96d/profile/Screen_shot_2012-09-04_at_11.35.57_PM.png"
+            },
+            "large": {
+              "http_url": "http://avatars-staging.tout.com/u/83ae660c92aa860fbe368ab2278ad96d/large/Screen_shot_2012-09-04_at_11.35.57_PM.png"
+            },
+            "medium": {
+              "http_url": "http://avatars-staging.tout.com/u/83ae660c92aa860fbe368ab2278ad96d/medium/Screen_shot_2012-09-04_at_11.35.57_PM.png"
+            },
+            "small": {
+              "http_url": "http://avatars-staging.tout.com/u/83ae660c92aa860fbe368ab2278ad96d/small/Screen_shot_2012-09-04_at_11.35.57_PM.png"
+            }
+          }
+        },
+        "image": {
+          "poster": {
+            "width": 480,
+            "height": 360,
+            "http_url": "http://thumbnails-staging.tout.com/watermark/704197b1a83f2421c3f4d39525ad3486/poster-0.jpg"
+          },
+          "thumbnail": {
+            "width": 150,
+            "height": 112,
+            "http_url": "http://thumbnails-staging.tout.com/watermark/704197b1a83f2421c3f4d39525ad3486/thumbs-0.jpg"
+          }
+        },
+        "video": {
+          "type": "native",
+          "duration": 15,
+          "mp4": {
+            "width": 480,
+            "height": 360,
+            "http_url": "http://videos-staging.tout.com/watermark/mp4/704197b1a83f2421c3f4d39525ad3486.mp4"
+          }
+        }
+      },
+      "stream_uid": "bybq2v",
+      "stream_pusher_channel": "staging-filteredstream-bybq2v-7abb45b873a9d4b150171853d6885c3e",
+      "moderation_set": {
+        "uid": "vgn056",
+        "auto_approve": true
+      }
+    }
+  }
+  
+] }

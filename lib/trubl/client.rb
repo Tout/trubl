@@ -6,6 +6,7 @@ require_relative './api/search'
 require_relative './api/streams'
 require_relative './api/touts'
 require_relative './api/users'
+require_relative './widgets'
 require_relative './oauth'
 
 require 'httparty'
