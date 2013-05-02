@@ -36,6 +36,12 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
+      # order, per_page, page arent supported at the moment
+      def widgets(order=nil, per_page=nil, page=nil)
+        response = get("me/widgets")
+        Trubl::Widgets.new.from_response(response)
+      end
+
     end
   end
 end
