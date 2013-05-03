@@ -32,7 +32,8 @@ module Trubl
         client_secret: @client_secret,
         email:         @email,
         password:      @password,
-        scope:         "read write share",
+        # scope:         "read write share",
+        scope:          "read write share update_auth",
         grant_type:    "password"
       }.merge(opts)
 
