@@ -1,0 +1,15 @@
+{
+    "category": {
+        "uid": "music",
+        "name": "Music",
+        "description": "",
+        "image": {
+            "web": {
+                "http_url": "http://avatars.tout.com/category_images/music/web/Music_icon__2x.png.png"
+            },
+            "mobile": {
+                "http_url": "http://avatars.tout.com/category_images/music/mobile/Music_icon__2x.png.png"
+            }
+        }
+    }
+}
