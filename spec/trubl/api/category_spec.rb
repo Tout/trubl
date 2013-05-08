@@ -11,7 +11,7 @@ describe Trubl::API::Category do
     category = Trubl::Client.new.retrieve_category(category_uid)
     expect(category).to be_a Trubl::Category
     expect(category.uid).to eq(category_uid)
-    api_get_request("categories/#{categories_uid}").should have_been_made
+    api_get_request("categories/#{category_uid}").should have_been_made
   end
 
   it '.retrieve_category_users parses category users correctly' do
