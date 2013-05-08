@@ -4,7 +4,7 @@ require 'webmock'
 
 describe Trubl::API::Channel do
 
-  let(:category_uid){"new-york-fashion-week"}
+  let(:channel_uid){"new-york-fashion-week"}
 
   it '.retrieve_channel parses a channel response correctly' do
     stub_api_get("channels/#{channel_uid}").to_return(:body => fixture("channel_response.json"))
