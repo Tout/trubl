@@ -4,6 +4,7 @@ require_relative './api/hashtags'
 require_relative './api/me'
 require_relative './api/search'
 require_relative './api/streams'
+require_relative './api/suggested_users'
 require_relative './api/touts'
 require_relative './api/users'
 require_relative './oauth'
@@ -26,6 +27,7 @@ module Trubl
     include Trubl::API::Me
     include Trubl::API::Search
     include Trubl::API::Streams
+    include Trubl::API::Suggested_Users
     include Trubl::API::Touts
     include Trubl::API::Users
     include Trubl::OAuth
