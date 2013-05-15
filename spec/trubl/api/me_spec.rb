@@ -9,6 +9,15 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me").should have_been_made
   end
 
+  it ".get_my_authorizations returns my Trubl::Authorizations" do
+    stub_get("https://api.tout.com/api/v1/me/authorizations").to_return(:body => fixture("me_authorizations_response.json"))
+    authorizations = Trubl::Client.new.get_my_authorizations
+    some_request(:get, "/api/v1/me/authorizations").should have_been_made
+    expect(authorizations).to be_a Trubl::Authorizations
+    expect(authorizations.size).to eq 1
+    expect(authorizations.first.name).to eq 'Facebook'
+  end
+
   it ".get_my_fb_sharing_settings returns json rep of fb settings" do
     stub_get("https://api.tout.com/api/v1/me/sharing/facebook").to_return(:body => fixture("me_fb_sharing_response.json"))
     json = Trubl::Client.new.get_my_fb_sharing_settings
