@@ -1,4 +1,5 @@
 require_relative '../user'
+require_relative '../authorizations'
 
 module Trubl
   module API
@@ -9,6 +10,12 @@ module Trubl
       # returns Trubl::User instance or nil
       def get_me
         Trubl::User.new.from_response(get("me"))
+      end
+
+      # implements me/authorizations
+      def get_my_authorizations
+        response = get("me/authorizations")
+        Trubl::Authorizations.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings

@@ -22,7 +22,7 @@ module Trubl
     end
 
     def klass_name
-      self.class.name.gsub('trubl::', '').downcase
+      self.class.name.downcase.gsub('trubl::', '')
     end
 
     private

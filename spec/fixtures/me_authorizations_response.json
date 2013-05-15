@@ -1,0 +1,14 @@
+{
+   "authorizations":[
+      {
+         "authorization":{
+            "name":"Facebook",
+            "friendly_name":"facebook",
+            "meta_data":{
+               "full_username":"user",
+               "authorized_since":"2013-05-14T20:44:13Z"
+            }
+         }
+      }
+   ]
+}
