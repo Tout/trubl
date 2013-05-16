@@ -221,6 +221,10 @@ module Trubl
       end
     end
 
+    def set_logger(level)
+      Trubl.logger(level)
+    end
+
     private
     # Fully qualified uri
     def full_uri(path)
