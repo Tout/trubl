@@ -12,10 +12,11 @@ module Trubl
         Trubl::User.new.from_response(get("me"))
       end
 
+      # TODO update_me should return meaningful exceptions instead of nil
       def update_me(params={})
         return nil if params.blank? or params[:user].blank?
 
-        allowed_properties = [:email, :password, :password_confirmation, :username, :avatar, :fullname, :location, :bio, :headline, :url]
+        allowed_properties = [:email, :password, :password_confirmation, :username, :avatar, :fullname, :location, :bio, :headline]
         unallowed_properties = params[:user].keys.map(&:to_sym) - allowed_properties
 
         raise "#{unallowed_properties.join(', ')} are not supported" if unallowed_properties.present?

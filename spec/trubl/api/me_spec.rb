@@ -19,7 +19,7 @@ describe Trubl::API::Me do
       after { some_request(:put, url).should have_been_made }
 
       context 'a success' do
-        let(:result) { {status: 200, body: fixture('retrieve_me_response.json')} }
+        let(:result) { {status: 200, body: fixture('update_me_response.json')} }
         it { should be_a Trubl::User }
       end
       context 'a failure' do
