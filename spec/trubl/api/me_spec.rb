@@ -9,6 +9,43 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me").should have_been_made
   end
 
+  describe '.update_me' do
+    subject { Trubl::Client.new.update_me(params) }
+
+    context 'updating email and password' do
+      let(:params) { {user: {email: 'user@example.com', password: '123456', password_confirmation: '123456'}} }
+      let(:url) { "/api/v1/me" }
+      before { stub_put("https://api.tout.com#{url}").to_return(result) }
+      after { some_request(:put, url).should have_been_made }
+
+      context 'a success' do
+        let(:result) { {status: 200, body: fixture('retrieve_me_response.json')} }
+        it { should be_a Trubl::User }
+      end
+      context 'a failure' do
+        let(:result) { {status: 500} }
+        it { should be_nil }
+      end
+    end
+
+    context 'not even hitting the api' do
+      context 'blank payload' do
+        let(:params) { {} }
+        it { should be_nil }
+      end
+      context 'updating nothing' do
+        let(:params) { {user: nil} }
+        it { should be_nil }
+      end
+      context 'updating unallowed property' do
+        let(:params) { {user: {email: 'user@example.com', password: '123456', password_confirmation: '123456', friends_count: 1}} }
+        it 'should raise' do
+          expect { subject }.to raise_exception
+        end
+      end
+    end
+  end
+
   it ".get_my_authorizations returns my Trubl::Authorizations" do
     stub_get("https://api.tout.com/api/v1/me/authorizations").to_return(:body => fixture("me_authorizations_response.json"))
     authorizations = Trubl::Client.new.get_my_authorizations
