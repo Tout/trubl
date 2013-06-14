@@ -5,8 +5,21 @@ require "trubl/user"
 
 describe Trubl::User do
   include RSpecEncodingMatchers
-  # this is the silly namespace one
-  # this is also an example of the simple OpenStruct usage, to be replaced eventually
+  let(:user_uid) { 'karmin' }
+
+  describe "update" do
+    describe "with basic params" do
+      let(:user_params) { {:email => 'new@test.com'} }
+
+      it "sends a request to the update endpoint for the user" do
+        stub_put("https://api.tout.com/api/v1/users/#{user_uid}").to_return(:body => fixture("user.json"))
+
+        response = Trubl::User.update(user_uid, user_params)
+        some_request(:put, "/api/v1/users/#{user_uid}").should have_been_made
+        response.code.should eq(200)
+      end
+    end
+  end
 
   it "magically creates a Tout object from json" do
     user = Trubl::User.new(json_fixture("user.json")["user"])

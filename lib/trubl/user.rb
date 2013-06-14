@@ -3,6 +3,10 @@ require 'trubl/base'
 module Trubl
   class User < Trubl::Base
 
+    def self.update(uid, params)
+      Trubl.client.update_user(uid, params)
+    end
+
     def likes
       Trubl.client.retrieve_user_likes(self.uid)
     end
