@@ -73,6 +73,15 @@ module Trubl
       def unfollow_user(uid)
         delete("/api/v1/users/#{uid}/follows")
       end
+      
+      # takes standard user params, with or without toplevel user node
+      # http://tout.github.io/api-docs/static/resources/me/id.html#put
+      # can pass a file reference for the avatar
+      # returns response object
+      def update_user(uid, params) # :nodoc:
+        params = params[:user].present? ? params[:user] : {user: params}
+        put("/api/v1/users/#{uid}", body: params)
+      end
 
     end
   end
