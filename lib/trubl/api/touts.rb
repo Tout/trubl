@@ -45,7 +45,18 @@ module Trubl
           flatten.
           compact
       end
-
+      
+      def search(params={})
+        raise "tout_uids AND/OR user_uids are required params" if (!params[:tout_uids].present? and !params[:user_uids].present?)
+        response = post("touts/search", {body: params})
+        Trubl::Touts.new.from_response(response)
+      end
+      
+      def retrieve_tout_replies(uid)
+        response = get("touts/#{uid}/replies")
+        Trubl::Touts.new.from_response(response)
+      end
+      
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       # returns Trubl::Conversation instance or nil
       def retrieve_tout_conversation(uid)
