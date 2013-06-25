@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'debugger', '1.3' if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'pry-debugger' if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
