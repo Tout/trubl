@@ -2,10 +2,13 @@ require_relative './pagination'
 
 module Trubl
   class Collection < Array
-
+    
+    attr_reader :pagination
+    
     def from_response(response, options = {})
       return nil if missing_or_exception?(response)
       json = JSON.parse(response.body)
+      @pagination  =  Trubl::Pagination.new.from_response(response)
       self.concat (json[container_name] || []).map{|m| klass.new(m[member_name]) }
     end
 

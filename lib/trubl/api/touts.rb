@@ -46,12 +46,14 @@ module Trubl
           compact
       end
       
-      def search(params={})
+      # returns Array of Trubl::Tout instances or nil
+      def filter_touts(params={})
         raise "tout_uids AND/OR user_uids are required params" if (!params[:tout_uids].present? and !params[:user_uids].present?)
         response = post("touts/search", {body: params})
         Trubl::Touts.new.from_response(response)
       end
       
+      # returns Array of Trubl::Tout instances or nil
       def retrieve_tout_replies(uid)
         response = get("touts/#{uid}/replies")
         Trubl::Touts.new.from_response(response)
