@@ -17,11 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
-  if RUBY_ENGINE == 'ruby'
-    spec.add_development_dependency 'debugger', '1.3' 
-    spec.add_development_dependency 'debugger-linecache', '1.1.1'
-    spec.add_development_dependency 'pry-debugger'
-  end
+  #spec.add_development_dependency 'pry-debugger', if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rspec-encoding-matchers'
