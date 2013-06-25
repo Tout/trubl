@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
+  #commented because of Travis build failures (for some reason it could not run Bundler successfully and failed with "An error occurred while installing debugger (1.5.0), and Bundler cannot continue")
   #spec.add_development_dependency 'pry-debugger', if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'

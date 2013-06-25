@@ -48,7 +48,7 @@ module Trubl
       
       # returns Array of Trubl::Tout instances or nil
       def filter_touts(params={})
-        raise "tout_uids AND/OR user_uids are required params" if (!params[:tout_uids].present? and !params[:user_uids].present?)
+        raise "tout_uids AND/OR user_uids are required params" if params[:tout_uids].blank? && params[:user_uids].blank?
         response = post("touts/search", {body: params})
         Trubl::Touts.new.from_response(response)
       end
