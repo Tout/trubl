@@ -56,6 +56,13 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
+      # implements http://tout.github.io/api-docs/static/resources/users/following
+      # returns Array of Trubl::User instances or nil
+      def retrieve_user_following(uid, order="most_recent_first", per_page=nil, page=nil)
+        response = get("/api/v1/users/#{uid}/following", query: {order: order, per_page: per_page, page: page})
+        Trubl::Users.new.from_response(response)
+      end
+
       # order, per_page, page arent supported at the moment
       def retrieve_user_widgets(uid, order=nil, per_page=nil, page=nil)
         response = get("/api/v1/users/#{uid}/widgets")
