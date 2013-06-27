@@ -45,7 +45,20 @@ module Trubl
           flatten.
           compact
       end
-
+      
+      # returns Array of Trubl::Tout instances or nil
+      def filter_touts(params={})
+        raise "tout_uids AND/OR user_uids are required params" if params[:tout_uids].blank? && params[:user_uids].blank?
+        response = post("touts/search", {body: params})
+        Trubl::Touts.new.from_response(response)
+      end
+      
+      # returns Array of Trubl::Tout instances or nil
+      def retrieve_tout_replies(uid)
+        response = get("touts/#{uid}/replies")
+        Trubl::Touts.new.from_response(response)
+      end
+      
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       # returns Trubl::Conversation instance or nil
       def retrieve_tout_conversation(uid)
@@ -122,6 +135,19 @@ module Trubl
         else
           nil
         end
+      end
+
+      # implements http://developer.tout.com/api/touts-api/apimethod/reply-tout??
+      # returns Trubl::Tout instance or nil
+      def reply_tout(uid, params={})
+        response = if params[:url].nil?
+          params[:data] = params[:tout].delete(:data)
+          multipart_post("touts/#{uid}/replies", params)
+        else
+          post("touts/#{uid}/replies", params)
+        end
+
+        Trubl::Tout.new.from_response(response)
       end
 
 

@@ -10,7 +10,7 @@ describe Trubl::API::Touts do
     stub_api_get("featured").to_return(:body => fixture("featured_touts_response.json"))
     touts = client.featured_touts()
     expect(touts).to be_a Trubl::Touts
-    #expect(touts.pagination).to be_a Trubl::Pagination
+    expect(touts.pagination).to be_a Trubl::Pagination
     touts.each do |u|
       expect(u).to be_a Trubl::Tout
     end
@@ -21,7 +21,7 @@ describe Trubl::API::Touts do
     stub_api_get("touts/fhcl57/liked_by").to_return(:body => fixture("touts_liked_by_response.json"))
     users = client.tout_liked_by("fhcl57")
     expect(users).to be_a Trubl::Users
-    #expect(users.pagination).to be_a Trubl::Pagination
+    expect(users.pagination).to be_a Trubl::Pagination
     users.each do |u|
       expect(u).to be_a Trubl::User
     end
@@ -98,7 +98,7 @@ describe Trubl::API::Touts do
     stub_api_get("latest").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.latest_touts()
     expect(touts).to be_a Trubl::Touts
-    #expect(touts.pagination).to be_a Trubl::Pagination
+    expect(touts.pagination).to be_a Trubl::Pagination
     touts.each do |u|
       expect(u).to be_a Trubl::Tout
     end
@@ -109,7 +109,7 @@ describe Trubl::API::Touts do
     stub_api_get("me/updates").to_return(:body => fixture("touts_me_updates_response.json"))
     touts = client.retrieve_updates()
     expect(touts).to be_a Trubl::Touts
-    #expect(touts.pagination).to be_a Trubl::Pagination
+    expect(touts.pagination).to be_a Trubl::Pagination
     touts.each do |u|
       expect(u).to be_a Trubl::Tout
     end
@@ -209,7 +209,29 @@ describe Trubl::API::Touts do
       it { should be_nil }
     end
   end
-
+  
+  it '.filter_touts returns a collection of Touts' do
+    stub_post("https://api.tout.com/api/v1/touts/search").to_return(:body => fixture("latest_touts_response.json"))
+    touts = client.filter_touts({tout_uids: ["fhcl57"]})
+    expect(touts).to be_a Trubl::Touts
+    expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:post, "/api/v1/touts/search").should have_been_made
+  end
+  
+  it '.retrieve_tout_replies returns a collection of Touts' do
+    stub_api_get("touts/fhcl57/replies").to_return(:body => fixture("latest_touts_response.json"))
+    touts = client.retrieve_tout_replies('fhcl57')
+    expect(touts).to be_a Trubl::Touts
+    expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:get, "/api/v1/touts/fhcl57/replies").should have_been_made
+  end
+  
 end
 
 
