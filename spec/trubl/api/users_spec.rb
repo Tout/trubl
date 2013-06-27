@@ -97,6 +97,18 @@ describe Trubl::API::Users do
     some_request(:get, "/api/v1/users/teamtout/followers").should have_been_made
   end
 
+  it '.retrieve_user_following returns the Users the specified user follows' do
+    stub_get("https://api.tout.com/api/v1/users/teamtout/following").to_return(:body => fixture("user_following.json"))
+    users = client.retrieve_user_following("teamtout")
+    expect(users).to be_a Trubl::Users
+    #expect(users.pagination).to be_a Trubl::Pagination
+    users.each do |u|
+      expect(u).to be_a Trubl::User
+    end
+    some_request(:get, "/api/v1/users/teamtout/following").should have_been_made
+  end
+
+
   it '.follow_user executes a follow for the specified user with a user authed token' do
     stub_post("https://api.tout.com/api/v1/users/teamtout/follow").to_return(:body => "")
     client.follow_user('teamtout')

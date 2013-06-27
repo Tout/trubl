@@ -124,19 +124,6 @@ module Trubl
         end
       end
 
-      # implements http://developer.tout.com/api/touts-api/apimethod/reply-tout??
-      # returns Trubl::Tout instance or nil
-      def reply_tout(uid, params={})
-        response = if params[:url].nil?
-          params[:data] = params[:tout].delete(:data)
-          multipart_post("touts/#{uid}/replies", params)
-        else
-          post("touts/#{uid}/replies", params)
-        end
-
-        Trubl::Tout.new.from_response(response)
-      end
-
 
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
