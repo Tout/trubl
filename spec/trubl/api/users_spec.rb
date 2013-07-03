@@ -128,7 +128,29 @@ describe Trubl::API::Users do
       some_request(:get,path).should have_been_made
     end
   end 
-
-
+  
+  describe '#block_user_by' do
+    let(:user_uid) { 'some_user'}
+    let(:blocker_uid) { 'some_blocker'}
+    let(:request_path) {"https://api.tout.com/api/v1/users/#{user_uid}/blocks/by/#{blocker_uid}"}
+    
+    it 'executes a blocking of a user by another (blocker) user' do
+      stub_post(request_path).to_return(:body => "")
+      client.block_user_by(user_uid, blocker_uid)
+      some_request(:post, request_path).should have_been_made
+    end
+  end
+  
+  describe '#unblock_user_by' do
+    let(:user_uid) { 'some_user'}
+    let(:blocker_uid) { 'some_blocker'}
+    let(:request_path) {"https://api.tout.com/api/v1/users/#{user_uid}/blocks/by/#{blocker_uid}"}
+    
+    it 'executes an unblocking of a user by another (blocker) user' do
+      stub_delete(request_path).to_return(:body => "")
+      client.unblock_user_by(user_uid, blocker_uid)
+      some_request(:delete, request_path).should have_been_made
+    end
+  end
 
 end

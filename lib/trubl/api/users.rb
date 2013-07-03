@@ -89,7 +89,17 @@ module Trubl
         params = params[:user].present? ? params[:user] : {user: params}
         put("/api/v1/users/#{uid}", body: params)
       end
-
+      
+      # returns response object
+      def block_user_by(uid, blocker_uid)
+        post("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+      end
+      
+      # returns response object
+      def unblock_user_by(uid, blocker_uid)
+        delete("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+      end
+      
     end
   end
 end
