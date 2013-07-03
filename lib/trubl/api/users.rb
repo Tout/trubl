@@ -92,12 +92,14 @@ module Trubl
       
       # returns response object
       def block_user_by(uid, blocker_uid)
-        post("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+        response = post("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+        (200...300).include?(response.code)
       end
       
       # returns response object
       def unblock_user_by(uid, blocker_uid)
-        delete("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+        response = delete("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
+        (200...300).include?(response.code)
       end
       
     end
