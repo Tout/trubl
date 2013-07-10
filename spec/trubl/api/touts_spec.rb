@@ -232,6 +232,13 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/touts/fhcl57/replies").should have_been_made
   end
   
+  it '.publish_tout returns published Tout' do
+    stub_put("https://api.tout.com/api/v1/touts/fhcl57/publish").to_return(:body => fixture('tout.json'))
+    tout = client.publish_tout("fhcl57")
+    expect(tout).to be_a Trubl::Tout
+    some_request(:put, "/api/v1/touts/fhcl57/publish").should have_been_made
+  end
+  
 end
 
 
