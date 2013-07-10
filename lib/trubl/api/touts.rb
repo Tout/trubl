@@ -149,7 +149,12 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-
+      
+      # returns Trubl::Tout instance or nil
+      def publish_tout(uid)
+        response = put("touts/#{uid}/publish")
+        Trubl::Tout.new.from_response(response)
+      end
 
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
