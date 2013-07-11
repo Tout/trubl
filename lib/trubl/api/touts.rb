@@ -155,7 +155,12 @@ module Trubl
         response = put("touts/#{uid}/publish")
         Trubl::Tout.new.from_response(response)
       end
-
+      
+      # returns true/false
+      def remove_tout_as_reply(uid)
+        delete("touts/#{uid}/conversation").code == 200
+      end
+      
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
       def share_tout(uid)
