@@ -87,6 +87,14 @@ module Trubl
       # returns response object
       def update_user(uid, params) # :nodoc:
         params = params[:user].present? ? params[:user] : {user: params}
+        if params[:avatar].respond_to? :original_filename
+          file = params[:avatar].tempfile
+          content_type = params[:avatar].content_type
+          filename = avatar.original_filename
+          params[:avatar] = UploadIO.new(file, content_type, filename)
+        else
+          params.delete :avatar
+        end
         put("/api/v1/users/#{uid}", body: params)
       end
       
