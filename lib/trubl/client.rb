@@ -11,7 +11,7 @@ require_relative './api/users'
 require_relative './widgets'
 require_relative './oauth'
 
-require 'httparty'
+require 'httmultiparty'
 require 'uri'
 require 'faraday'
 require 'active_support/core_ext'
@@ -144,7 +144,7 @@ module Trubl
       uri = full_url(path)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params.merge(headers: headers)}")
-      response = HTTParty.send(method, uri, params.merge(headers: headers))
+      response = HTTMultiParty.send(method, uri, params.merge(headers: headers))
 
       if !response.code =~ /20[0-9]/
         Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")

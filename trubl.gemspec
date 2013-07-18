@@ -4,6 +4,7 @@ require File.expand_path('../lib/trubl/version', __FILE__)
 Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 1.7.7'
   spec.add_dependency 'httparty', '~> 0.9.0'
+  spec.add_dependency 'httmultiparty', '~> 0.3.10'
   spec.add_dependency 'faraday', '>= 0.8.4'
   spec.add_dependency 'activesupport', '>= 3.2.11'
   spec.add_dependency 'oauth2', '~> 0.9.1'
