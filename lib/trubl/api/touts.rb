@@ -156,6 +156,12 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
       
+      # returns Trubl::Tout instance or nil
+      def reject_tout(uid)
+        response = put("touts/#{uid}/reject")
+        Trubl::Tout.new.from_response(response)
+      end
+      
       # returns true/false
       def remove_tout_as_reply(uid)
         delete("touts/#{uid}/conversation").code == 200
