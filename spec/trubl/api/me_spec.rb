@@ -1,3 +1,4 @@
+require 'spec_helper'
 require 'trubl/client'
 
 describe Trubl::API::Me do
@@ -53,6 +54,15 @@ describe Trubl::API::Me do
     expect(authorizations).to be_a Trubl::Authorizations
     expect(authorizations.size).to eq 1
     expect(authorizations.first.name).to eq 'Facebook'
+  end
+
+  it ".get_my_settings returns my Trubl::Settings" do
+    stub_get("https://api.tout.com/api/v1/me/settings").to_return(:body => fixture("me_settings_response.json"))
+    settings = Trubl::Client.new.get_my_settings
+    some_request(:get, "/api/v1/me/settings").should have_been_made
+    expect(settings).to be_a Hash
+    expect(settings["settings"].size).to eq 3
+    expect(settings["settings"]["limits"]["tout_max_duration"]).to eq 15
   end
 
   it ".get_my_fb_sharing_settings returns json rep of fb settings" do

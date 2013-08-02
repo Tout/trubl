@@ -1,5 +1,5 @@
-require_relative '../user'
 require_relative '../authorizations'
+require_relative '../user'
 
 module Trubl
   module API
@@ -30,6 +30,11 @@ module Trubl
       def get_my_authorizations
         response = get("me/authorizations")
         Trubl::Authorizations.new.from_response(response)
+      end
+
+      def get_my_settings
+        response = get("me/settings")
+        JSON.parse(response.body)
       end
 
       # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings

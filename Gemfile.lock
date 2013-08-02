@@ -90,7 +90,6 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     yajl-ruby (1.1.0)
-    yard (0.8.6.2)
 
 PLATFORMS
   ruby
@@ -103,4 +102,3 @@ DEPENDENCIES
   timecop
   trubl!
   webmock
-  yard
