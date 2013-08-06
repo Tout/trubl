@@ -1,4 +1,5 @@
 require_relative '../authorizations'
+require_relative '../notifications'
 require_relative '../settings'
 require_relative '../user'
 
@@ -37,6 +38,12 @@ module Trubl
         Trubl::Authorizations.new.from_response(response)
       end
 
+      # implements me/authorizations
+      def get_my_authorizations_json
+        response = get("me/authorizations.json")
+        Trubl::Authorizations.new.from_response(response)
+      end
+
       def get_my_settings
         response = get("me/settings")
         Trubl::Settings.new.from_response(response)
@@ -50,6 +57,12 @@ module Trubl
       # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings
       def get_my_fb_sharing_settings
         response = get("me/sharing/facebook")
+        JSON.parse(response.body)
+      end
+
+      # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings
+      def get_my_fb_sharing_settings_json
+        response = get("me/sharing/facebook.json")
         JSON.parse(response.body)
       end
 
@@ -82,6 +95,11 @@ module Trubl
       def widgets(order=nil, per_page=nil, page=nil)
         response = get("me/widgets")
         Trubl::Widgets.new.from_response(response)
+      end
+
+      def notifications()
+        response = get("me/notifications")
+        Trubl::Notifications.new.from_response(response)
       end
 
     end

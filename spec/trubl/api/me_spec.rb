@@ -63,6 +63,15 @@ describe Trubl::API::Me do
     expect(authorizations.first.name).to eq 'Facebook'
   end
 
+  it ".get_my_authorizations_json returns my Trubl::Authorizations" do
+    stub_get("https://api.tout.com/api/v1/me/authorizations.json").to_return(:body => fixture("me_authorizations_response.json"))
+    authorizations = Trubl::Client.new.get_my_authorizations_json
+    some_request(:get, "/api/v1/me/authorizations.json").should have_been_made
+    expect(authorizations).to be_a Trubl::Authorizations
+    expect(authorizations.size).to eq 1
+    expect(authorizations.first.name).to eq 'Facebook'
+  end
+
   it ".get_my_settings returns my Trubl::Settings" do
     stub_get("https://api.tout.com/api/v1/me/settings").to_return(:body => fixture("me_settings_response.json"))
     settings = Trubl::Client.new.get_my_settings
@@ -84,6 +93,13 @@ describe Trubl::API::Me do
   it ".get_my_fb_sharing_settings returns json rep of fb settings" do
     stub_get("https://api.tout.com/api/v1/me/sharing/facebook").to_return(:body => fixture("me_fb_sharing_response.json"))
     json = Trubl::Client.new.get_my_fb_sharing_settings
+    expect(json).to be_a Hash
+    expect(json["via"]["name"]).to eq("Facebook")
+  end
+
+  it ".get_my_fb_sharing_settings_json returns json rep of fb settings" do
+    stub_get("https://api.tout.com/api/v1/me/sharing/facebook.json").to_return(:body => fixture("me_fb_sharing_response.json"))
+    json = Trubl::Client.new.get_my_fb_sharing_settings_json
     expect(json).to be_a Hash
     expect(json["via"]["name"]).to eq("Facebook")
   end
@@ -126,6 +142,13 @@ describe Trubl::API::Me do
       subject
       some_request(:get, "https://api.tout.com/api/v1/me/widgets").should have_been_made
     end
+  end
+
+  it ".notifications returns Users instance" do
+    stub_get("https://api.tout.com/api/v1/me/notifications").to_return(:body => fixture("me_notifications_response.json"))
+    notifications = Trubl::Client.new.notifications()
+    expect(notifications).to be_a Trubl::Notifications
+    some_request(:get, "/api/v1/me/notifications").should have_been_made
   end
 
 end
