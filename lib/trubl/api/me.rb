@@ -13,6 +13,10 @@ module Trubl
         Trubl::User.new.from_response(get("me"))
       end
 
+      def get_me_json
+        Trubl::User.new.from_response(get("me.json"))
+      end
+
       # TODO update_me should return meaningful exceptions instead of nil
       def update_me(params={})
         return nil if params.blank? or params[:user].blank?
@@ -36,13 +40,23 @@ module Trubl
       def get_my_settings
         response = get("me/settings")
         Trubl::Settings.new.from_response(response)
-        #JSON.parse(response.body)
+      end
+
+      def get_my_settings_json
+        response = get("me/settings.json")
+        Trubl::Settings.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/me-api/apimethod/retrieve-sharing-settings
       def get_my_fb_sharing_settings
         response = get("me/sharing/facebook")
         JSON.parse(response.body)
+      end
+
+      # returns Array of Trubl::Tout instances or nil
+      def get_updates(order="most_recent_first", per_page=nil, page=nil)
+        response = get("me/updates", query: {order: order, per_page: per_page, page: page})
+        Trubl::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/me-api/apimethod/retrieve-list-touts-authenticated-user
