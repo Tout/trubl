@@ -2,6 +2,7 @@ require_relative '../authorizations'
 require_relative '../notifications'
 require_relative '../settings'
 require_relative '../user'
+require_relative '../user_notifications'
 
 module Trubl
   module API
@@ -100,6 +101,11 @@ module Trubl
       def notifications()
         response = get("me/notifications")
         Trubl::Notifications.new.from_response(response)
+      end
+
+      def notification_inbox()
+        response = get("me/notification_inbox")
+        Trubl::UserNotifications.new.from_response(response)
       end
 
     end

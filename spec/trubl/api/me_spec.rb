@@ -151,4 +151,11 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me/notifications").should have_been_made
   end
 
+  it ".notification_inbox returns Users instance" do
+    stub_get("https://api.tout.com/api/v1/me/notification_inbox").to_return(:body => fixture("me_notification_inbox_response.json"))
+    notifications = Trubl::Client.new.notification_inbox()
+    expect(notifications).to be_a Trubl::UserNotifications
+    some_request(:get, "/api/v1/me/notification_inbox").should have_been_made
+  end
+
 end
