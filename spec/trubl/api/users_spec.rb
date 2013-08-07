@@ -6,6 +6,16 @@ describe Trubl::API::Users do
 
   let(:client) { Trubl::Client.new }
 
+  it '.featured_users returns a Trubl::Users' do
+    stub_get("https://api.tout.com/api/v1/featured_users").to_return(:body => fixture("featured_users_response.json"))
+    users = client.featured_users
+    expect(users).to be_a Trubl::Users
+    users.each do |u|
+      expect(u).to be_a Trubl::User
+    end
+    some_request(:get, "/api/v1/featured_users").should have_been_made
+  end
+
   it '.retrieve_user returns a Trubl::User' do
     stub_get("https://api.tout.com/api/v1/users/karmin").to_return(:body => fixture("user.json"))
     user = client.retrieve_user("karmin")

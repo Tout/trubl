@@ -1,11 +1,30 @@
+require_relative '../categories'
 require_relative '../category'
 require_relative '../channel'
+require_relative '../channels'
 require_relative '../users'
 require_relative '../touts'
 
 module Trubl
   module API
     module Category
+
+      # implements categories/popular/users
+      # returns Trubl::Users
+      def retrieve_categories()
+        response = get("categories")
+        Trubl::Categories.new.from_response(response)
+      end
+
+      def retrieve_categories_popular_users(order=nil, per_page=nil, page=nil)
+        response = get("categories/popular/users", query: {order: order, per_page: per_page, page: page})
+        Trubl::Users.new.from_response(response)
+      end
+
+      def retrieve_categories_popular_channels(order=nil, per_page=nil, page=nil)
+        response = get("categories/popular/channels", query: {order: order, per_page: per_page, page: page})
+        Trubl::Channels.new.from_response(response)
+      end
 
       # implements categories/:uid
       # returns Trubl::Category instance or nil

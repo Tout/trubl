@@ -23,6 +23,11 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      def search_touts_json(query, per_page=nil, page=nil)
+        response = search('touts.json', query, per_page, page)
+        Trubl::Touts.new.from_response(response)
+      end
+
       private
 
       def search(type, query, per_page=nil, page=nil)
