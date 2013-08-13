@@ -108,6 +108,36 @@ module Trubl
         Trubl::UserNotifications.new.from_response(response)
       end
 
+      def devices
+        response = get("me/devices")
+        raise WTF
+      end
+
+      def streams
+        response = get("me/streams")
+        raise WTF
+      end
+
+      def channels
+        response = get("me/channels")
+        raise WTF
+      end
+
+      def subscribed_hashtags
+        response = get("me/subscribed_hashtags")
+        raise WTF
+      end
+
+      def digestable_notifications
+        response = get("me/digestable_notifications")
+        raise WTF
+      end
+
+      def blockees
+        response = get("me/blockees")
+        raise WTF
+      end
+
     end
   end
 end
