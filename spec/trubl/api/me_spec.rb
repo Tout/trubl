@@ -211,7 +211,7 @@ describe Trubl::API::Me do
       stub_get("https://api.tout.com/api/v1/me/digestable_notifications").to_return(body: fixture("me_digestable_notifications_response.json"))
     end
     subject { Trubl::Client.new.digestable_notifications() }
-    #it { should be_kind_of Trubl::Hashtags }
+    it { should be_kind_of Trubl::DigestableNotifications }
     it 'does the right api call' do
       subject
       some_request(:get, "https://api.tout.com/api/v1/me/digestable_notifications").should have_been_made

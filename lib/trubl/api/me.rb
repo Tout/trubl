@@ -1,5 +1,6 @@
 require_relative '../authorizations'
 require_relative '../devices'
+require_relative '../digestable_notifications'
 require_relative '../hashtags'
 require_relative '../notifications'
 require_relative '../settings'
@@ -133,7 +134,7 @@ module Trubl
 
       def digestable_notifications
         response = get("me/digestable_notifications")
-        response
+        Trubl::DigestableNotifications.new.from_response(response)
       end
 
       def blockees
