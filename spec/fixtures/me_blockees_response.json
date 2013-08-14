@@ -1,0 +1,37 @@
+{
+    "pagination": {
+        "current_page": 1,
+        "per_page": 50,
+        "total_entries": 1
+    },
+    "users": [
+        {
+            "user": {
+                "avatar": {
+                    "large": {
+                        "http_url": "http://avatars.tout.com/u/c8e5ce4920132c340a1004506cf92a3b/large/MelissaJHartavatar.jpg"
+                    },
+                    "medium": {
+                        "http_url": "http://avatars.tout.com/u/c8e5ce4920132c340a1004506cf92a3b/medium/MelissaJHartavatar.jpg"
+                    },
+                    "profile": {
+                        "http_url": "http://avatars.tout.com/u/c8e5ce4920132c340a1004506cf92a3b/profile/MelissaJHartavatar.jpg"
+                    },
+                    "small": {
+                        "http_url": "http://avatars.tout.com/u/c8e5ce4920132c340a1004506cf92a3b/small/MelissaJHartavatar.jpg"
+                    }
+                },
+                "bio": "You may know me as Clarissa or Sabrina but my 2 boys Mason and Brady call me Mommy! Thats my favorite role yet!",
+                "followers_count": 806,
+                "friendly_name": "Melissa Joan Hart ",
+                "friends_count": 0,
+                "fullname": "Melissa Joan Hart ",
+                "location": "Living life!",
+                "touts_count": 44,
+                "uid": "mellyjhart",
+                "username": "MellyJHart",
+                "verified": true
+            }
+        }
+    ]
+}

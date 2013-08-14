@@ -1,6 +1,9 @@
 require_relative '../authorizations'
+require_relative '../devices'
+require_relative '../hashtags'
 require_relative '../notifications'
 require_relative '../settings'
+require_relative '../streams'
 require_relative '../user'
 require_relative '../user_notifications'
 
@@ -110,32 +113,32 @@ module Trubl
 
       def devices
         response = get("me/devices")
-        raise WTF
+        Trubl::Devices.new.from_response(response)
       end
 
       def streams
         response = get("me/streams")
-        raise WTF
+        Trubl::Streams.new.from_response(response)
       end
 
       def channels
         response = get("me/channels")
-        raise WTF
+        Trubl::Channels.new.from_response(response)
       end
 
       def subscribed_hashtags
         response = get("me/subscribed_hashtags")
-        raise WTF
+        Trubl::Hashtags.new.from_response(response)
       end
 
       def digestable_notifications
         response = get("me/digestable_notifications")
-        raise WTF
+        response
       end
 
       def blockees
         response = get("me/blockees")
-        raise WTF
+        Trubl::Users.new.from_response(response)
       end
 
     end
