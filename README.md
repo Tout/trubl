@@ -1,7 +1,6 @@
 # Trubl
 
-A Ruby 1.9 interface for the Tout API. Right now, the read only API calls have been implemented, 
-but given proper user auth implementation, the infrastructure is ready for writing back as well.
+A Ruby 1.9 interface for the Tout API. 
 
 [![Build Status](https://api.travis-ci.org/Tout/trubl.png)](https://travis-ci.org/Tout/trubl)
 
@@ -26,7 +25,7 @@ bundle install
 
 ## Run unit tests
 ```sh
-bundle exec rspec -d -f d
+bundle exec rspec -f d
 ```
 
 ## Run sample script with valid app credentials
