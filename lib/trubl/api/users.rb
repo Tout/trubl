@@ -86,17 +86,26 @@ module Trubl
       # can pass a file reference for the avatar
       # returns response object
       def update_user(uid, params) # :nodoc:
-        params = params[:user].present? ? params[:user] : {user: params}
+        params = {user: params} if params[:user].blank?
+        avatar = params[:user][:avatar]
+        if avatar.respond_to? :original_filename
+          file = avatar.tempfile
+          content_type = avatar.content_type
+          filename = avatar.original_filename
+          params[:user][:avatar] = UploadIO.new(file, content_type, filename)
+        else
+          params[:user].delete :avatar
+        end
         put("/api/v1/users/#{uid}", body: params)
       end
       
-      # returns response object
+      # returns true/false
       def block_user_by(uid, blocker_uid)
         response = post("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
         (200...300).include?(response.code)
       end
       
-      # returns response object
+      # returns true/false
       def unblock_user_by(uid, blocker_uid)
         response = delete("/api/v1/users/#{uid}/blocks/by/#{blocker_uid}")
         (200...300).include?(response.code)

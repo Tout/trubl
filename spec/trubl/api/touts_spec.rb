@@ -232,6 +232,34 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/touts/fhcl57/replies").should have_been_made
   end
   
+  it '.publish_tout returns published Tout' do
+    stub_put("https://api.tout.com/api/v1/touts/fhcl57/publish").to_return(:body => fixture('tout.json'))
+    tout = client.publish_tout("fhcl57")
+    expect(tout).to be_a Trubl::Tout
+    some_request(:put, "/api/v1/touts/fhcl57/publish").should have_been_made
+  end
+  
+  it '.reject_tout returns published Tout' do
+    stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject").to_return(:body => fixture('tout.json'))
+    tout = client.reject_tout("fhcl57")
+    expect(tout).to be_a Trubl::Tout
+    some_request(:put, "/api/v1/touts/fhcl57/reject").should have_been_made
+  end
+  
+  it ".remove_tout_as_reply returns true on 200 response" do
+    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 200, :body => "true")
+    result = client.remove_tout_as_reply("fhcl57")
+    expect(result).to eq(true)
+    some_request(:delete, "/api/v1/touts/fhcl57/conversation").should have_been_made
+  end
+
+  it ".remove_tout_as_reply false on non-200 response" do
+    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 404, :body => "false")
+    result = client.remove_tout_as_reply("fhcl57")
+    expect(result).to eq(false)
+    some_request(:delete, "/api/v1/touts/fhcl57/conversation").should have_been_made
+  end
+  
 end
 
 
