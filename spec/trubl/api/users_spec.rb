@@ -163,4 +163,18 @@ describe Trubl::API::Users do
     end
   end
 
+  describe '#update_watermark_from_url' do
+    let(:user_uid) { 'some_user'}
+    let(:watermark_url) { 'http://s3.com/watermark.png'}
+    let(:request_path) {"https://api.tout.com/api/v1/users/#{user_uid}/watermark"}
+    
+    it 'executes a watermark update via url for a user' do
+      stub_put(request_path).to_return(:body => "{}")
+      client.update_watermark_from_url(user_uid, watermark_url)
+      some_request(:put, request_path).should have_been_made
+    end
+  end
+
+
+
 end

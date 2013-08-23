@@ -115,6 +115,13 @@ module Trubl
         response = delete("users/#{uid}/blocks/by/#{blocker_uid}")
         (200...300).include?(response.code)
       end
+
+      # returns true/false
+      def update_watermark_from_url(uid, watermark_url)
+        response = put("users/#{uid}/watermark", {watermark: {image_url: watermark_url}})
+        (200...300).include?(response.code)
+      end
+ 
       
     end
   end
