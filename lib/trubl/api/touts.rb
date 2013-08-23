@@ -150,19 +150,27 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
       
-      # returns Trubl::Tout instance or nil
-      def publish_tout(uid)
-        response = put("touts/#{uid}/publish")
+      # Publish a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the publisher
+      # returns trubl::tout instance or nil
+      def publish_tout(uid, options = {})
+        path = "touts/#{uid}/publish/by/#{options[:by]}" if options[:by].present?
+        path ||= "touts/#{uid}/publish"
+        response = put(path)
+
         Trubl::Tout.new.from_response(response)
       end
       
-      # returns Trubl::Tout instance or nil
-      def reject_tout(uid)
-        response = put("touts/#{uid}/reject")
+      # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter 
+      # returns trubl::tout instance or nil
+      def reject_tout(uid, options = {})
+        path = "touts/#{uid}/reject/by/#{options[:by]}" if options[:by].present?
+        path ||= "touts/#{uid}/reject"
+        response = put(path)
+
         Trubl::Tout.new.from_response(response)
       end
       
-      # returns true/false
+       # returns true/false
       def remove_tout_as_reply(uid)
         delete("touts/#{uid}/conversation").code == 200
       end
