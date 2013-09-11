@@ -118,7 +118,7 @@ module Trubl
 
       # returns true/false
       def update_watermark_from_url(uid, watermark_url)
-        response = put("users/#{uid}/watermark", {watermark: {image_url: watermark_url}})
+        response = put("users/#{uid}/watermark", body: {watermark: {image_url: watermark_url}})
         (200...300).include?(response.code)
       end
  

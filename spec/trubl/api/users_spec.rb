@@ -171,7 +171,9 @@ describe Trubl::API::Users do
     it 'executes a watermark update via url for a user' do
       stub_put(request_path).to_return(:body => "{}")
       client.update_watermark_from_url(user_uid, watermark_url)
-      some_request(:put, request_path).should have_been_made
+      a_request(:put, request_path).
+               with(:body => 'watermark[image_url]=http%3A%2F%2Fs3.com%2Fwatermark.png').
+               should have_been_made
     end
   end
 
