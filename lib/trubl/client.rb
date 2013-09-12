@@ -41,7 +41,7 @@ module Trubl
     include Trubl::API::Users
     include Trubl::OAuth
 
-    attr_reader :client_id, :client_secret, :access_token, :callback_url
+    attr_reader :client_id, :client_secret, :access_token, :callback_url, :auth_response
 
     # Initialize a new Tout client with creds and callback url
     def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)
