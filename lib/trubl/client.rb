@@ -5,6 +5,7 @@ require_relative './api/hashtags'
 require_relative './api/me'
 require_relative './api/metrics'
 require_relative './api/search'
+require_relative './api/stories'
 require_relative './api/streams'
 require_relative './api/suggested_users'
 require_relative './api/touts'
@@ -35,6 +36,7 @@ module Trubl
     include Trubl::API::Me
     include Trubl::API::Metrics
     include Trubl::API::Search
+    include Trubl::API::Stories
     include Trubl::API::Streams
     include Trubl::API::Suggested_Users
     include Trubl::API::Touts
