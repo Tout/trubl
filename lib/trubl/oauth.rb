@@ -1,3 +1,5 @@
+require_relative './exceptions'
+require 'hashie'
 require 'httparty'
 
 module Trubl
@@ -12,16 +14,8 @@ module Trubl
         client_secret: @client_secret,
         grant_type:    "client_credentials"
       }
-      
-      Trubl.logger.info("Trubl::OAuth   post-ing #{url} with params #{{body: body, headers: headers}}")
-      response = HTTParty.send(:post, url, body: body, headers: headers)
-      Trubl.logger.debug("Trubl::OAuth   #{url} response: #{response.code} #{response.body}")
 
-      if response.code == 200 and JSON.parse(response.body)["access_token"].present?
-        @access_token = JSON.parse(response.body)["access_token"]
-      else
-        raise "Client failed to get an auth token, response was: " + response.body
-      end
+      request_access_token(url, body, headers)
     end
 
     # ToDo: add some param checking logic
@@ -32,25 +26,42 @@ module Trubl
         client_secret: @client_secret,
         email:         @email,
         password:      @password,
-        # scope:       "read write share",
         scope:         "read write share update_auth",
         grant_type:    "password"
       }.merge(opts)
 
-      Trubl.logger.info("Trubl::OAuth   post-ing #{url} with params #{{body: body, headers: headers}}")
-      response = HTTParty.send(:post, url, body: body, headers: headers)
-      Trubl.logger.debug("Trubl::OAuth   #{url} response: #{response.code} #{response.body}")
-
-      if response.code == 200 and JSON.parse(response.body)["access_token"].present?
-        @access_token = JSON.parse(response.body)["access_token"]
-      else
-        raise "Client failed to get an auth token, response was: " + response.body
-      end
+      request_access_token(url, body, headers)
     end
 
     alias :user_auth :password_auth
 
+    def request_access_token(url, body, headers)
+      Trubl.logger.info("Trubl::OAuth   post-ing #{url} with params #{{body: body, headers: headers}}")
+      response = HTTParty.send(:post, url, body: body, headers: headers)
+      Trubl.logger.debug("Trubl::OAuth   #{url} response: #{response.code} #{response.body}")
+
+      if response.code != 200
+        raise AuthError, JSON.parse(response.body)["error_description"]
+      end
+
+      begin
+        parsed_response = parse(response)
+        @auth_response = Hashie::Mash.new(parsed_response)
+        @access_token = @auth_response.access_token
+      rescue JSON::ParserError
+        raise AuthError, "Client failed to get an access_token, response was: " + response.body
+      end
+
+      @access_token
+
+    end
+
+    def parse(response)
+      JSON.parse(response.body)
+    end
+
     # ToDo: add autocreate_user, twitter, facebook, etc
 
   end
+
 end

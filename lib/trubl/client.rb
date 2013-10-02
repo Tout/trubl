@@ -5,6 +5,7 @@ require_relative './api/hashtags'
 require_relative './api/me'
 require_relative './api/metrics'
 require_relative './api/search'
+require_relative './api/stories'
 require_relative './api/streams'
 require_relative './api/suggested_users'
 require_relative './api/touts'
@@ -35,13 +36,14 @@ module Trubl
     include Trubl::API::Me
     include Trubl::API::Metrics
     include Trubl::API::Search
+    include Trubl::API::Stories
     include Trubl::API::Streams
     include Trubl::API::Suggested_Users
     include Trubl::API::Touts
     include Trubl::API::Users
     include Trubl::OAuth
 
-    attr_reader :client_id, :client_secret, :access_token, :callback_url
+    attr_reader :client_id, :client_secret, :access_token, :callback_url, :auth_response
 
     # Initialize a new Tout client with creds and callback url
     def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)

@@ -142,6 +142,12 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
+      # returns Array of Trubl::Tout instances or nil
+      def get_my_scheduled_touts
+        response = get("/api/v1/me/touts/scheduled")
+        Trubl::Touts.new.from_response(response)
+      end
+
     end
   end
 end
