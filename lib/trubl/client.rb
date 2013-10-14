@@ -244,7 +244,8 @@ module Trubl
       {
         "Authorization" => "Bearer #{@access_token}",
         "Connection"    => 'keep-alive',
-        "Accept"        => 'application/json'
+        "Accept"        => 'application/json',
+        "User-Agent"    => "Trubl/#{Trubl::Version}"
       }
     end
 
