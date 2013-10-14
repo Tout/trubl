@@ -32,6 +32,13 @@ describe Trubl::Client do
     end
   end
 
+  describe ".headers" do
+    it "uses the expected default headers" do
+      client = Trubl::Client.new("id", "secret", nil, access_token: "token")
+      expect(client.headers).to eq({"Authorization"=>"Bearer token", "Connection"=>"keep-alive", "Accept"=>"application/json", "User-Agent"=>"Trubl/1.5.4"})
+    end
+  end
+
   describe ".api_uri_root" do
     let(:port)       { nil }
     let(:host)       { nil }

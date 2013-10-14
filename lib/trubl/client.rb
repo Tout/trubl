@@ -229,6 +229,15 @@ module Trubl
       Trubl.logger(level)
     end
 
+    def headers
+      {
+          "Authorization" => "Bearer #{@access_token}",
+          "Connection"    => 'keep-alive',
+          "Accept"        => 'application/json',
+          "User-Agent"    => "Trubl/#{Trubl::Version}"
+      }
+    end
+
     private
     # Fully qualified uri
     def full_uri(path)
@@ -238,15 +247,6 @@ module Trubl
     # Fully qualified url
     def full_url(path)
       URI.join(api_uri_root, path).to_s
-    end
-
-    def headers
-      {
-        "Authorization" => "Bearer #{@access_token}",
-        "Connection"    => 'keep-alive',
-        "Accept"        => 'application/json',
-        "User-Agent"    => "Trubl/#{Trubl::Version}"
-      }
     end
 
     def options(params={})
