@@ -19,9 +19,12 @@ require 'uri'
 require 'faraday'
 require 'active_support/core_ext'
 
-if RUBY_ENGINE == 'ruby'
-  require 'typhoeus'
-  require 'typhoeus/adapters/faraday'
+begin
+  if RUBY_ENGINE == 'ruby'
+    require 'typhoeus'
+    require 'typhoeus/adapters/faraday'
+  end
+rescue LoadError
 end
 
 # instantiate a Tout client instance
