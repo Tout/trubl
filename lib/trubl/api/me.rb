@@ -83,6 +83,7 @@ module Trubl
         response = get("me/touts", query: {order: order, per_page: per_page, page: page})
         Trubl::Touts.new.from_response(response)
       end
+      alias_method :get_my_published_touts, :get_my_touts
 
       # returns Array of Trubl::Tout instances or nil
       def get_my_liked_touts(order="most_recent_first", per_page=nil, page=nil)
@@ -142,12 +143,20 @@ module Trubl
         Trubl::Users.new.from_response(response)
       end
 
-      # returns Array of Trubl::Tout instances or nil
       def get_my_scheduled_touts
         response = get("/api/v1/me/touts/scheduled")
         Trubl::Touts.new.from_response(response)
       end
 
+      def get_my_rejected_touts
+        response = get("/api/v1/me/touts/rejected")
+        Trubl::Touts.new.from_response(response)
+      end
+
+      def get_my_pending_touts
+        response = get("/api/v1/me/touts/pending")
+        Trubl::Touts.new.from_response(response)
+      end
     end
   end
 end
