@@ -251,4 +251,41 @@ describe Trubl::API::Me do
     end
   end
 
+  describe '.get_my_rejected_touts' do
+    before do
+      stub_get("https://api.tout.com/api/v1/me/touts/rejected").to_return(body: fixture("me_touts_rejected_response.json"))
+    end
+    subject { Trubl::Client.new.get_my_rejected_touts() }
+    it { should be_kind_of Trubl::Touts }
+    it 'does the right api call' do
+      subject
+      some_request(:get, "https://api.tout.com/api/v1/me/touts/rejected").should have_been_made
+    end
+  end
+
+  describe '.get_my_scheduled_touts' do
+    before do
+      stub_get("https://api.tout.com/api/v1/me/touts/scheduled").to_return(body: fixture("me_touts_scheduled_response.json"))
+    end
+    subject { Trubl::Client.new.get_my_scheduled_touts() }
+    it { should be_kind_of Trubl::Touts }
+    it 'does the right api call' do
+      subject
+      some_request(:get, "https://api.tout.com/api/v1/me/touts/scheduled").should have_been_made
+    end
+  end
+
+  describe '.get_my_pending_touts' do
+    before do
+      stub_get("https://api.tout.com/api/v1/me/touts/pending").to_return(body: fixture("me_touts_pending_response.json"))
+    end
+    subject { Trubl::Client.new.get_my_pending_touts() }
+    it { should be_kind_of Trubl::Touts }
+    it 'does the right api call' do
+      subject
+      some_request(:get, "https://api.tout.com/api/v1/me/touts/pending").should have_been_made
+    end
+  end
+
+
 end

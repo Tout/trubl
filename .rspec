@@ -1,1 +1,1 @@
---color
+--backtrace -f d -c
