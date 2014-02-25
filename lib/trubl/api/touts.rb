@@ -45,20 +45,20 @@ module Trubl
           flatten.
           compact
       end
-      
+
       # returns Array of Trubl::Tout instances or nil
       def filter_touts(params={})
         raise "tout_uids AND/OR user_uids are required params" if params[:tout_uids].blank? && params[:user_uids].blank?
         response = post("touts/search", {body: params})
         Trubl::Touts.new.from_response(response)
       end
-      
+
       # returns Array of Trubl::Tout instances or nil
       def retrieve_tout_replies(uid)
         response = get("touts/#{uid}/replies")
         Trubl::Touts.new.from_response(response)
       end
-      
+
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
       # returns Trubl::Conversation instance or nil
       def retrieve_tout_conversation(uid)
@@ -97,8 +97,6 @@ module Trubl
       def update_tout(uid, params={})
         return nil if params.blank? or params[:tout].blank?
 
-        raise "Not implemented" if params[:tout].keys.map(&:to_sym) != [:text]
-
         response = put("touts/#{uid}", {body: params})
 
         Trubl::Tout.new.from_response(response)
@@ -115,7 +113,7 @@ module Trubl
       # returns true or false
       def like_tout(uid)
         response = post("touts/#{uid}/likes")
-        
+
         JSON.parse(response.body)["like"]["status"] == "liked"
       end
 
@@ -149,7 +147,7 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-      
+
       # Publish a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the publisher
       # returns trubl::tout instance or nil
       def publish_tout(uid, options = {})
@@ -159,8 +157,8 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-      
-      # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter 
+
+      # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter
       # returns trubl::tout instance or nil
       def reject_tout(uid, options = {})
         path = "touts/#{uid}/reject/by/#{options[:by]}" if options[:by].present?
@@ -169,12 +167,12 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-      
+
        # returns true/false
       def remove_tout_as_reply(uid)
         delete("touts/#{uid}/conversation").code == 200
       end
-      
+
 =begin
       # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
       def share_tout(uid)
