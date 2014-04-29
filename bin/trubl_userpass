@@ -1,11 +1,8 @@
 require 'trubl'
 
 client_id = ENV["CLIENT_ID"]
-client_id = '5fb8f651e3b0cc32b05c8615359dbe5b7d9ef72b97dac38ff97a189a87cacd31'
 client_secret = ENV["CLIENT_SECRET"]
-client_secret='f678d51356c6299e564164ff5bdadfdaabcf545f957293411a4bacc249c3fb44'
 callback_url = ENV["CALLBACK_URL"]
-callback_url = 'http://localhost'
 
 
 # client_credential, read only
@@ -17,8 +14,8 @@ password = gets.chomp
 `stty echo`
 
 # client init and auth
-client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password)
-#client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password, auth_site: "https://staging.kicktag.com", uri_host: "staging.kicktag.com")
+#client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password)
+client = Trubl.client(client_id, client_secret, callback_url, email: email, password: password, auth_site: "https://staging.kicktag.com", uri_host: "staging.kicktag.com")
 client.user_auth()
 
 ##############

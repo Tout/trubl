@@ -2,6 +2,7 @@ require_relative './api/category'
 require_relative './api/channel'
 require_relative './api/conversation'
 require_relative './api/hashtags'
+require_relative './api/leaderboard'
 require_relative './api/me'
 require_relative './api/metrics'
 require_relative './api/search'
@@ -18,9 +19,12 @@ require 'uri'
 require 'faraday'
 require 'active_support/core_ext'
 
-if RUBY_ENGINE == 'ruby'
-  require 'typhoeus'
-  require 'typhoeus/adapters/faraday'
+begin
+  if RUBY_ENGINE == 'ruby'
+    require 'typhoeus'
+    require 'typhoeus/adapters/faraday'
+  end
+rescue LoadError
 end
 
 # instantiate a Tout client instance
@@ -33,6 +37,7 @@ module Trubl
     include Trubl::API::Channel
     include Trubl::API::Conversation
     include Trubl::API::Hashtags
+    include Trubl::API::Leaderboard
     include Trubl::API::Me
     include Trubl::API::Metrics
     include Trubl::API::Search
