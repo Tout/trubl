@@ -254,13 +254,13 @@ describe Trubl::API::Touts do
   end
 
   it '.reject_tout returns published Tout' do
+    options = {by: 'aaron', rejection_reason: 'Violence'}
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject/by/aaron").to_return(:body => fixture('tout.json'))
-    tout = client.reject_tout("fhcl57", by: 'aaron')
+    tout = client.reject_tout("fhcl57", options)
     expect(tout).to be_a Trubl::Tout
-    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").should have_been_made
+    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(params: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
   end
  
-  
   it ".remove_tout_as_reply returns true on 200 response" do
     stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 200, :body => "true")
     result = client.remove_tout_as_reply("fhcl57")

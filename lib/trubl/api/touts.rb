@@ -161,9 +161,9 @@ module Trubl
       # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter
       # returns trubl::tout instance or nil
       def reject_tout(uid, options = {})
-        path = "touts/#{uid}/reject/by/#{options[:by]}" if options[:by].present?
+        path = "touts/#{uid}/reject/by/#{options.delete(:by)}" if options[:by].present?
         path ||= "touts/#{uid}/reject"
-        response = put(path)
+        response = put(path, {rejection_reason: options[:rejection_reason]})
 
         Trubl::Tout.new.from_response(response)
       end
