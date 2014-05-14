@@ -163,7 +163,7 @@ module Trubl
       def reject_tout(uid, options = {})
         path = "touts/#{uid}/reject/by/#{options.delete(:by)}" if options[:by].present?
         path ||= "touts/#{uid}/reject"
-        response = put(path, body: {admin_id: options[:admin_id], rejection_reason: options[:rejection_reason]})
+        response = put(path, {body: {admin_id: options[:admin_id], rejection_reason: options[:rejection_reason]}})
 
         Trubl::Tout.new.from_response(response)
       end
