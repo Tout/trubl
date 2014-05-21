@@ -84,11 +84,11 @@ module Trubl
       # implements http://developer.tout.com/api/touts-api/apimethod/create-tout
       # returns Trubl::Tout instance or nil
       def create_tout(params={})
-        response = if params[:url].nil?
+        response = if params[:tout][:url].nil?
           params[:data] = params[:tout].delete(:data)
           multipart_post("touts", params)
         else
-          post("touts", params)
+          post("/api/v1/touts", {body: params})
         end
 
         Trubl::Tout.new.from_response(response)

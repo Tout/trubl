@@ -126,6 +126,15 @@ describe Trubl::API::Touts do
     some_request(:post, "/api/v1/touts").should have_been_made
   end
 
+  it ".create_tout returns an object representing a newly created Tout from url" do
+    stub_post("https://api.tout.com/api/v1/touts").to_return(:body => fixture('tout.json'))
+    payload = {tout: { url: "http://test.com/filename", text: 'Some text here'}}
+    tout = client.create_tout(payload)
+    expect(tout).to be_a Trubl::Tout
+    expect(tout.uid).to eq "fhcl57"
+    some_request(:post, "/api/v1/touts").should have_been_made
+  end
+
   describe '.update_tout' do
     let(:tout_uid) { 'some_random_tout_uid' }
     subject { client.update_tout(tout_uid, params) }
