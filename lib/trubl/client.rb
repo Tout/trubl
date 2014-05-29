@@ -8,6 +8,7 @@ require_relative './api/metrics'
 require_relative './api/search'
 require_relative './api/stories'
 require_relative './api/streams'
+require_relative './api/playlists'
 require_relative './api/suggested_users'
 require_relative './api/touts'
 require_relative './api/users'
@@ -40,6 +41,7 @@ module Trubl
     include Trubl::API::Leaderboard
     include Trubl::API::Me
     include Trubl::API::Metrics
+    include Trubl::API::Playlists
     include Trubl::API::Search
     include Trubl::API::Stories
     include Trubl::API::Streams
@@ -87,7 +89,7 @@ module Trubl
     end
 
     def credentials()
-      { 
+      {
         client_id:     @client_id,
         client_secret: @client_secret,
         access_token:  @access_token
@@ -134,7 +136,7 @@ module Trubl
         faraday.request :multipart
         faraday.response :logger
         faraday.adapter Faraday.default_adapter
-      end.post(uri.to_s, payload).tap do |response|      
+      end.post(uri.to_s, payload).tap do |response|
         if !response.status =~ /20[0-9]/
           Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
         end
@@ -175,7 +177,7 @@ module Trubl
 
       opts.reverse_merge! max_concurrency: 10
 
-      Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")      
+      Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")
 
       action = RUBY_ENGINE == 'ruby' ? :multi_request_typhoeus : :multi_request_threaded
 
@@ -197,16 +199,16 @@ module Trubl
             mutex.synchronize { responses << response }
           end
         end
-      end.each(&:join) 
+      end.each(&:join)
 
-      responses     
+      responses
     end
 
     def multi_request_typhoeus(method, requests=[], opts={})
       # https://github.com/lostisland/faraday/wiki/Parallel-requests
       # https://github.com/typhoeus/typhoeus/issues/226
       hydra = Typhoeus::Hydra.new(max_concurrency: opts[:max_concurrency])
-     
+
       conn = Faraday.new(url: api_uri_root, parallel_manager: hydra) do |builder|
         builder.request  :url_encoded
         builder.adapter  :typhoeus
