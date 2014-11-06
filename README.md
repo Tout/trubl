@@ -40,10 +40,10 @@ bundle exec ruby bin/trubl_sample
 Get a client instance, and authenticate with tout.com:
 ```rb
 client = Trubl.client('client_id', 'client_secret')
-client.auth()
+client.client_auth()
 # or
 client = Trubl::Client.new('client_id', 'client_secret')
-client.auth()
+client.client_auth()
 ```
 
 Search for users matching a keyword
