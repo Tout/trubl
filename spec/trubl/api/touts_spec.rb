@@ -41,7 +41,7 @@ describe Trubl::API::Touts do
 
     context 'providing an array of users uids' do
       let(:sorted_uids) { 125.times.collect { |i| "test_tout_#{i}" }.sort }
-      let(:uids)        { sorted_uids.shuffle } 
+      let(:uids)        { sorted_uids.shuffle }
 
       before do
         sorted_uids.in_groups_of(100, false) do |uid_group|
@@ -49,7 +49,7 @@ describe Trubl::API::Touts do
 
           stub_request(:get, "https://api.tout.com/api/v1/touts?uids=#{uid_group.join(',')}").
             to_return(
-              status: 200, 
+              status: 200,
               body: fake_tout_response.to_json,
               headers: {}
             )
@@ -67,7 +67,7 @@ describe Trubl::API::Touts do
       before do
         stub_request(:get, "https://api.tout.com/api/v1/touts?uids=#{uids}").
           to_return(
-            status: 200, 
+            status: 200,
             body: {touts: [{tout: {uid: uids}}]}.to_json,
             headers: {}
           )
@@ -147,11 +147,11 @@ describe Trubl::API::Touts do
 
       context 'a success' do
         let(:result) { {status: 200, body: fixture('tout.json') }}
-        it { should be_a Trubl::Tout }        
+        it { should be_a Trubl::Tout }
       end
       context 'a failure' do
         let(:result) { {status: 500} }
-        it { should be_nil }        
+        it { should be_nil }
       end
     end
 
@@ -218,7 +218,7 @@ describe Trubl::API::Touts do
       it { should be_nil }
     end
   end
-  
+
   it '.filter_touts returns a collection of Touts' do
     stub_post("https://api.tout.com/api/v1/touts/search").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.filter_touts({tout_uids: ["fhcl57"]})
@@ -229,7 +229,7 @@ describe Trubl::API::Touts do
     end
     some_request(:post, "/api/v1/touts/search").should have_been_made
   end
-  
+
   it '.retrieve_tout_replies returns a collection of Touts' do
     stub_api_get("touts/fhcl57/replies").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.retrieve_tout_replies('fhcl57')
@@ -240,7 +240,7 @@ describe Trubl::API::Touts do
     end
     some_request(:get, "/api/v1/touts/fhcl57/replies").should have_been_made
   end
-  
+
   it '.publish_tout returns published Tout' do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/publish").to_return(:body => fixture('tout.json'))
     tout = client.publish_tout("fhcl57")
@@ -254,7 +254,7 @@ describe Trubl::API::Touts do
     expect(tout).to be_a Trubl::Tout
     some_request(:put, "/api/v1/touts/fhcl57/publish/by/aaron").should have_been_made
   end
- 
+
   it '.reject_tout returns published Tout' do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject").to_return(:body => fixture('tout.json'))
     tout = client.reject_tout("fhcl57")
@@ -269,7 +269,7 @@ describe Trubl::API::Touts do
     expect(tout).to be_a Trubl::Tout
     some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(params: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
   end
- 
+
   it ".remove_tout_as_reply returns true on 200 response" do
     stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 200, :body => "true")
     result = client.remove_tout_as_reply("fhcl57")
@@ -283,7 +283,7 @@ describe Trubl::API::Touts do
     expect(result).to eq(false)
     some_request(:delete, "/api/v1/touts/fhcl57/conversation").should have_been_made
   end
-  
+
 end
 
 

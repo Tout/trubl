@@ -23,6 +23,19 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      # params:
+      #   :q => required, <String>, query for fulltext search
+      #   :organization_uid => optional, [Array<String>] || <String> of organization_uids
+      #   :organization_uids => optional, alias of :organization_uid
+      #   :per_page => optional, <integer>, number of touts per page
+      #   :page => optional, <integer>, current page of pagination
+      # return: [Array<Trubl::Tout>] || nil
+      # NOTE: Works like search_touts unless authorized as an internal_application
+      def search_touts_by_org(query, organization_uids, per_page=nil, page=nil)
+        response = search('touts', query, per_page, page, {organization_uid: organization_uids})
+        Trubl::Touts.new.from_response(response)
+      end
+
       def search_touts_json(query, per_page=nil, page=nil)
         response = search('touts.json', query, per_page, page)
         Trubl::Touts.new.from_response(response)
@@ -30,9 +43,13 @@ module Trubl
 
       private
 
-      def search(type, query, per_page=nil, page=nil)
-        response = get("search/#{type}", query: {q: query, per_page: per_page, page: page})
-        response
+      def search(type, query, per_page=nil, page=nil, query_options={})
+        query_params = {
+          q: query,
+          per_page: per_page,
+          page: page
+        }.merge(query_options)
+        get("search/#{type}", query: query_params)
       end
 
     end

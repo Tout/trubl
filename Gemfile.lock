@@ -102,3 +102,6 @@ DEPENDENCIES
   trubl!
   webmock
   yard
+
+BUNDLED WITH
+   1.10.1
