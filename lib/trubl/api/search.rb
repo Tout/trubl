@@ -43,7 +43,7 @@ module Trubl
       end
 
       def filter_options_whitelist
-        %w{organization_uids organization_uid}
+        %w{organization_uids organization_uid state public}
       end
 
     end
