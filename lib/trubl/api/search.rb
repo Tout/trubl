@@ -38,12 +38,12 @@ module Trubl
           q: query,
           per_page: per_page,
           page: page
-        }.merge(filter_options.slice(*filter_options_whitelist))
+        }.merge(filter_options.stringify_keys.slice(*filter_options_whitelist)).symbolize_keys
         get("search/#{type}", query: query_params)
       end
 
       def filter_options_whitelist
-        %w{organization_uids organization_uid state public}
+        %w{organization_uids organization_uid state public tout_uid tout_uids user_uid user_uids user_id user_ids}
       end
 
     end
