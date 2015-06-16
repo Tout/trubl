@@ -72,7 +72,7 @@ module Trubl
       def retrieve_user_widgets(uid, order=nil, per_page=nil, page=nil)
         response = get("users/#{uid}/widgets")
         Trubl::Widgets.new.from_response(response)
-      end        
+      end
 
       # implements http://developer.tout.com/api/users-api/apimethod/follow-user
       # returns response object
@@ -85,7 +85,7 @@ module Trubl
       def unfollow_user(uid)
         delete("/api/v1/users/#{uid}/follows")
       end
-      
+
       # takes standard user params, with or without toplevel user node
       # http://tout.github.io/api-docs/static/resources/me/id.html#put
       # can pass a file reference for the avatar
@@ -103,13 +103,13 @@ module Trubl
         end
         put("users/#{uid}", body: params)
       end
-      
+
       # returns true/false
       def block_user_by(uid, blocker_uid)
         response = post("users/#{uid}/blocks/by/#{blocker_uid}")
         (200...300).include?(response.code)
       end
-      
+
       # returns true/false
       def unblock_user_by(uid, blocker_uid)
         response = delete("users/#{uid}/blocks/by/#{blocker_uid}")
@@ -121,8 +121,8 @@ module Trubl
         response = put("users/#{uid}/watermark", body: {watermark: {image_url: watermark_url}})
         (200...300).include?(response.code)
       end
- 
-      
+
+
     end
   end
 end
