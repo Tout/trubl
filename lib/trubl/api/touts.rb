@@ -162,7 +162,8 @@ module Trubl
       #                  Also requires "scheduled_at" and "scheduled_date" arguments
       # returns trubl::tout instance or nil
       def schedule_tout(uid, options = {})
-        path = "touts/#{uid}/schedule/by/#{options.delete(:by)}"
+        path = "touts/#{uid}/schedule/by/#{options.delete(:by)}" if options[:by].present?
+        path ||= "touts/#{uid}/schedule"
         response = post(path, options)
 
         Trubl::Tout.new.from_response(response)
