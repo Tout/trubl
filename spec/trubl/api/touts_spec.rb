@@ -255,6 +255,13 @@ describe Trubl::API::Touts do
     some_request(:put, "/api/v1/touts/fhcl57/publish/by/aaron").should have_been_made
   end
 
+  it '.schedule_tout returns a scheduled_tout' do
+    stub_post("https://api.tout.com/api/v1/touts/fhcl57/schedule/by/aaron").to_return(:body => fixture('tout.json'))
+    result = client.schedule_tout("fhcl57", by: 'aaron', scheduled_at: Time.now, scheduled_date: Time.now + 5.days)
+    expect(result).to be_a Trubl::Tout
+    some_request(:post, "/api/v1/touts/fhcl57/schedule/by/aaron").should have_been_made
+  end
+
   it '.reject_tout returns published Tout' do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject").to_return(:body => fixture('tout.json'))
     tout = client.reject_tout("fhcl57")
@@ -285,5 +292,3 @@ describe Trubl::API::Touts do
   end
 
 end
-
-

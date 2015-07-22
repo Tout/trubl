@@ -1,8 +1,8 @@
 module Trubl
   class Version
     MAJOR = 1  unless defined? Trubl::Version::MAJOR
-    MINOR = 5  unless defined? Trubl::Version::MINOR
-    PATCH = 14 unless defined? Trubl::Version::PATCH
+    MINOR = 6  unless defined? Trubl::Version::MINOR
+    PATCH = 0 unless defined? Trubl::Version::PATCH
 
     class << self
 

@@ -158,6 +158,16 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
 
+      # Schedule a tout. Takes a required "by" arg in the options hash (user_uid) that denotes the publisher
+      #                  Also requires "scheduled_at" and "scheduled_date" arguments
+      # returns trubl::tout instance or nil
+      def schedule_tout(uid, options = {})
+        path = "touts/#{uid}/schedule/by/#{options.delete(:by)}"
+        response = post(path, options)
+
+        Trubl::Tout.new.from_response(response)
+      end
+
       # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter
       # returns trubl::tout instance or nil
       def reject_tout(uid, options = {})
