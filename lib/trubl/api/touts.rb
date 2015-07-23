@@ -169,6 +169,16 @@ module Trubl
         Trubl::Tout.new.from_response(response)
       end
 
+      # unschedule a tout. Takes a required "by" arg in the options hash (user_uid) that denotes the publisher
+      # returns trubl::tout instance or nil
+      def unschedule_tout(uid, options = {})
+        path = "touts/#{uid}/unschedule/by/#{options.delete(:by)}" if options[:by].present?
+        path ||= "touts/#{uid}/unschedule"
+        response = put(path, options)
+
+        Trubl::Tout.new.from_response(response)
+      end
+
       # Reject a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the rejecter
       # returns trubl::tout instance or nil
       def reject_tout(uid, options = {})
