@@ -269,20 +269,6 @@ describe Trubl::API::Touts do
     some_request(:post, "/api/v1/touts/fhcl57/schedule/by/aaron").should have_been_made
   end
 
-  it '.unschedule_tout returns a unscheduled_tout' do
-    stub_put("https://api.tout.com/api/v1/touts/fhcl57/unschedule").to_return(:body => fixture('tout.json'))
-    result = client.unschedule_tout("fhcl57")
-    expect(result).to be_a Trubl::Tout
-    some_request(:put, "/api/v1/touts/fhcl57/unschedule").should have_been_made
-  end
-
-  it '.unschedule_tout with user_uid returns a unscheduled_tout' do
-    stub_put("https://api.tout.com/api/v1/touts/fhcl57/unschedule/by/aaron").to_return(:body => fixture('tout.json'))
-    result = client.unschedule_tout("fhcl57", by: 'aaron')
-    expect(result).to be_a Trubl::Tout
-    some_request(:put, "/api/v1/touts/fhcl57/unschedule/by/aaron").should have_been_made
-  end
-
   it '.reject_tout returns published Tout' do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject").to_return(:body => fixture('tout.json'))
     tout = client.reject_tout("fhcl57")
