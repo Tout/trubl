@@ -1,6 +1,7 @@
 require_relative './api/category'
 require_relative './api/channel'
 require_relative './api/conversation'
+require_relative './api/filtered_stream_membership_notifications'
 require_relative './api/hashtags'
 require_relative './api/leaderboard'
 require_relative './api/me'
@@ -38,6 +39,7 @@ module Trubl
     include Trubl::API::Category
     include Trubl::API::Channel
     include Trubl::API::Conversation
+    include Trubl::API::FilteredStreamMembershipNotifications
     include Trubl::API::Hashtags
     include Trubl::API::Leaderboard
     include Trubl::API::Me
