@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    trubl (1.6.3)
+    trubl (1.7.3)
       activesupport (>= 3.2.11, <= 4.1.7)
       faraday (>= 0.8.4)
       hashie (~> 2.0.2)
       httmultiparty (~> 0.3.10)
-      httparty (~> 0.13.3)
+      httparty
       json (>= 1.7.7)
       oauth2 (~> 0.9)
       rake
