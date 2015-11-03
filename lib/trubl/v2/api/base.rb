@@ -16,7 +16,7 @@ module Trubl
         client.post(*args)
       end
 
-      def puts *args
+      def put *args
         client.put(*args)
       end
 
