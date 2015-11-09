@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    trubl (1.7.6)
+    trubl (1.7.7)
       activesupport (>= 3.2.11, <= 4.1.13)
       faraday (>= 0.8.4)
       hashie (~> 2.0.2)
