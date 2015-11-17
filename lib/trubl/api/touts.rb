@@ -51,7 +51,7 @@ module Trubl
         return [] if uids.blank?
 
         requests = uids.in_groups_of(100, false).collect do |uid_group|
-          {path: "touts", query: {uids: uid_group.join(',')} }
+          {path: "touts.json", query: {uids: uid_group.join(',')} }
         end
 
         multi_request(:get, requests).
