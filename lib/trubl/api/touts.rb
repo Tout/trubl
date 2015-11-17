@@ -55,7 +55,6 @@ module Trubl
         end
 
         multi_request(:get, requests).
-          collect { |response| response }.
           flatten.
           compact
       end
