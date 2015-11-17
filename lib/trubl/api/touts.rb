@@ -46,6 +46,19 @@ module Trubl
           compact
       end
 
+      def retrieve_touts_json(uids=[])
+        uids = (uids.is_a?(Array) ? uids : [uids]).compact.uniq.sort
+        return [] if uids.blank?
+
+        requests = uids.in_groups_of(100, false).collect do |uid_group|
+          {path: "touts.json", query: {uids: uid_group.join(',')} }
+        end
+
+        multi_request(:get, requests).
+          flatten.
+          compact
+      end
+
       # returns Array of Trubl::Tout instances or nil
       def filter_touts(params={})
         #raise "tout_uids AND/OR user_uids are required params" if params[:tout_uids].blank? && params[:user_uids].blank?
