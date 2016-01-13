@@ -153,6 +153,11 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      def get_all_my_touts
+        response = get("/api/v1/me/touts/all")
+        Trubl::Touts.new.from_response(response)
+      end
+
       def get_my_pending_touts
         response = get("/api/v1/me/touts/pending")
         Trubl::Touts.new.from_response(response)
