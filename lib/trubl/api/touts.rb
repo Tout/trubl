@@ -1,5 +1,6 @@
 require_relative '../touts'
 require_relative '../users'
+require_relative '../thumbnails'
 
 # todo: all api modules should simply return responses
 
@@ -77,6 +78,12 @@ module Trubl
       def retrieve_tout_conversation(uid)
         response = get("touts/#{uid}/conversation")
         Trubl::Conversation.new.from_response(response)
+      end
+
+      # returns Trubl::Thumbnails instance or nil
+      def retrieve_thumbnails(uid)
+        response = get("touts/#{uid}/thumbnails?style=array")
+        Trubl::Thumbnails.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-latest-touts

@@ -94,6 +94,17 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/touts/fhcl57/conversation").should have_been_made
   end
 
+  it '.retrieve_thumbnails returns the Tout Thumbnails', focus:true do
+    stub_api_get("touts/fhcl57/thumbnails").to_return(body: fixture("tout_thumbnails_response.json"))
+    thumbnails = client.retrieve_thumbnails('fhcl57')
+    expect(thumbnails).to be_a Trubl::Thumbnails
+    expect(thumbnails.pagination).to be_a Trubl::Pagination
+    thumbnails.each do |thumbnail|
+      expect(thumbnail).to be_a Trubl::Thumbnail
+    end
+    some_request(:get, "/api/v1/touts/fhcl57/thumbnails").should have_been_made
+  end
+
   it '.retrieve_latest returns the latest Touts' do
     stub_api_get("latest").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.latest_touts()
