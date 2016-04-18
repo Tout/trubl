@@ -107,12 +107,7 @@ module Trubl
       # returns the new user response object
       def create_user(params)
         params = {user: params} if params[:user].blank?
-        response = post("/api/v1/users", body: params)
-        if (200...300).include?(response.code)
-          Trubl::User.new.from_response(response)
-        else
-          response
-        end
+        post("/api/v1/users", body: params)
       end
 
       # returns true/false

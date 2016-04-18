@@ -148,7 +148,7 @@ describe Trubl::API::Users do
 
         response = Trubl::Client.new.create_user(user_params)
         some_request(:post, "/api/v1/users").should have_been_made
-        response.should be_kind_of Trubl::User
+        response.code.should eq(200)
       end
     end
 
