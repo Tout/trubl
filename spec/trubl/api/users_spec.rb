@@ -138,7 +138,35 @@ describe Trubl::API::Users do
       some_request(:get,path).should have_been_made
     end
   end 
-  
+
+  describe "#create_user" do
+    context "with valid params" do
+      let(:user_params) { { email: 'new@test.com', password: 'user123!' } }
+
+      it "sends a request to the create endpoint for the user" do
+        stub_post("https://api.tout.com/api/v1/users").to_return(body: fixture("user.json"))
+
+        response = Trubl::Client.new.create_user(user_params)
+        some_request(:post, "/api/v1/users").should have_been_made
+        response.code.should eq(200)
+      end
+    end
+
+    context "with invalid params" do
+      let(:user_params) { { email: '', password: '' } }
+      let(:error_response) { { error: ["Email is invalid", "Password can't be blank"] } }
+
+      it "sends a request to the create endpoint for the user and returns response" do
+        stub_post("https://api.tout.com/api/v1/users").to_return(status: 422, body: error_response.to_json)
+
+        response = Trubl::Client.new.create_user(user_params)
+        some_request(:post, "/api/v1/users").should have_been_made
+        response.code.should eq(422)
+        response.parsed_response.should eq(error_response.to_json)
+      end
+    end
+  end
+
   describe '#block_user_by' do
     let(:user_uid) { 'some_user'}
     let(:blocker_uid) { 'some_blocker'}

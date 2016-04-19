@@ -103,7 +103,13 @@ module Trubl
         end
         put("users/#{uid}", body: params)
       end
-      
+
+      # returns the new user response object
+      def create_user(params)
+        params = {user: params} if params[:user].blank?
+        post("/api/v1/users", body: params)
+      end
+
       # returns true/false
       def block_user_by(uid, blocker_uid)
         response = post("users/#{uid}/blocks/by/#{blocker_uid}")
