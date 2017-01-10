@@ -61,9 +61,11 @@ module Trubl
       end
 
       # returns Array of Trubl::Tout instances or nil
-      def filter_touts(params={})
-        #raise "tout_uids AND/OR user_uids are required params" if params[:tout_uids].blank? && params[:user_uids].blank?
-        response = get("touts/filter", query: params)
+      def filter_touts(params={}, options={})
+        # post should be used when request params is large
+        # TODO: abstract this logic out is needed in another place
+        method_name = options[:method] == :post ? :post : :get
+        response = send(method_name, "touts/filter", query: params)
         Trubl::Touts.new.from_response(response)
       end
 

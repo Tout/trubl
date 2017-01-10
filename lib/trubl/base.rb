@@ -28,7 +28,9 @@ module Trubl
           nil
         end
 
-        code && (400..600).include?(code)
+        is_missing_or_exception = code && (400..600).include?(code)
+        Trubl.logger.warn("Unexposed HTTP #{code}: #{response.body}") if is_missing_or_exception && response.respond_to?(:body)
+        return is_missing_or_exception
       end
 
   end
