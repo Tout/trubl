@@ -296,7 +296,7 @@ describe Trubl::API::Touts do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject/by/aaron").to_return(:body => fixture('tout.json'))
     tout = client.reject_tout("fhcl57", options)
     expect(tout).to be_a Trubl::Tout
-    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(params: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
+    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(body: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
   end
 
   it ".remove_tout_as_reply returns true on 200 response" do
