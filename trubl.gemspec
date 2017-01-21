@@ -22,9 +22,10 @@ Gem::Specification.new do |spec|
   #spec.add_development_dependency 'pry-debugger', if RUBY_ENGINE == 'ruby'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-its'
   spec.add_development_dependency 'rspec-encoding-matchers'
   spec.add_development_dependency 'timecop'
-  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'webmock', '~> 1.24'
 
   spec.authors = ["Aaron Terrell", "Aaron Glenn", "Felix Roeser", "Will Bryant"]
   spec.description = %q{A Ruby interface to the Tout API.}

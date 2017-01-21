@@ -5,7 +5,7 @@ require 'webmock'
 describe Trubl::API::Streams do
 
   it '.create_stream accepts a hash of users/hashtags/inclusive' do
-    stub_post("https://api.tout.com/api/v1/streams/").to_return(:body => fixture("stream_response.json"), :code => 200)
+    stub_post("https://api.tout.com/api/v1/streams/").to_return(:body => fixture("stream_response.json"), :status => 200)
     logic = {users: 'test-user, other-guy', hashtags: 'lol, haha', inclusive: true}
     stream = Trubl::Client.new.create_stream(logic)
     expect(stream).to be_a Trubl::Stream

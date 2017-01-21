@@ -241,6 +241,17 @@ describe Trubl::API::Touts do
     some_request(:get, "/api/v1/touts/filter").should have_been_made
   end
 
+  it '.filter_touts can be set to use post request' do
+    stub_post("https://api.tout.com/api/v1/touts/filter").to_return(:body => fixture("latest_touts_response.json"))
+    touts = client.filter_touts({tout_uids: ["fhcl57"]}, {method: :post})
+    expect(touts).to be_a Trubl::Touts
+    expect(touts.pagination).to be_a Trubl::Pagination
+    touts.each do |u|
+      expect(u).to be_a Trubl::Tout
+    end
+    some_request(:post, "/api/v1/touts/filter").should have_been_made
+  end
+
   it '.retrieve_tout_replies returns a collection of Touts' do
     stub_api_get("touts/fhcl57/replies").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.retrieve_tout_replies('fhcl57')
@@ -285,7 +296,7 @@ describe Trubl::API::Touts do
     stub_put("https://api.tout.com/api/v1/touts/fhcl57/reject/by/aaron").to_return(:body => fixture('tout.json'))
     tout = client.reject_tout("fhcl57", options)
     expect(tout).to be_a Trubl::Tout
-    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(params: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
+    some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(body: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
   end
 
   it ".remove_tout_as_reply returns true on 200 response" do

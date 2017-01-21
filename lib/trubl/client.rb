@@ -263,5 +263,19 @@ module Trubl
       headers.merge(params)
     end
 
+    def self.is_problematic_response?(response)
+      code = if response.respond_to?(:code)
+        response.code
+      elsif response.respond_to?(:status)
+        response.status
+      else
+        nil
+      end
+
+      is_problematic = code && (400..600).include?(code)
+      body = is_problematic && response.respond_to?(:body) ? response.body : '(no body)'
+      Trubl.logger.warn("Unexposed HTTP #{code}: #{body}") if is_problematic
+      return is_problematic
+    end
   end
 end
