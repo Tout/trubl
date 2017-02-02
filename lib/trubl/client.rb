@@ -20,6 +20,7 @@ require_relative './oauth'
 require 'httmultiparty'
 require 'uri'
 require 'faraday'
+require 'active_support'
 require 'active_support/core_ext'
 
 begin
