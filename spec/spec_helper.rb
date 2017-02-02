@@ -1,6 +1,7 @@
 require 'uri'
 require 'json'
 require 'rspec'
+require 'rspec/its'
 require 'rspec_encoding_matchers'
 require 'webmock/rspec'
 require_relative '../lib/trubl'
