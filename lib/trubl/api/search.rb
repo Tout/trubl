@@ -43,7 +43,7 @@ module Trubl
       end
 
       def filter_options_whitelist
-        %w{organization_uids organization_uid state public tout_uid tout_uids user_uid user_uids user_id user_ids feed_uids filtered_stream_uids with_nested_organizations}
+        %w{organization_uids organization_uid state public tout_uid tout_uids user_uid user_uids user_id user_ids feed_uids filtered_stream_uids with_nested_organizations startdate enddate}
       end
 
     end
