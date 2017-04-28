@@ -162,7 +162,7 @@ describe Trubl::API::Users do
         response = Trubl::Client.new.create_user(user_params)
         some_request(:post, "/api/v1/users").should have_been_made
         response.code.should eq(422)
-        response.parsed_response.should eq(error_response.to_json)
+        response.body.should eq(error_response.to_json)
       end
     end
   end
