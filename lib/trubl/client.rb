@@ -185,9 +185,11 @@ module Trubl
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params = {})
+      params = {} if params.nil?
       uri = full_url(path)
-      h = options(params && params.delete(:headers) || {})
-      body = params && params.delete(:body) || nil
+      h = options(params.delete(:headers) || {})
+      body = params.delete(:body) || nil
+      params = params[:query] if params.has_key?(:query)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
       conn = Faraday.new(url: api_uri_root)
