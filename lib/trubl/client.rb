@@ -55,6 +55,10 @@ module Trubl
     include Trubl::API::Users
     include Trubl::OAuth
 
+    class << self
+      attr_accessor :cache_store
+    end
+
     attr_reader :client_id, :client_secret, :access_token, :callback_url, :auth_response
 
     # Initialize a new Tout client with creds and callback url
@@ -114,14 +118,39 @@ module Trubl
     end
 
     # Perform an HTTP DELETE request
-    def delete(path, params={})
-      request(:delete, path, params)
+    def delete(path)
+      request(:delete, path)
     end
 
     # Perform an HTTP GET request
     def get(path, params={})
       request(:get, path, params)
     end
+
+    # If a cache_store is defined, reads cache for current request's response
+    # if avail. sends Etag header with original request
+    # if 304 response, uses cached response,
+    # else, returns new response and stores it in cache
+    def get_with_cache(path, params={})
+      return get_without_cache(path, params) unless cache_store
+
+      begin
+        uri = full_url(path)
+
+        cached_response = cache_store.read(uri)
+        cached_etag = cached_response["Etag"] if cached_response
+        params = params.deep_merge(headers: { "If-None-Match" => cached_etag }) if cached_etag
+
+        response = get_without_cache(path, params)
+        return cached_response if response.status == 304
+        cache_store.write(uri, response)
+        response
+      rescue Timeout::Error => e
+        cached_response || raise(e)
+      end
+    end
+
+    alias_method_chain :get, :cache
 
     # Perform an HTTP POST request
     def post(path, params={})
@@ -155,13 +184,24 @@ module Trubl
 
     # ToDo: model response handling off of oauth2.client.request
     # in fact, perhaps we swap this out for the oauth2 request method...
-    def request(method, path, params)
-      params ||= {}
+    def request(method, path, params = {})
+      params = {} if params.nil?
       uri = full_url(path)
+      h = options(params.delete(:headers) || {})
+      body = params.delete(:body) || nil
+      params = params[:query] if params.has_key?(:query)
 
-      Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params.merge(headers: headers)}")
-      response = HTTMultiParty.send(method, uri, params.merge(headers: headers))
+      Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
+      conn = Faraday.new(url: api_uri_root)
+      response = conn.send(method, path, params) do |request|
+        h.each { |k, v| request.headers[k] = v }
+        request.body = HTTParty::HashConversions.to_params(body) if body.present?
+      end
 
+      # For backwards compatibility
+      response.define_singleton_method :code, -> { self.status } if response.respond_to?(:status)
+
+      Trubl.logger.info("Trubl::Client response: #{response.inspect}")
       if !response.code =~ /20[0-9]/
         Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")
       else
@@ -242,6 +282,11 @@ module Trubl
     end
 
     private
+
+    def cache_store
+      self.class.cache_store
+    end
+
     # Fully qualified uri
     def full_uri(path)
       URI.parse("#{api_uri_root}#{path}")
