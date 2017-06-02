@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    trubl (1.9.3)
+    trubl (1.9.5)
       activesupport (>= 3.2.11)
       faraday (>= 0.8.4)
       hashie (~> 2.0.2)
@@ -40,12 +40,12 @@ GEM
       multipart-post
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    i18n (0.8.1)
+    i18n (0.8.4)
     json (1.8.6)
     jwt (1.5.6)
     method_source (0.8.2)
     mimemagic (0.3.2)
-    minitest (5.10.1)
+    minitest (5.10.2)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -59,7 +59,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    rack (1.6.5)
+    rack (1.6.8)
     rake (12.0.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
