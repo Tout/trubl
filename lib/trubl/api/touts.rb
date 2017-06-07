@@ -47,12 +47,12 @@ module Trubl
           compact
       end
 
-      def retrieve_touts_json(uids=[])
+      def retrieve_touts_json(uids=[], options={})
         uids = (uids.is_a?(Array) ? uids : [uids]).compact.uniq.sort
         return [] if uids.blank?
 
         requests = uids.in_groups_of(100, false).collect do |uid_group|
-          {path: "touts.json", query: {uids: uid_group.join(',')} }
+          {path: "touts.json", query: {uids: uid_group.join(',')}.merge(options) }
         end
 
         multi_request(:get, requests).
