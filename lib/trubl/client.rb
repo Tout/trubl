@@ -186,13 +186,18 @@ module Trubl
     # in fact, perhaps we swap this out for the oauth2 request method...
     def request(method, path, params = {})
       params = {} if params.nil?
-      uri = full_url(path)
+      uri = full_uri(path)
+      url =
       h = options(params.delete(:headers) || {})
       body = params.delete(:body) || nil
       params = params[:query] if params.has_key?(:query)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
-      conn = Faraday.new(url: api_uri_root)
+      conn = Faraday.new(url: api_uri_root) do |faraday|
+        faraday.adapter :net_http do
+          client.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
+        end
+      end
       response = conn.send(method, path, params) do |request|
         h.each { |k, v| request.headers[k] = v }
         request.body = HTTParty::HashConversions.to_params(body) if body.present?
