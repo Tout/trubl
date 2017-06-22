@@ -56,6 +56,7 @@ module Trubl
         end
 
         multi_request(:get, requests).
+          collect { |response| Trubl::Touts.new.from_response_json(response) }.
           flatten.
           compact
       end
