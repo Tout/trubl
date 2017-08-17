@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday', '>= 0.8.4'
   spec.add_dependency 'activesupport', '>= 3.2.11'
   spec.add_dependency 'oauth2', '~> 0.9'
-  spec.add_dependency 'hashie', '~> 2.0.2'
+  spec.add_dependency 'hashie', '~> 3.5.6'
   spec.add_dependency 'rake'
 
   if RUBY_ENGINE == 'ruby'
