@@ -187,15 +187,14 @@ module Trubl
     def request(method, path, params = {})
       params = {} if params.nil?
       uri = full_uri(path)
-      url =
       h = options(params.delete(:headers) || {})
       body = params.delete(:body) || nil
       params = params[:query] if params.has_key?(:query)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
       conn = Faraday.new(url: api_uri_root) do |faraday|
-        faraday.adapter :net_http do
-          client.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
+        faraday.adapter :net_http do |http|
+          http.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
         end
       end
       response = conn.send(method, path, params) do |request|
