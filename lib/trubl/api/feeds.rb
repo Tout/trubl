@@ -15,8 +15,8 @@ module Trubl
         Trubl::Feed.new.from_response(response)
       end
 
-      def retrieve_feed_touts(uid, order=nil, per_page=nil, page=nil)
-        response = get("feeds/#{uid}/touts", query: {order: order, per_page: per_page, page: page})
+      def retrieve_feed_touts(uid, order=nil, per_page=nil, page=nil, options={})
+        response = get("feeds/#{uid}/touts", query: {order: order, per_page: per_page, page: page, options: options})
         Trubl::Touts.new.from_response(response)
       end
 
