@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    trubl (1.9.5)
+    trubl (1.9.7)
       activesupport (>= 3.2.11)
       faraday (>= 0.8.4)
       hashie (~> 2.0.2)
@@ -16,7 +16,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.8)
+    activesupport (4.2.9)
       i18n (~> 0.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
@@ -40,12 +40,12 @@ GEM
       multipart-post
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    i18n (0.8.4)
+    i18n (0.8.6)
     json (1.8.6)
     jwt (1.5.6)
     method_source (0.8.2)
     mimemagic (0.3.2)
-    minitest (5.10.2)
+    minitest (5.10.3)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -113,4 +113,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.14.6
+   1.15.3
