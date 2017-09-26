@@ -135,7 +135,7 @@ module Trubl
       return get_without_cache(path, params) unless cache_store
 
       begin
-        uri = full_url(path)
+        uri = cached_url(path, params)
 
         cached_response = cache_store.read(uri)
         cached_etag = cached_response["Etag"] if cached_response
@@ -299,6 +299,16 @@ module Trubl
     # Fully qualified url
     def full_url(path)
       URI.join(api_uri_root, path).to_s
+    end
+
+    # Fully qualified url with sorted params (used for caching)
+    def cached_url(path, params)
+      url = full_url(path)
+
+      return url if params.blank?
+
+      query = params.sort.map { |pair| "#{pair[0]}=#{pair[1]}" }.join('&')
+      [url, query].join('?')
     end
 
     def headers
