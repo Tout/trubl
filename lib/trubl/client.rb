@@ -189,7 +189,7 @@ module Trubl
       uri = full_uri(path)
       url =
       h = options(params.delete(:headers) || {})
-      body = params.delete(:body) || nil
+      body = params.delete(:body) || {}
       params = params[:query] if params.has_key?(:query)
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
@@ -200,7 +200,7 @@ module Trubl
       end
       response = conn.send(method, path, params) do |request|
         h.each { |k, v| request.headers[k] = v }
-        request.body = HTTParty::HashConversions.to_params(body) if body.present?
+        request.body = HTTParty::HashConversions.to_params(body)
       end
 
       # For backwards compatibility
