@@ -186,7 +186,7 @@ module Trubl
       # returns trubl::tout instance or nil
       def schedule_tout(uid, options = {})
         path = "touts/#{uid}/schedule/by/#{options.delete(:by)}"
-        response = post(path, {query: options})
+        response = post(path, {body: options})
 
         Trubl::Tout.new.from_response(response)
       end

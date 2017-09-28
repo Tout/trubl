@@ -187,7 +187,6 @@ module Trubl
     def request(method, path, params = {})
       params = {} if params.nil?
       uri = full_uri(path)
-      url =
       h = options(params.delete(:headers) || {})
       body = params.delete(:body) || {}
       params = params[:query] if params.has_key?(:query)
