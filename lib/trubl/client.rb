@@ -165,7 +165,7 @@ module Trubl
 
       Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
 
-      Faraday.new(url: uri.host) do |faraday|
+      Faraday.new(url: uri) do |faraday|
         faraday.headers = options
         faraday.request :multipart
         faraday.response :logger
@@ -193,8 +193,8 @@ module Trubl
 
       Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
       conn = Faraday.new(url: api_uri_root) do |faraday|
-        faraday.adapter :net_http do
-          client.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
+        faraday.adapter :net_http do |http|
+          http.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
         end
       end
       response = conn.send(method, path, params) do |request|
