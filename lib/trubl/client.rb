@@ -165,7 +165,7 @@ module Trubl
 
       Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
 
-      Faraday.new(url: uri.host) do |faraday|
+      Faraday.new(url: uri) do |faraday|
         faraday.headers = options
         faraday.request :multipart
         faraday.response :logger
