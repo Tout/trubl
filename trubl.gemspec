@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   if RUBY_ENGINE == 'ruby'
     spec.add_dependency 'typhoeus', '0.6.8'
-    spec.add_dependency 'yajl-ruby', '~> 1.2.1'
+    spec.add_dependency 'yajl-ruby'
   end
 
   spec.add_development_dependency 'yard'
