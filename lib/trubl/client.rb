@@ -150,6 +150,8 @@ module Trubl
       end
     end
 
+    alias_method :get_with_cache, :get
+
     # alias_method_chain :get, :cache
 
     # Perform an HTTP POST request
