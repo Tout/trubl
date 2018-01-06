@@ -40,13 +40,6 @@ module Trubl
           compact
       end
 
-      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-touts-liked-user
-      # returns Array of Trubl::Tout instances or nil
-      def retrieve_user_likes(uid, order=nil, per_page=nil, page=nil)
-        response = get("users/#{uid}/likes", query: {order: order, per_page: per_page, page: page})
-        Trubl::Touts.new.from_response(response)
-      end
-
       # implements http://developer.tout.com/api/users-api/apimethod/retrieve-users-touts
       # return Array of Trubl::Tout instances or nil
       def retrieve_user_touts(uid, order=nil, per_page=nil, page=nil)
@@ -54,38 +47,6 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
-      # implements http://developer.tout.com/api/users-api/apimethod/retrieve-list-users-follow-user
-      # returns Array of Trubl::User instances or nil
-      def retrieve_user_followers(uid, order=nil, per_page=nil, page=nil)
-        response = get("users/#{uid}/followers", query: {order: order, per_page: per_page, page: page})
-        Trubl::Users.new.from_response(response)
-      end
-
-      # implements http://tout.github.io/api-docs/static/resources/users/following
-      # returns Array of Trubl::User instances or nil
-      def retrieve_user_following(uid, order="most_recent_first", per_page=nil, page=nil)
-        response = get("users/#{uid}/following", query: {order: order, per_page: per_page, page: page})
-        Trubl::Users.new.from_response(response)
-      end
-
-      # order, per_page, page arent supported at the moment
-      def retrieve_user_widgets(uid, order=nil, per_page=nil, page=nil)
-        response = get("users/#{uid}/widgets")
-        Trubl::Widgets.new.from_response(response)
-      end        
-
-      # implements http://developer.tout.com/api/users-api/apimethod/follow-user
-      # returns response object
-      def follow_user(uid)
-        post("users/#{uid}/follows")
-      end
-
-      # implements http://developer.tout.com/api/users-api/apimethod/unfollow-user
-      # returns response object
-      def unfollow_user(uid)
-        delete("/api/v1/users/#{uid}/follows")
-      end
-      
       # takes standard user params, with or without toplevel user node
       # http://tout.github.io/api-docs/static/resources/me/id.html#put
       # can pass a file reference for the avatar
@@ -111,24 +72,10 @@ module Trubl
       end
 
       # returns true/false
-      def block_user_by(uid, blocker_uid)
-        response = post("users/#{uid}/blocks/by/#{blocker_uid}")
-        (200...300).include?(response.code)
-      end
-      
-      # returns true/false
-      def unblock_user_by(uid, blocker_uid)
-        response = delete("users/#{uid}/blocks/by/#{blocker_uid}")
-        (200...300).include?(response.code)
-      end
-
-      # returns true/false
       def update_watermark_from_url(uid, watermark_url)
         response = put("users/#{uid}/watermark", body: {watermark: {image_url: watermark_url}})
         (200...300).include?(response.code)
       end
- 
-      
     end
   end
 end

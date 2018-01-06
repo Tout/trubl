@@ -9,20 +9,6 @@ module Trubl
     module Touts
       # implements http://developer.tout.com/api-overview/touts-api
 
-      # http://developer.tout.com/api/touts-api/apimethod/retrieve-list-featured-touts
-      # returns Array of Trubl::Tout instances or nil
-      def featured_touts(opts={})
-        response = get("featured", query: {per_page: opts[:per_page], page: opts[:page]})
-        Trubl::Touts.new.from_response(response)
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-list-users-who-have-liked-tout
-      # returns Array of Trubl::User instances or nil
-      def tout_liked_by(uid, order=nil, per_page=nil, page=nil)
-        response = get("touts/#{uid}/liked_by", query: {order: order, per_page: per_page, page: page})
-        Trubl::Users.new.from_response(response)
-      end
-
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-tout
       # returns Trubl::Tout instance or nil
       def retrieve_tout(uid)
@@ -70,30 +56,10 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
-      # returns Array of Trubl::Tout instances or nil
-      def retrieve_tout_replies(uid)
-        response = get("touts/#{uid}/replies")
-        Trubl::Touts.new.from_response(response)
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-conversation
-      # returns Trubl::Conversation instance or nil
-      def retrieve_tout_conversation(uid)
-        response = get("touts/#{uid}/conversation")
-        Trubl::Conversation.new.from_response(response)
-      end
-
       # returns Trubl::Thumbnails instance or nil
       def retrieve_thumbnails(uid)
         response = get("touts/#{uid}/thumbnails?style=array")
         Trubl::Thumbnails.new.from_response(response)
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-latest-touts
-      # returns Array of Trubl::Tout instances or nil
-      def latest_touts(per_page=nil, page=nil)
-        response = get("latest", query: {per_page: per_page, page: page})
-        Trubl::Touts.new.from_response(response)
       end
 
       # implements http://developer.tout.com/api/touts-api/apimethod/retrieve-touts-hashtags-and-users-followed-given-user
@@ -131,46 +97,6 @@ module Trubl
         delete("touts/#{uid}").code == 200
       end
 
-      # implements http://developer.tout.com/api/touts-api/apimethod/tout
-      # ToDo: could return an updated Tout object
-      # returns true or false
-      def like_tout(uid)
-        response = post("touts/#{uid}/likes")
-
-        JSON.parse(response.body)["like"]["status"] == "liked"
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/unlike-tout
-      # ToDo: could return an updated Tout object
-      # returns true or false
-      def unlike_tout(uid)
-        response = delete("touts/#{uid}/likes")
-
-        JSON.parse(response.body)["like"]["status"] == "not_liked"
-      end
-
-      def retout_tout(uid)
-        response = post("touts/#{uid}/retouts")
-        if response.code == 200
-          Trubl::Tout.new.from_response(response)
-        else
-          nil
-        end
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/reply-tout??
-      # returns Trubl::Tout instance or nil
-      def reply_tout(uid, params={})
-        response = if params[:url].nil?
-          params[:data] = params[:tout].delete(:data)
-          multipart_post("touts/#{uid}/replies", params)
-        else
-          post("touts/#{uid}/replies", params)
-        end
-
-        Trubl::Tout.new.from_response(response)
-      end
-
       # Publish a tout. Takes an optional "by" arg in the options hash (user_uid) that denotes the publisher
       # returns trubl::tout instance or nil
       def publish_tout(uid, options = {})
@@ -200,25 +126,6 @@ module Trubl
 
         Trubl::Tout.new.from_response(response)
       end
-
-       # returns true/false
-      def remove_tout_as_reply(uid)
-        delete("touts/#{uid}/conversation").code == 200
-      end
-
-=begin
-      # implements http://developer.tout.com/api/touts-api/apimethod/share-tout
-      def share_tout(uid)
-        response = post("touts/#{uid}/share")
-        raise "Not implemented"
-      end
-
-      # implements http://developer.tout.com/api/touts-api/apimethod/update-touts-text
-      def update_tout_text(uid)
-        response = put("touts/#{uid}.json?")
-        raise "Not implemented; see update_tout"
-      end
-=end
     end
   end
 end

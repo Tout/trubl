@@ -85,24 +85,6 @@ module Trubl
       end
       alias_method :get_my_published_touts, :get_my_touts
 
-      # returns Array of Trubl::Tout instances or nil
-      def get_my_liked_touts(order="most_recent_first", per_page=nil, page=nil)
-        response = get("me/likes", query: {order: order, per_page: per_page, page: page})
-        Trubl::Touts.new.from_response(response)
-      end
-
-      # returns Array of Trubl::User instances or nil
-      def friends(order=nil, per_page=nil, page=nil)
-        response = get("me/friends", query: {order: order, per_page: per_page, page: page})
-        Trubl::Users.new.from_response(response)
-      end
-
-      # order, per_page, page arent supported at the moment
-      def widgets(order=nil, per_page=nil, page=nil)
-        response = get("me/widgets")
-        Trubl::Widgets.new.from_response(response)
-      end
-
       def notifications()
         response = get("me/notifications")
         Trubl::Notifications.new.from_response(response)
@@ -121,26 +103,6 @@ module Trubl
       def streams
         response = get("me/streams")
         Trubl::Streams.new.from_response(response)
-      end
-
-      def channels
-        response = get("me/channels")
-        Trubl::Channels.new.from_response(response)
-      end
-
-      def subscribed_hashtags
-        response = get("me/subscribed_hashtags")
-        Trubl::Hashtags.new.from_response(response)
-      end
-
-      def digestable_notifications
-        response = get("me/digestable_notifications")
-        Trubl::DigestableNotifications.new.from_response(response)
-      end
-
-      def blockees
-        response = get("me/blockees")
-        Trubl::Users.new.from_response(response)
       end
 
       def get_my_scheduled_touts

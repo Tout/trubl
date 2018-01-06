@@ -139,32 +139,6 @@ describe Trubl::API::Me do
     some_request(:get, "/api/v1/me/updates").should have_been_made
   end
 
-  it ".get_my_liked_touts returns Touts instance" do
-    stub_get("https://api.tout.com/api/v1/me/likes").to_return(:body => fixture("me_retrieve_user_liked_touts_response.json"))
-    touts = Trubl::Client.new.get_my_liked_touts()
-    expect(touts).to be_a Trubl::Touts
-    some_request(:get, "/api/v1/me/likes").should have_been_made
-  end
-
-  it ".friends returns Users instance" do
-    stub_get("https://api.tout.com/api/v1/me/friends").to_return(:body => fixture("me_friends_response.json"))
-    users = Trubl::Client.new.friends()
-    expect(users).to be_a Trubl::Users
-    some_request(:get, "/api/v1/me/friends").should have_been_made
-  end
-
-  describe '.widgets' do
-    before do
-      stub_get("https://api.tout.com/api/v1/me/widgets").to_return(body: fixture("widgets.json"))
-    end
-    subject { Trubl::Client.new.widgets() }
-    it { should be_kind_of Trubl::Widgets }
-    it 'does the right api call' do
-      subject
-      some_request(:get, "https://api.tout.com/api/v1/me/widgets").should have_been_made
-    end
-  end
-
   it ".notifications returns Users instance" do
     stub_get("https://api.tout.com/api/v1/me/notifications").to_return(:body => fixture("me_notifications_response.json"))
     notifications = Trubl::Client.new.notifications()
@@ -200,54 +174,6 @@ describe Trubl::API::Me do
     it 'does the right api call' do
       subject
       some_request(:get, "https://api.tout.com/api/v1/me/devices").should have_been_made
-    end
-  end
-
-  describe '.channels' do
-    before do
-      stub_get("https://api.tout.com/api/v1/me/channels").to_return(body: fixture("me_channels_response.json"))
-    end
-    subject { Trubl::Client.new.channels() }
-    it { should be_kind_of Trubl::Channels }
-    it 'does the right api call' do
-      subject
-      some_request(:get, "https://api.tout.com/api/v1/me/channels").should have_been_made
-    end
-  end
-
-  describe '.suggested_hashtags' do
-    before do
-      stub_get("https://api.tout.com/api/v1/me/subscribed_hashtags").to_return(body: fixture("me_subscribed_hashtags_response.json"))
-    end
-    subject { Trubl::Client.new.subscribed_hashtags() }
-    it { should be_kind_of Trubl::Hashtags }
-    it 'does the right api call' do
-      subject
-      some_request(:get, "https://api.tout.com/api/v1/me/subscribed_hashtags").should have_been_made
-    end
-  end
-
-  describe '.digestable_notifications' do
-    before do
-      stub_get("https://api.tout.com/api/v1/me/digestable_notifications").to_return(body: fixture("me_digestable_notifications_response.json"))
-    end
-    subject { Trubl::Client.new.digestable_notifications() }
-    it { should be_kind_of Trubl::DigestableNotifications }
-    it 'does the right api call' do
-      subject
-      some_request(:get, "https://api.tout.com/api/v1/me/digestable_notifications").should have_been_made
-    end
-  end
-
-  describe '.blockees' do
-    before do
-      stub_get("https://api.tout.com/api/v1/me/blockees").to_return(body: fixture("me_blockees_response.json"))
-    end
-    subject { Trubl::Client.new.blockees() }
-    it { should be_kind_of Trubl::Users }
-    it 'does the right api call' do
-      subject
-      some_request(:get, "https://api.tout.com/api/v1/me/blockees").should have_been_made
     end
   end
 
