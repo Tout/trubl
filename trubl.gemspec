@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'httparty', '~> 0.15.6'
   spec.add_dependency 'httmultiparty', '~> 0.3.16'
   spec.add_dependency 'faraday', '~> 0.12.2'
-  spec.add_dependency 'activesupport', '~> 4.2'
-  spec.add_dependency 'oauth2', '~> 1.0'
+  spec.add_dependency 'activesupport'
+  spec.add_dependency 'oauth2'
   spec.add_dependency 'hashie', '~> 3.5.6'
   spec.add_dependency 'rake'
 
@@ -16,7 +16,6 @@ Gem::Specification.new do |spec|
     spec.add_dependency 'yajl-ruby'
   end
 
-  spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
   #commented because of Travis build failures (for some reason it could not run Bundler successfully and failed with "An error occurred while installing debugger (1.5.0), and Bundler cannot continue")
   #spec.add_development_dependency 'pry-debugger', if RUBY_ENGINE == 'ruby'

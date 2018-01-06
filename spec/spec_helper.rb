@@ -14,7 +14,7 @@ class MockResponse
 end
 
 def authed_client_for(user)
-  
+
 end
 
 def stub_delete(uri)
@@ -33,7 +33,7 @@ def stub_api_get(path, base_uri = "https://api.tout.com/api/v1/")
   stub_get URI.join(base_uri, path).to_s
 end
 
-def api_get_request(path, base_uri = "https://api.tout.com/api/v1/") 
+def api_get_request(path, base_uri = "https://api.tout.com/api/v1/")
   some_request :get, URI.join(base_uri, path).to_s
 end
 
@@ -59,4 +59,10 @@ end
 
 def response_fixture(file)
   MockResponse.new(file)
+end
+
+RSpec.configure do |config|
+  config.before(:each) do
+    allow(Trubl).to receive(:logger).and_return(Logger.new('/dev/null'))
+  end
 end
