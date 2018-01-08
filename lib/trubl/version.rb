@@ -9,8 +9,6 @@ module Trubl
       def to_s
         [MAJOR, MINOR, PATCH].compact.join('.')
       end
-
     end
-
   end
 end
