@@ -31,6 +31,11 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      # For query_hash structure, see: https://github.com/will3216/dynamic_sunspot_search
+      def awesome_search_touts(query_hash)
+        post('awesome_search/touts', body: {query: query_hash})
+      end
+
       private
 
       def search(type, query, per_page=nil, page=nil, filter_options={})
