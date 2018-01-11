@@ -123,7 +123,7 @@ module Trubl
     end
 
     # Perform an HTTP GET request
-    def get(path, params={})
+    def get_without_cache(path, params={})
       request(:get, path, params)
     end
 
@@ -131,7 +131,7 @@ module Trubl
     # if avail. sends Etag header with original request
     # if 304 response, uses cached response,
     # else, returns new response and stores it in cache
-    def get_with_cache(path, params={})
+    def get(path, params={})
       return get_without_cache(path, params) unless cache_store
 
       begin
@@ -150,7 +150,9 @@ module Trubl
       end
     end
 
-    alias_method_chain :get, :cache
+    alias_method :get_with_cache, :get
+
+    # alias_method_chain :get, :cache
 
     # Perform an HTTP POST request
     def post(path, params={})
