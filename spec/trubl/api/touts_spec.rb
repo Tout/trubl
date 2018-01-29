@@ -6,28 +6,6 @@ describe Trubl::API::Touts do
 
   let(:client) { Trubl::Client.new }
 
-  it '.featured_touts returns a collection of Touts' do
-    stub_api_get("featured").to_return(:body => fixture("featured_touts_response.json"))
-    touts = client.featured_touts()
-    expect(touts).to be_a Trubl::Touts
-    expect(touts.pagination).to be_a Trubl::Pagination
-    touts.each do |u|
-      expect(u).to be_a Trubl::Tout
-    end
-    some_request(:get, "/api/v1/featured").should have_been_made
-  end
-
-  it '.tout_liked_by returns a Collection of Users liking the specified tout' do
-    stub_api_get("touts/fhcl57/liked_by").to_return(:body => fixture("touts_liked_by_response.json"))
-    users = client.tout_liked_by("fhcl57")
-    expect(users).to be_a Trubl::Users
-    expect(users.pagination).to be_a Trubl::Pagination
-    users.each do |u|
-      expect(u).to be_a Trubl::User
-    end
-    some_request(:get, "/api/v1/touts/fhcl57/liked_by").should have_been_made
-  end
-
   it '.retrieve_tout returns a Tout object' do
     stub_api_get("touts/fhcl57").to_return(:body => fixture("retrieve_tout.json"))
     tout = client.retrieve_tout("fhcl57")
@@ -85,15 +63,6 @@ describe Trubl::API::Touts do
     end
   end
 
-
-  it '.retrieve_tout_conversation returns the Conversation related to a Tout' do
-    stub_api_get("touts/fhcl57/conversation").to_return(:body => fixture("tout_conversation_response.json"))
-    conversation = client.retrieve_tout_conversation('fhcl57')
-    expect(conversation).to be_a Trubl::Conversation
-    expect(conversation.uid).to eq('cmbjd3xn')
-    some_request(:get, "/api/v1/touts/fhcl57/conversation").should have_been_made
-  end
-
   it '.retrieve_thumbnails returns the Tout Thumbnails', focus:true do
     stub_api_get("touts/fhcl57/thumbnails").to_return(body: fixture("tout_thumbnails_response.json"))
     thumbnails = client.retrieve_thumbnails('fhcl57')
@@ -103,17 +72,6 @@ describe Trubl::API::Touts do
       expect(thumbnail).to be_a Trubl::Thumbnail
     end
     some_request(:get, "/api/v1/touts/fhcl57/thumbnails").should have_been_made
-  end
-
-  it '.retrieve_latest returns the latest Touts' do
-    stub_api_get("latest").to_return(:body => fixture("latest_touts_response.json"))
-    touts = client.latest_touts()
-    expect(touts).to be_a Trubl::Touts
-    expect(touts.pagination).to be_a Trubl::Pagination
-    touts.each do |u|
-      expect(u).to be_a Trubl::Tout
-    end
-    some_request(:get, "/api/v1/latest").should have_been_made
   end
 
   it '.retrieve_latest returns the latest Touts' do
@@ -198,38 +156,6 @@ describe Trubl::API::Touts do
     some_request(:delete, "/api/v1/touts/234567").should have_been_made
   end
 
-  it ".like_tout returns true on successful response" do
-    stub_post("https://api.tout.com/api/v1/touts/fhcl57/likes").to_return(:body => fixture("like_tout_response.json"))
-    result = client.like_tout("fhcl57")
-    expect(result).to eq(true)
-    some_request(:post, "/api/v1/touts/fhcl57/likes").should have_been_made
-  end
-
-  it ".unlike_tout returns true on successful response" do
-    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/likes").to_return(:body => fixture("unlike_tout_response.json"))
-    result = client.unlike_tout("fhcl57")
-    expect(result).to eq(true)
-    some_request(:delete, "/api/v1/touts/fhcl57/likes").should have_been_made
-  end
-
-  describe '.retout_tout' do
-    let(:tout_uid) { 'random_tout_uid' }
-    let(:url)      { "/api/v1/touts/#{tout_uid}/retouts" }
-    subject { client.retout_tout(tout_uid) }
-    before { stub_post("https://api.tout.com#{url}").to_return(result) }
-    after  { some_request(:post, url).should have_been_made }
-
-    context 'a success' do
-      let(:result) { {status: 200, body: fixture('tout.json') }}
-      it { should be_a Trubl::Tout }
-    end
-
-    context 'a failure' do
-      let(:result) { {status: 500} }
-      it { should be_nil }
-    end
-  end
-
   it '.filter_touts returns a collection of Touts' do
     stub_get("https://api.tout.com/api/v1/touts/filter").to_return(:body => fixture("latest_touts_response.json"))
     touts = client.filter_touts({tout_uids: ["fhcl57"]})
@@ -250,17 +176,6 @@ describe Trubl::API::Touts do
       expect(u).to be_a Trubl::Tout
     end
     some_request(:post, "/api/v1/touts/filter").should have_been_made
-  end
-
-  it '.retrieve_tout_replies returns a collection of Touts' do
-    stub_api_get("touts/fhcl57/replies").to_return(:body => fixture("latest_touts_response.json"))
-    touts = client.retrieve_tout_replies('fhcl57')
-    expect(touts).to be_a Trubl::Touts
-    expect(touts.pagination).to be_a Trubl::Pagination
-    touts.each do |u|
-      expect(u).to be_a Trubl::Tout
-    end
-    some_request(:get, "/api/v1/touts/fhcl57/replies").should have_been_made
   end
 
   it '.publish_tout returns published Tout' do
@@ -297,20 +212,6 @@ describe Trubl::API::Touts do
     tout = client.reject_tout("fhcl57", options)
     expect(tout).to be_a Trubl::Tout
     some_request(:put, "/api/v1/touts/fhcl57/reject/by/aaron").with(body: hash_including({rejection_reason: options[:rejection_reason]})).should have_been_made
-  end
-
-  it ".remove_tout_as_reply returns true on 200 response" do
-    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 200, :body => "true")
-    result = client.remove_tout_as_reply("fhcl57")
-    expect(result).to eq(true)
-    some_request(:delete, "/api/v1/touts/fhcl57/conversation").should have_been_made
-  end
-
-  it ".remove_tout_as_reply false on non-200 response" do
-    stub_delete("https://api.tout.com/api/v1/touts/fhcl57/conversation").to_return(:status => 404, :body => "false")
-    result = client.remove_tout_as_reply("fhcl57")
-    expect(result).to eq(false)
-    some_request(:delete, "/api/v1/touts/fhcl57/conversation").should have_been_made
   end
 
 end

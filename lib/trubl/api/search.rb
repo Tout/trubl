@@ -31,6 +31,12 @@ module Trubl
         Trubl::Touts.new.from_response(response)
       end
 
+      # For query_hash structure, see: https://github.com/will3216/dynamic_sunspot_search
+      def awesome_search_touts(query_hash)
+        response = post('awesome_search/touts', body: {query: query_hash})
+        Trubl::Touts.new.from_response(response)
+      end
+
       private
 
       def search(type, query, per_page=nil, page=nil, filter_options={})
@@ -45,7 +51,6 @@ module Trubl
       def filter_options_whitelist
         %w{organization_uids organization_uid state public tout_uid tout_uids user_uid user_uids user_id user_ids feed_uids filtered_stream_uids with_nested_organizations startdate enddate boost_recency}
       end
-
     end
   end
 end

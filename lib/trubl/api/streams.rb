@@ -18,8 +18,6 @@ module Trubl
         response = get("streams/#{uid}/touts.json", query: {order: order, per_page: per_page, page: page})
         Trubl::Touts.new.from_response(response)
       end
-
     end
   end
-
 end

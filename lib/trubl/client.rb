@@ -1,20 +1,12 @@
-require_relative './api/category'
-require_relative './api/channel'
-require_relative './api/conversation'
-require_relative './api/filtered_stream_membership_notifications'
 require_relative './api/hashtags'
-require_relative './api/leaderboard'
 require_relative './api/me'
-require_relative './api/metrics'
 require_relative './api/search'
-require_relative './api/stories'
 require_relative './api/streams'
 require_relative './api/playlists'
 require_relative './api/feeds'
 require_relative './api/suggested_users'
 require_relative './api/touts'
 require_relative './api/users'
-require_relative './widgets'
 require_relative './oauth'
 
 require 'httmultiparty'
@@ -37,18 +29,11 @@ module Trubl
   #
   # @note All methods have been separated into modules and follow the grouping used in http://developer.tout.com/apis the Tout API Documentation.
   class Client
-    include Trubl::API::Category
-    include Trubl::API::Channel
-    include Trubl::API::Conversation
-    include Trubl::API::FilteredStreamMembershipNotifications
     include Trubl::API::Hashtags
-    include Trubl::API::Leaderboard
     include Trubl::API::Me
-    include Trubl::API::Metrics
     include Trubl::API::Playlists
     include Trubl::API::Feeds
     include Trubl::API::Search
-    include Trubl::API::Stories
     include Trubl::API::Streams
     include Trubl::API::Suggested_Users
     include Trubl::API::Touts
