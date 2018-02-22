@@ -48,4 +48,20 @@ describe Trubl::API::Search do
     some_request(:get, "/api/v1/search/touts").should have_been_made
   end
 
+  it '.search_touts accepts only whitelisted filter options' do
+    options_whitelist_keys = %w{organization_uids organization_uid state public tout_uid tout_uids user_uid user_uids user_id user_ids
+      feed_uids filtered_stream_uids with_nested_organizations startdate enddate boost_recency external_id}
+
+    sample_rate = (1...options_whitelist_keys.length).to_a.sample
+    tested_options_keys = options_whitelist_keys.sample(sample_rate)
+    trusted_options = tested_options_keys.each_with_object({}) { |key, options| options[key] = 'A completely harmless value' }
+    untrusted_options = { 'very_bad_option' => 'dangerous!', 'terrible_option' => 'muy caliente' }
+
+    stub_get("https://api.tout.com/api/v1/search/touts").to_return(:body => fixture("search_touts_response.json"))
+    Trubl::Client.new.search_touts('kobe', nil, nil, trusted_options.merge(untrusted_options))
+
+    query_hash = { page: nil, per_page: nil, q: 'kobe' }.merge(trusted_options)
+    some_request(:get, "/api/v1/search/touts").with(query: query_hash).should have_been_made
+  end
+
 end
