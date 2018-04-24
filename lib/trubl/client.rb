@@ -215,9 +215,7 @@ module Trubl
 
       Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")
 
-      action = RUBY_ENGINE == 'ruby' ? :multi_request_typhoeus : :multi_request_threaded
-
-      self.send(action, method, requests, opts).collect do |response|
+      self.send(:multi_request_threaded, method, requests, opts).collect do |response|
         response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
         response
       end
@@ -231,41 +229,13 @@ module Trubl
       opts[:max_concurrency].times.map do
         Thread.new(requests, responses) do |requests, responses|
           while request = mutex.synchronize { requests.pop }
-            response = HTTParty.send(method, full_url(request[:path]), {headers: headers}.merge(request[:params] || {} ))
+            response = HTTParty.send(method, full_url(request[:path]), {headers: headers}.merge(query: request[:query] || {} ))
             mutex.synchronize { responses << response }
           end
         end
       end.each(&:join)
 
       responses
-    end
-
-    def multi_request_typhoeus(method, requests=[], opts={})
-      # https://github.com/lostisland/faraday/wiki/Parallel-requests
-      # https://github.com/typhoeus/typhoeus/issues/226
-      hydra = Typhoeus::Hydra.new(max_concurrency: opts[:max_concurrency])
-
-      conn = Faraday.new(url: api_uri_root, parallel_manager: hydra) do |builder|
-        builder.request  :url_encoded
-        builder.adapter  :typhoeus
-      end
-
-      requests = requests.collect do |request|
-        if request.is_a?(String)
-          {path: request, params: {}}
-        else
-          request.reverse_merge params: {}
-        end
-      end
-
-      [].tap do |responses|
-        conn.in_parallel do
-          requests.each do |request|
-            path = [request[:path], request[:query].try(:to_query)].compact.join('?')
-            responses << conn.send(method, path, request[:params], headers)
-          end
-        end
-      end
     end
 
     def set_logger(level)
