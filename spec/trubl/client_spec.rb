@@ -113,17 +113,14 @@ describe Trubl::Client do
       end
 
       describe 'response status codes' do
-        subject do 
-          RUBY_ENGINE == 'ruby' ? multi_request.map(&:status).sort : multi_request.map(&:code).sort
+        subject do
+          multi_request.map(&:code).sort
         end
         it { should == uids.size.times.collect { |i| 200+i } }
       end
 
       context 'with a blank request list' do
         let(:requests) { nil }
-        before do
-          Typhoeus::Hydra.should_not_receive(:new) if RUBY_ENGINE == 'ruby'
-        end
         it { should == [] }
       end
 
@@ -131,9 +128,6 @@ describe Trubl::Client do
 
     context 'with an invalid request method' do
       let(:method) { :unsupported }
-      before do
-        Typhoeus::Hydra.should_not_receive(:new) if RUBY_ENGINE == 'ruby'
-      end
       it { should == [] }
     end
   end
