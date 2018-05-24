@@ -44,7 +44,7 @@ module Trubl
       attr_accessor :cache_store
     end
 
-    attr_reader :client_id, :client_secret, :access_token, :callback_url, :auth_response
+    attr_reader :client_id, :client_secret, :access_token, :callback_url, :auth_response, :logger
 
     # Initialize a new Tout client with creds and callback url
     def initialize(client_id=nil, client_secret=nil, callback_url=nil, *args)
@@ -66,6 +66,7 @@ module Trubl
       @token_url =     opts[:token_url]
       @email =         opts[:email]
       @password =      opts[:password]
+      @logger =        opts[:logger] || Trubl.logger
     end
 
     def default_tout_configuration
@@ -150,7 +151,7 @@ module Trubl
       uri = full_uri(path)
       payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
 
-      Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
+      self.logger.info { "Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)" }
 
       Faraday.new(url: uri) do |faraday|
         faraday.headers = options
@@ -159,7 +160,7 @@ module Trubl
         faraday.adapter Faraday.default_adapter
       end.post(uri.to_s, payload).tap do |response|
         if !response.status =~ /20[0-9]/
-          Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
+          self.logger.fatal { "Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}" }
         end
       end
     end
@@ -178,7 +179,7 @@ module Trubl
       body = params.delete(:body) || {}
       params = params[:query] if params.has_key?(:query)
 
-      Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
+      self.logger.info { "Trubl::Client   #{method}-ing #{uri} with params #{params}" }
       conn = Faraday.new(url: api_uri_root) do |faraday|
         faraday.adapter :net_http do |http|
           http.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
@@ -192,11 +193,11 @@ module Trubl
       # For backwards compatibility
       response.define_singleton_method :code, -> { self.status } if response.respond_to?(:status)
 
-      Trubl.logger.info("Trubl::Client response: #{response.inspect}")
+      self.logger.debug { "Trubl::Client response: #{response.inspect}" }
       if !response.code =~ /20[0-9]/
-        Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")
+        self.logger.fatal { "Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}" }
       else
-        Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
+        self.logger.debug { "Trubl::Client   #{uri} response: #{response.body}" }
       end
       response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
       response
@@ -213,7 +214,7 @@ module Trubl
 
       opts.reverse_merge! max_concurrency: 10
 
-      Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")
+      self.logger.info { "Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}" }
 
       self.send(:multi_request_threaded, method, requests, opts).collect do |response|
         response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
@@ -239,7 +240,7 @@ module Trubl
     end
 
     def set_logger(level)
-      Trubl.logger(level)
+      logger.warn { "This method is deprecated. Don't use it anymore." }
     end
 
     private
@@ -291,7 +292,7 @@ module Trubl
 
       is_problematic = code && (400..600).include?(code)
       body = is_problematic && response.respond_to?(:body) ? response.body : '(no body)'
-      Trubl.logger.warn("Unexposed HTTP #{code}: #{body}") if is_problematic
+      self.logger.warn { "Unexposed HTTP #{code}: #{body}" } if is_problematic
       return is_problematic
     end
   end
