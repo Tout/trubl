@@ -15,14 +15,6 @@ require 'faraday'
 require 'active_support'
 require 'active_support/core_ext'
 
-begin
-  if RUBY_ENGINE == 'ruby'
-    require 'typhoeus'
-    require 'typhoeus/adapters/faraday'
-  end
-rescue LoadError
-end
-
 # instantiate a Tout client instance
 module Trubl
   # Wrapper for the Tout REST API
@@ -150,7 +142,7 @@ module Trubl
       uri = full_uri(path)
       payload = { 'tout[data]' => Faraday::UploadIO.new(params[:data], 'video/mp4')}.merge(params)
 
-      Trubl.logger.info("Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)")
+      Trubl.logger.info { "Trubl::Client   multipart post-ing #{uri.to_s} (content omitted)" }
 
       Faraday.new(url: uri) do |faraday|
         faraday.headers = options
@@ -159,7 +151,7 @@ module Trubl
         faraday.adapter Faraday.default_adapter
       end.post(uri.to_s, payload).tap do |response|
         if !response.status =~ /20[0-9]/
-          Trubl.logger.fatal("Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}")
+          Trubl.logger.fatal { "Trubl::Client   multipart post-ing #{uri.to_s} #{response.code} #{response.parsed_response}" }
         end
       end
     end
@@ -178,7 +170,7 @@ module Trubl
       body = params.delete(:body) || {}
       params = params[:query] if params.has_key?(:query)
 
-      Trubl.logger.info("Trubl::Client   #{method}-ing #{uri} with params #{params}")
+      Trubl.logger.info { "Trubl::Client   #{method}-ing #{uri} with params #{params}" }
       conn = Faraday.new(url: api_uri_root) do |faraday|
         faraday.adapter :net_http do |http|
           http.use_ssl = (@uri_port == 443 || @uri_scheme == 'https')
@@ -192,11 +184,11 @@ module Trubl
       # For backwards compatibility
       response.define_singleton_method :code, -> { self.status } if response.respond_to?(:status)
 
-      Trubl.logger.info("Trubl::Client response: #{response.inspect}")
+      Trubl.logger.debug { "Trubl::Client response: #{response.inspect}" }
       if !response.code =~ /20[0-9]/
-        Trubl.logger.fatal("Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}")
+        Trubl.logger.fatal { "Trubl::Client   #{response.code} #{method}-ing #{uri.to_s} #{response.parsed_response}" }
       else
-        Trubl.logger.debug("Trubl::Client   #{uri} response: #{response.body}")
+        Trubl.logger.debug { "Trubl::Client   #{uri} response: #{response.body}" }
       end
       response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
       response
@@ -213,11 +205,9 @@ module Trubl
 
       opts.reverse_merge! max_concurrency: 10
 
-      Trubl.logger.info("Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}")
+      Trubl.logger.info { "Trubl::Client   multi-#{method}-ing #{requests.join(', ')} with headers #{headers}" }
 
-      action = RUBY_ENGINE == 'ruby' ? :multi_request_typhoeus : :multi_request_threaded
-
-      self.send(action, method, requests, opts).collect do |response|
+      self.send(:multi_request_threaded, method, requests, opts).collect do |response|
         response.body.force_encoding("utf-8") if response.body and response.body.respond_to?(:force_encoding)
         response
       end
@@ -231,7 +221,7 @@ module Trubl
       opts[:max_concurrency].times.map do
         Thread.new(requests, responses) do |requests, responses|
           while request = mutex.synchronize { requests.pop }
-            response = HTTParty.send(method, full_url(request[:path]), {headers: headers}.merge(request[:params] || {} ))
+            response = HTTParty.send(method, full_url(request[:path]), {headers: headers}.merge(query: request[:query] || {} ))
             mutex.synchronize { responses << response }
           end
         end
@@ -240,36 +230,8 @@ module Trubl
       responses
     end
 
-    def multi_request_typhoeus(method, requests=[], opts={})
-      # https://github.com/lostisland/faraday/wiki/Parallel-requests
-      # https://github.com/typhoeus/typhoeus/issues/226
-      hydra = Typhoeus::Hydra.new(max_concurrency: opts[:max_concurrency])
-
-      conn = Faraday.new(url: api_uri_root, parallel_manager: hydra) do |builder|
-        builder.request  :url_encoded
-        builder.adapter  :typhoeus
-      end
-
-      requests = requests.collect do |request|
-        if request.is_a?(String)
-          {path: request, params: {}}
-        else
-          request.reverse_merge params: {}
-        end
-      end
-
-      [].tap do |responses|
-        conn.in_parallel do
-          requests.each do |request|
-            path = [request[:path], request[:query].try(:to_query)].compact.join('?')
-            responses << conn.send(method, path, request[:params], headers)
-          end
-        end
-      end
-    end
-
     def set_logger(level)
-      Trubl.logger(level)
+      logger.warn { "This method is deprecated. Don't use it anymore." }
     end
 
     private
@@ -321,7 +283,7 @@ module Trubl
 
       is_problematic = code && (400..600).include?(code)
       body = is_problematic && response.respond_to?(:body) ? response.body : '(no body)'
-      Trubl.logger.warn("Unexposed HTTP #{code}: #{body}") if is_problematic
+      Trubl.logger.warn { "Unexposed HTTP #{code}: #{body}" } if is_problematic
       return is_problematic
     end
   end

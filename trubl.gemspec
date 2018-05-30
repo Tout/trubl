@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rake'
 
   if RUBY_ENGINE == 'ruby'
-    spec.add_dependency 'typhoeus', '0.6.8'
     spec.add_dependency 'yajl-ruby'
   end
 

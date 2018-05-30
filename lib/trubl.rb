@@ -20,9 +20,11 @@ module Trubl
       @client
     end
 
-    def logger(level=Logger::INFO)
-      @logger = Logger.new(STDOUT) unless defined?(@logger) and @logger.level != level
-      @logger.level = level
+    def logger(level=Logger::WARN)
+      unless @logger
+        @logger = Logger.new(STDOUT)
+        @logger.level = level
+      end
       @logger
     end
 
